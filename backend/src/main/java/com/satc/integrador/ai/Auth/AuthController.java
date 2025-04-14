@@ -1,6 +1,8 @@
 package com.satc.integrador.ai.Auth;
 
+import com.satc.integrador.ai.Usuario.UsuarioPostDto;
 import com.satc.integrador.ai.Usuario.UsuarioRepo;
+import com.satc.integrador.ai.Usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired private AuthenticationManager authenticationManager;
 	@Autowired private JwtTokenService jwtTokenService;
-	@Autowired private UsuarioRepo userRepository;
+	@Autowired private UsuarioRepo userRepo;
+    @Autowired private UsuarioService userService;
 	@Autowired private SecurityConfiguration securityConfiguration;
 
 	@PostMapping("/auth/login")
@@ -26,6 +29,11 @@ public class AuthController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         RecoveryJwtTokenDto token = new RecoveryJwtTokenDto(jwtTokenService.generateToken(userDetails));
         return new ResponseEntity<>(token, HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/signin")
+    public ResponseEntity<Object> signin(@RequestBody UsuarioPostDto dto) {
+        return new ResponseEntity<>(userService.post(dto), HttpStatus.OK);
     }
 
     @GetMapping("/teste")
