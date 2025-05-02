@@ -140,10 +140,10 @@ fun LoginScreen() {
         Button(
             onClick = { /* TODO: ação de login */ },
             colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text("Entrar", fontSize = 16.sp, color = Color.White)
         }

@@ -65,35 +65,36 @@ fun TalkAiWelcomeScreen() {
             )
         }
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = "Talk.ai",
-            fontSize = 32.sp,
+            fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(56.dp))
 
         Text(
             text = "Aprenda idiomas\nde forma personalizada",
-            fontSize = 18.sp,
-            color = Color.DarkGray,
+            fontSize = 24.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             lineHeight = 26.sp
         )
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(64.dp))
 
         // Botão de cadastro
         Button (
             onClick = { /* TODO: ação de cadastro */ },
             colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text("Cadastre-se", fontSize = 16.sp, color = Color.White)
         }
@@ -103,11 +104,11 @@ fun TalkAiWelcomeScreen() {
         // Botão de login
         OutlinedButton (
             onClick = { /* TODO: ação de login */ },
-            shape = RoundedCornerShape(25.dp),
+            shape = RoundedCornerShape(12.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text("Entrar", fontSize = 16.sp, color = Color.Black)
         }

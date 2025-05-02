@@ -146,12 +146,12 @@ fun SignUpScreen() {
         Button (
             onClick = { /* TODO: ação de cadastro */ },
             colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
-            Text("Cadastre-se", fontSize = 16.sp, color = Color.White)
+            Text("Cadastrar", fontSize = 16.sp, color = Color.White)
         }
     }
 }
