@@ -1,4 +1,4 @@
-package com.satc.integrador_ai.telas
+package com.satc.integrador_ai.telas.login
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
