@@ -7,9 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.ChatBubble
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
@@ -102,17 +100,18 @@ fun TarefaItem(titulo: String, descricao: String, progresso: Int, total: Int) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .border(1.dp, Color.Black.copy(alpha = 0.1f), shape = RoundedCornerShape(12.dp))
+            .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ) {
-        Text(text = titulo, fontWeight = FontWeight.Bold, fontSize = 18.sp)
-        Text(text = descricao, fontSize = 14.sp, color = Color.Gray)
-        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = titulo, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+        Spacer(modifier = Modifier.height(2.dp))
+        Text(text = descricao, fontSize = 16.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.height(16.dp))
         LinearProgressIndicator(
             progress = { progressoPercentual.coerceIn(0f, 1f) },
             modifier = Modifier
                             .fillMaxWidth()
-                            .height(8.dp)
+                            .height(10.dp)
                             .clip(RoundedCornerShape(4.dp)),
             color = Color(0xFFBDBDBD),
             trackColor = Color(0xFFE0E0E0)
@@ -134,7 +133,7 @@ fun BottomNavigationBar() {
 
     NavigationBar(
         containerColor = Color(0xFFE0E0E0),
-        modifier = Modifier.height(64.dp)
+        modifier = Modifier.height(72.dp)
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
