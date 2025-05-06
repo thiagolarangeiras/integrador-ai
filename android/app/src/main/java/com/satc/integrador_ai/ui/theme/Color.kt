@@ -1,4 +1,4 @@
-package com.satc.integrador_ai.ui.theme
+package com.example.teste_telas_ia.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
