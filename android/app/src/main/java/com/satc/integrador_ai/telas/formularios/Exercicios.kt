@@ -31,12 +31,12 @@ fun PreviewExerciseSelectionScreen() {
 @Composable
 fun ExerciseSelectionScreen() {
     val exercicios = listOf(
-        Triple("Leitura", R.drawable.ic_launcher_background, false), //ic_reading
-        Triple("Escrita", R.drawable.ic_launcher_background, false), //ic_writing
-        Triple("Vocabulário", R.drawable.ic_launcher_background, false), //ic_vocabulary
-        Triple("Gramática", R.drawable.ic_launcher_background, false), //ic_grammar
-        Triple("Conversação", R.drawable.ic_launcher_background, false), //ic_conversation
-        Triple("Conversação", R.drawable.ic_launcher_background, false) //ic_quiz
+        Triple("Leitura", R.drawable.ic_reading, false), //ic_reading
+        Triple("Escrita", R.drawable.ic_writing, false), //ic_writing
+        Triple("Vocabulário", R.drawable.ic_vocabulary, false), //ic_vocabulary
+        Triple("Gramática", R.drawable.ic_grammar, false), //ic_grammar
+        Triple("Conversação", R.drawable.ic_conversation, false), //ic_conversation
+        Triple("Conversação", R.drawable.ic_quiz, false) //ic_quiz
     )
 
     val selected = remember { mutableStateListOf<String>() }

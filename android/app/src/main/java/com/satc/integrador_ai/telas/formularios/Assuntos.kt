@@ -46,12 +46,12 @@ fun PreviewTemaAssuntoScreen() {
 @Composable
 fun TemaAssuntoScreen() {
     val opcoes = listOf(
-        Triple("Viagens e Turismo", R.drawable.ic_launcher_background, false), //ic_travel
-        Triple("Música e Cultura Pop", R.drawable.ic_launcher_background, false), //ic_music
-        Triple("Tecnologia e Redes Sociais", R.drawable.ic_launcher_background, false), //ic_technology
-        Triple("Comida e Culinária", R.drawable.ic_launcher_background, false), // ic_food
-        Triple("Trabalho e Carreira", R.drawable.ic_launcher_background, false), //ic_work
-        Triple("Séries, Filmes e Entretenimento", R.drawable.ic_launcher_background, false) //ic_entertainment
+        Triple("Viagens e Turismo", R.drawable.ic_travel, false), //ic_travel
+        Triple("Música e Cultura Pop", R.drawable.ic_music, false), //ic_music
+        Triple("Tecnologia e Redes Sociais", R.drawable.ic_technology, false), //ic_technology
+        Triple("Comida e Culinária", R.drawable.ic_food, false), // ic_food
+        Triple("Trabalho e Carreira", R.drawable.ic_work, false), //ic_work
+        Triple("Séries, Filmes e Entretenimento", R.drawable.ic_entertainment, false) //ic_entertainment
     )
 
     val selected = remember { mutableStateListOf<String>() }

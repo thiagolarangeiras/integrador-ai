@@ -88,7 +88,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             Text(
                 text = "Quantos dias por semana\nvocê pode estudar ?",
@@ -97,7 +97,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                 fontWeight = FontWeight.SemiBold
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Seleção de dias
             Row(
@@ -111,7 +111,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                     val isSelected = selectedDays.contains(day)
                     Box(
                         modifier = Modifier
-                            .padding(horizontal = 4.dp)
+                            .padding(horizontal = 3.dp)
                             .size(40.dp)
                             .clip(CircleShape)
                             .background(if (isSelected) Color(0xFF6C63FF) else Color.LightGray)
