@@ -1,4 +1,4 @@
-package com.example.teste_telas_ia
+package com.satc.integrador_ai.telas.formularios
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -17,15 +17,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.satc.integrador_ai.R
 
 // TELA PARA SELEÇÃO DA LINGUAGEM
 
 @Composable
-fun LanguageSelectionScreen() {
+fun LanguageSelectionScreen(navController: NavHostController) {
     val idiomas = listOf(
         Pair("Inglês", R.drawable.flag_usa),
         Pair("Espanhol", R.drawable.flag_spain),
@@ -68,7 +69,7 @@ fun LanguageSelectionScreen() {
         }
 
         Button(
-            onClick = {
+            onClick = {navController.navigate("exercise")
                 // Ação ao clicar em "Avançar"
                 println("Idioma selecionado: $selectedLanguage")
             },
@@ -121,8 +122,8 @@ fun LanguageOption(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewLanguageSelectionScreen() {
-    LanguageSelectionScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewLanguageSelectionScreen() {
+//    LanguageSelectionScreen()
+//}

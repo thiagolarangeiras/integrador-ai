@@ -1,4 +1,4 @@
-package com.example.teste_telas_ia.ui.theme
+package com.satc.integrador_ai.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

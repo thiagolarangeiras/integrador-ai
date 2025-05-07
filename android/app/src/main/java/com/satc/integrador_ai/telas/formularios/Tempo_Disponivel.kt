@@ -1,4 +1,4 @@
-package com.example.teste_telas_ia
+package com.satc.integrador_ai.telas.formularios
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -42,7 +42,7 @@ import androidx.compose.ui.draw.clip
 // TELA PARA SELEÇÃO DO TEMPO DISPONÍVEL
 
 @Composable
-fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
+fun StudyPlanScreen(onNext: (Set<String>, Int) -> Unit) {
     var selectedDays by remember { mutableStateOf(setOf<String>()) }
     var studyMinutes by remember { mutableStateOf(30f) }
 
@@ -52,7 +52,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = { /* Se quiser voltar, use navController.popBackStack() */ }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
                     }
                 },
@@ -67,7 +67,8 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
         },
         bottomBar = {
             Button(
-                onClick = onNext,
+                onClick = { onNext(selectedDays, studyMinutes.toInt()) },
+                enabled = selectedDays.isNotEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -88,7 +89,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Text(
                 text = "Quantos dias por semana\nvocê pode estudar ?",
@@ -97,9 +98,8 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                 fontWeight = FontWeight.SemiBold
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Seleção de dias
             Row(
                 modifier = Modifier
                     .border(1.dp, Color.Black, shape = RoundedCornerShape(24.dp))
@@ -111,7 +111,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                     val isSelected = selectedDays.contains(day)
                     Box(
                         modifier = Modifier
-                            .padding(horizontal = 3.dp)
+                            .padding(horizontal = 4.dp)
                             .size(40.dp)
                             .clip(CircleShape)
                             .background(if (isSelected) Color(0xFF6C63FF) else Color.LightGray)
@@ -144,10 +144,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Texto acima do Slider
-            Box(
-                contentAlignment = Alignment.Center
-            ) {
+            Box(contentAlignment = Alignment.Center) {
                 Text(
                     text = "${studyMinutes.toInt()} min",
                     modifier = Modifier
@@ -177,8 +174,9 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun StudyPlanScreenPreview() {
-    StudyPlanScreen(onBack = {}, onNext = {})
-}
+
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+//fun StudyPlanScreenPreview() {
+//    StudyPlanScreen(onBack = {}, onNext = {})
+//}

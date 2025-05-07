@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Login.kt
-package com.satc.integrador_ai.telas
-=======
-package com.example.teste_telas_ia
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Login.kt
+package com.satc.integrador_ai
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -119,20 +116,31 @@ fun LoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(90.dp))
 
         Button(
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Login.kt
-            onClick = { /* TODO: ação de login */ },
-            colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
-=======
-            onClick = { navController.navigate("login") },
+            onClick = { navController.navigate("language") },
             colors = with(ButtonDefaults) { buttonColors(purple) },
             shape = RoundedCornerShape(15.dp),
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Login.kt
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
             Text("Entrar", fontSize = 16.sp, color = Color.White)
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedButton(
+            onClick = { navController.popBackStack() },
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ),
+            shape = RoundedCornerShape(15.dp),
+            border = BorderStroke(1.dp, Color.LightGray),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Text("Voltar", fontSize = 16.sp)
         }
     }
 }

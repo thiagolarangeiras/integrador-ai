@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Apresentacao.kt
-package com.satc.integrador_ai.telas
-=======
-package com.example.teste_telas_ia
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Apresentacao.kt
+package com.satc.integrador_ai
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -59,31 +55,15 @@ fun TalkAiWelcomeScreen(navController: NavController) {
             )
         }
 
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Apresentacao.kt
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Text(
-            text = "Talk.ai",
-            fontSize = 32.sp,
-=======
         Spacer(modifier = Modifier.height(30.dp))
 
         Text(
             text = "Talk.ai",
             fontSize = 36.sp,
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Apresentacao.kt
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
 
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Apresentacao.kt
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "Aprenda idiomas\nde forma personalizada",
-            fontSize = 18.sp,
-            color = Color.DarkGray,
-=======
         Spacer(modifier = Modifier.height(72.dp))
 
         Text(
@@ -91,20 +71,10 @@ fun TalkAiWelcomeScreen(navController: NavController) {
             fontSize = 20.sp,
             color = Color.DarkGray,
             fontWeight = FontWeight.Bold,
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Apresentacao.kt
             textAlign = TextAlign.Center,
             lineHeight = 26.sp
         )
 
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Apresentacao.kt
-        Spacer(modifier = Modifier.height(48.dp))
-
-        // Botão de cadastro
-        Button (
-            onClick = { /* TODO: ação de cadastro */ },
-            colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
-=======
         Spacer(modifier = Modifier.height(100.dp))
 
         // Botão de cadastro
@@ -112,7 +82,6 @@ fun TalkAiWelcomeScreen(navController: NavController) {
             onClick = { navController.navigate("signup") },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(15.dp),
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Apresentacao.kt
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -123,15 +92,9 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(14.dp))
 
         // Botão de login
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Apresentacao.kt
-        OutlinedButton (
-            onClick = { /* TODO: ação de login */ },
-            shape = RoundedCornerShape(25.dp),
-=======
         OutlinedButton(
             onClick = { navController.navigate("login") },
             shape = RoundedCornerShape(15.dp),
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Apresentacao.kt
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()

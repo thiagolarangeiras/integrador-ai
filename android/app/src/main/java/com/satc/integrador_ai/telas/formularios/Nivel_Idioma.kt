@@ -1,6 +1,7 @@
-package com.example.teste_telas_ia
+package com.satc.integrador_ai.telas.formularios
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,14 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +30,7 @@ import androidx.compose.ui.unit.sp
 // TELA PARA SELEÇÃO DO NÍVEL DO IDIOMA
 
 @Composable
-fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
+fun LanguageLevelScreen(onNext: (String) -> Unit) {
     var selectedLevel by remember { mutableStateOf("") }
 
     val levels = listOf(
@@ -44,11 +41,6 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
-                    }
-                },
                 title = {
                     Text(
                         text = "Comece seu\nPlano de Estudo",
@@ -60,7 +52,8 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
         },
         bottomBar = {
             Button(
-                onClick = onNext,
+                onClick = { onNext(selectedLevel) },
+                enabled = selectedLevel.isNotEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -84,7 +77,7 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Qual seu nível no idioma ?",
+                text = "Qual seu nível\nde conhecimento ?",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -97,26 +90,28 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp)
-                        .height(48.dp),
+                        .height(48.dp)
+                        .background(if (selectedLevel == level) Color(0xFFE0E0E0) else Color.Transparent),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        backgroundColor = if (selectedLevel == level) Color(0xFFE0E0E0) else Color.Transparent
+                        contentColor = Color.Black
                     ),
-                    border = BorderStroke(1.dp, Color.Black)
+                    border = BorderStroke(1.dp, Color.Gray)
                 ) {
                     Text(text = level, fontSize = 16.sp)
                 }
-            }
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
+            }
         }
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun LanguageLevelScreenPreview() {
-    LanguageLevelScreen(
-        onBack = {},
-        onNext = {}
-    )
-}
+
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+//fun LanguageLevelScreenPreview() {
+//    LanguageLevelScreen(
+//        onBack = {},
+//        onNext = {}
+//    )
+//}

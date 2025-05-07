@@ -1,4 +1,4 @@
-package com.example.teste_telas_ia.ui.theme
+package com.satc.integrador_ai.ui.theme
 
 import android.app.Activity
 import android.os.Build

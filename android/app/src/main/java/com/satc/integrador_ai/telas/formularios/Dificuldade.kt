@@ -17,23 +17,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.satc.integrador_ai.R
+import com.satc.integrador_ai.Screen
 
-//TELA PARA SELEÇÃO DE EXERCÍCIOS
+//TELA PARA SELEÇÃO DA DIFICULDADE
 
 @Composable
-fun ExerciseSelectionScreen(navController: NavHostController) {
-    val exercicios = listOf(
-        Triple("Leitura", R.drawable.ic_reading, false),
-        Triple("Escrita", R.drawable.ic_writing, false),
-        Triple("Vocabulário", R.drawable.ic_vocabulary, false),
-        Triple("Gramática", R.drawable.ic_grammar, false),
-        Triple("Conversação", R.drawable.ic_conversation, false),
-        Triple("Quizzes", R.drawable.ic_quiz, false)
+fun DificuldadeIdiomaScreen(onNext: () -> Unit) {
+    val dificuldades = listOf(
+        Pair("Falta de vocabulário", R.drawable.ic_vocabulary),
+        Pair("Gramática complexa", R.drawable.ic_grammar),
+        Pair("Pronúncia e escuta", R.drawable.ic_pronunciation),
+        Pair("Falta de prática", R.drawable.ic_practice)
     )
 
     val selected = remember { mutableStateListOf<String>() }
@@ -45,7 +43,7 @@ fun ExerciseSelectionScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Quais tipos de exercícios deseja praticar?",
+            text = "Tem alguma\ndificuldade específica com\no idioma?",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -58,8 +56,8 @@ fun ExerciseSelectionScreen(navController: NavHostController) {
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(exercicios) { (titulo, icone, _) ->
-                ExerciseOption(
+            items(dificuldades) { (titulo, icone) ->
+                DificuldadeOption(
                     title = titulo,
                     iconRes = icone,
                     isSelected = selected.contains(titulo),
@@ -75,9 +73,7 @@ fun ExerciseSelectionScreen(navController: NavHostController) {
         }
 
         Button(
-            onClick = {navController.navigate("temaassunto")
-                println("Exercícios selecionados: $selected")
-            },
+            onClick = { onNext() },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
@@ -94,7 +90,7 @@ fun ExerciseSelectionScreen(navController: NavHostController) {
 }
 
 @Composable
-fun ExerciseOption(
+fun DificuldadeOption(
     title: String,
     iconRes: Int,
     isSelected: Boolean,
@@ -123,7 +119,7 @@ fun ExerciseOption(
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = title,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
             )
@@ -133,6 +129,6 @@ fun ExerciseOption(
 
 //@Preview(showSystemUi = true)
 //@Composable
-//fun PreviewExerciseSelectionScreen() {
-//    ExerciseSelectionScreen()
+//fun PreviewDificuldadeIdiomaScreen() {
+//    DificuldadeIdiomaScreen()
 //}

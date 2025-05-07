@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Cadastro.kt
-package com.satc.integrador_ai.telas
-=======
-package com.example.teste_telas_ia
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Cadastro.kt
+package com.satc.integrador_ai
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -25,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.navigation.NavHostController
 
@@ -133,22 +131,32 @@ fun SignUpScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(100.dp))
 
-<<<<<<< Updated upstream:android/app/src/main/java/com/satc/integrador_ai/telas/Cadastro.kt
-        Button (
-            onClick = { /* TODO: ação de cadastro */ },
-            colors = ButtonDefaults.buttonColors(purple),
-            shape = RoundedCornerShape(25.dp),
-=======
         Button(
-            onClick = { navController.navigate("signup") },
+            onClick = { navController.navigate("language") },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(15.dp),
->>>>>>> Stashed changes:android/app/src/main/java/com/satc/integrador_ai/telas/login/Cadastro.kt
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
             Text("Cadastre-se", fontSize = 16.sp, color = Color.White)
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        OutlinedButton(
+            onClick = { navController.popBackStack() },
+            colors = ButtonDefaults.outlinedButtonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ),
+            shape = RoundedCornerShape(15.dp),
+            border = BorderStroke(1.dp, Color.LightGray),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Text("Voltar", fontSize = 16.sp)
         }
     }
 }
