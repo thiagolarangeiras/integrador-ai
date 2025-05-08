@@ -1,13 +1,18 @@
 package com.satc.integrador_ai.telas.formularios
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,13 +22,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.satc.integrador_ai.R
-import com.satc.integrador_ai.Screen
 
 //TELA PARA SELEÇÃO DA DIFICULDADE
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun DificuldadeIdiomaScreenPreview() {
+    DificuldadeIdiomaScreen(onNext = {})
+}
 
 @Composable
 fun DificuldadeIdiomaScreen(onNext: () -> Unit) {
@@ -39,16 +49,28 @@ fun DificuldadeIdiomaScreen(onNext: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
+            .background(Color.White)
+            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(12.dp))
+
         Text(
-            text = "Tem alguma\ndificuldade específica com\no idioma?",
-            fontSize = 24.sp,
+            text = "Comece seu\nPlano de Estudo",
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 24.dp)
+            textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.height(45.dp))
+
+        Text(
+            text = "Tem alguma\ndificuldade específica com o idioma?",
+            fontSize = 30.sp,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(70.dp))
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -74,17 +96,18 @@ fun DificuldadeIdiomaScreen(onNext: () -> Unit) {
 
         Button(
             onClick = { onNext() },
+            enabled = selected.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
                 .padding(top = 24.dp),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF5F38FF),
+                containerColor = if (selected.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
                 contentColor = Color.White
             )
         ) {
-            Text(text = "Avançar", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+            Text(text = "Avançar", fontSize = 16.sp)
         }
     }
 }
@@ -106,7 +129,9 @@ fun DificuldadeOption(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -126,9 +151,3 @@ fun DificuldadeOption(
         }
     }
 }
-
-//@Preview(showSystemUi = true)
-//@Composable
-//fun PreviewDificuldadeIdiomaScreen() {
-//    DificuldadeIdiomaScreen()
-//}

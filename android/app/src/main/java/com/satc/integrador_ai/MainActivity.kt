@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.satc.integrador_ai.telas.HomeScreenPreview
 import com.satc.integrador_ai.telas.formularios.DificuldadeIdiomaScreen
 import com.satc.integrador_ai.telas.formularios.ExerciseSelectionScreen
 import com.satc.integrador_ai.telas.formularios.LanguageLevelScreen
@@ -19,17 +20,28 @@ import com.satc.integrador_ai.telas.formularios.StudyPlanScreen
 import com.satc.integrador_ai.telas.formularios.TemaAssuntoScreen
 
 
+@Preview(showBackground = true)
+@Composable
+fun AppPreview() {
+    MaterialTheme {
+        AppNavigation()
+    }
+}
+
+
 sealed class Screen(val route: String) {
     object Welcome : Screen("welcome")
     object SignUp : Screen("signup")
     object Login : Screen("login")
+    object Home : Screen("home")
     object Language : Screen("language")
     object Exercise: Screen("exercise")
     object TemaAssunto: Screen("temaassunto")
     object DificuldadeIdioma: Screen("dificuldadeidioma")
     object LanguageLevel: Screen("languagelevel")
-    object StudyPlan : Screen("studyplan/{level}") {
-        fun createRoute(level: String) = "studyplan/$level"
+
+    object StudyPlan : Screen("StudyPlanScreen/{level}") {
+        fun createRoute(level: String) = "StudyPlanScreen/$level"
     }
 }
 
@@ -57,6 +69,9 @@ fun AppNavigation() {
         }
         composable(Screen.Login.route) {
             LoginScreen(navController)
+        }
+        composable(Screen.Home.route) {
+            HomeScreenPreview(navController)
         }
         composable(Screen.Language.route) {
             LanguageSelectionScreen(navController)
@@ -86,20 +101,26 @@ fun AppNavigation() {
             arguments = listOf(navArgument("level") { type = NavType.StringType })
         ) { backStackEntry ->
             val level = backStackEntry.arguments?.getString("level") ?: ""
-            StudyPlanScreen(
-                level = level,
-                onNext = { selectedDays, studyMinutes ->
-                    // aqui você pode navegar para a próxima tela
+            StudyPlanScreen(level = level, onNext = { selectedDays, studyMinutes ->
+                // Você pode tratar os dados aqui ou navegar para outra tela
+                println("Plano criado: $selectedDays, $studyMinutes minutos")
                 }
             )
         }
-    }
-}
+        composable(
+            route = Screen.StudyPlan.route,
+            arguments = listOf(navArgument("level") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val level = backStackEntry.arguments?.getString("level") ?: ""
 
-@Preview(showBackground = true)
-@Composable
-fun AppPreview() {
-    MaterialTheme {
-        AppNavigation()
+            StudyPlanScreen(
+                level = level,
+                onNext = { days, minutes ->
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.LanguageLevel.route) { inclusive = true }
+                    }
+                }
+            )
+        }
     }
 }

@@ -24,9 +24,18 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 // TELA DE CADASTRO
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun SignUpScreen() {
+    val navController = rememberNavController()
+    SignUpScreen(navController = navController)
+}
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
@@ -61,7 +70,7 @@ fun SignUpScreen(navController: NavHostController) {
             color = Color.Gray
         )
 
-        Spacer(modifier = Modifier.height(60.dp))
+        Spacer(modifier = Modifier.height(45.dp))
 
         OutlinedTextField(
             value = fullName,
@@ -129,12 +138,12 @@ fun SignUpScreen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
         Button(
             onClick = { navController.navigate("language") },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -150,20 +159,13 @@ fun SignUpScreen(navController: NavHostController) {
                 containerColor = Color.White,
                 contentColor = Color.Black
             ),
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text("Voltar", fontSize = 16.sp)
+            Text("Voltar", fontSize = 16.sp, color = Color.Black)
         }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun SignUpScreenPreview() {
-//    SignUpScreen()
-//}

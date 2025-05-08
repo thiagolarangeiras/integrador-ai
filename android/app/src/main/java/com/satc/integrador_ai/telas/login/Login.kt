@@ -16,11 +16,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 // TELA DE LOGIN
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun LoginScreenPreview() {
+    val navController = rememberNavController()
+    LoginScreen(navController = navController)
+}
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
@@ -116,9 +125,9 @@ fun LoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(90.dp))
 
         Button(
-            onClick = { navController.navigate("language") },
+            onClick = { navController.navigate("home") },
             colors = with(ButtonDefaults) { buttonColors(purple) },
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -134,19 +143,13 @@ fun LoginScreen(navController: NavHostController) {
                 containerColor = Color.White,
                 contentColor = Color.Black
             ),
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
         ) {
-            Text("Voltar", fontSize = 16.sp)
+            Text("Voltar", fontSize = 16.sp, color = Color.Black)
         }
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun LoginScreenPreview() {
-//    LoginScreen()
-//}

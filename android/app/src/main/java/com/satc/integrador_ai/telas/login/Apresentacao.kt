@@ -1,5 +1,6 @@
 package com.satc.integrador_ai
 
+import android.provider.Telephony.Sms.Conversations
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -22,11 +23,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 // TELA DE APRESENTAÇÃO
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TalkAiWelcomeScreen() {
+    val navController = rememberNavController()
+    TalkAiWelcomeScreen(navController = navController)
+}
 
 @Composable
 fun TalkAiWelcomeScreen(navController: NavController) {
@@ -81,7 +92,7 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         Button(
             onClick = { navController.navigate("signup") },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
@@ -94,7 +105,7 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         // Botão de login
         OutlinedButton(
             onClick = { navController.navigate("login") },
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,10 +115,3 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         }
     }
 }
-
-
-//@Preview(showBackground = true)
-//@Composable
-//fun TalkAiWelcomeScreenPreview() {
-//    TalkAiWelcomeScreen()
-//}

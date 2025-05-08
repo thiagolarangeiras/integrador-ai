@@ -2,6 +2,7 @@ package com.satc.integrador_ai.telas.formularios
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -21,9 +22,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.R
 
 //TELA PARA SELEÇÃO DE ASSUNTOS
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TemaAssuntoScreenPreview() {
+    val navController = rememberNavController()
+    TemaAssuntoScreen(navController = navController)
+}
 
 @Composable
 fun TemaAssuntoScreen(navController: NavHostController) {
@@ -41,16 +50,28 @@ fun TemaAssuntoScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
+            .background(Color.White)
+            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(12.dp))
+
         Text(
-            text = "Quais temas/\nassuntos deseja estudar?",
-            fontSize = 24.sp,
+            text = "Comece seu\nPlano de Estudo",
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(bottom = 24.dp)
+            textAlign = TextAlign.Center
         )
+
+        Spacer(modifier = Modifier.height(45.dp))
+
+        Text(
+            text = "Quais temas/assuntos\ndeseja estudar?",
+            fontSize = 30.sp,
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.height(50.dp))
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -75,20 +96,22 @@ fun TemaAssuntoScreen(navController: NavHostController) {
         }
 
         Button(
-            onClick = {navController.navigate("dificuldadeidioma")
+            onClick = {
+                navController.navigate("dificuldadeidioma")
                 println("Selecionados: $selected")
             },
+            enabled = selected.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
                 .padding(top = 24.dp),
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF5F38FF),
+                containerColor = if (selected.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
                 contentColor = Color.White
             )
         ) {
-            Text(text = "Avançar", fontSize = 18.sp, fontWeight = FontWeight.Medium)
+            Text(text = "Avançar", fontSize = 16.sp)
         }
     }
 }
@@ -130,9 +153,3 @@ fun TemaAssuntoOption(
         }
     }
 }
-
-//@Preview(showSystemUi = true)
-//@Composable
-//fun PreviewTemaAssuntoScreen() {
-//    TemaAssuntoScreen()
-//}
