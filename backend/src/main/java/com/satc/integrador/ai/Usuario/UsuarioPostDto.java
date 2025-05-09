@@ -9,5 +9,6 @@ public record UsuarioPostDto(
         String username,
         String email,
         String password,
-        List<Plano> plano
+        String nomeCompleto,
+        Plano plano
 ) { }

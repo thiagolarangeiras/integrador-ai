@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.Auth;
 
+import com.satc.integrador.ai.Usuario.UsuarioGetDto;
 import com.satc.integrador.ai.Usuario.UsuarioPostDto;
 import com.satc.integrador.ai.Usuario.UsuarioRepo;
 import com.satc.integrador.ai.Usuario.UsuarioService;
@@ -20,7 +21,7 @@ public class AuthController {
     @Autowired private UsuarioService userService;
 	@Autowired private SecurityConfiguration securityConfiguration;
 
-	@PostMapping("/auth/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody LoginUserDto dto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
@@ -32,9 +33,10 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signin")
-    public ResponseEntity<Object> signin(@RequestBody UsuarioPostDto dto) {
+    public ResponseEntity<UsuarioGetDto> signin(@RequestBody UsuarioPostDto dto) {
         return new ResponseEntity<>(userService.post(dto), HttpStatus.OK);
     }
+
 
     @GetMapping("/teste")
     @ResponseStatus(HttpStatus.OK)

@@ -41,8 +41,6 @@ public class SecurityConfiguration {
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_REQUIRED).authenticated()
-                        .requestMatchers(AUTH_CARGO_ADM).hasRole("ADM")
-                        .requestMatchers(AUTH_CARGO_VENDEDOR).hasRole("VENDEDOR")
                         .anyRequest().permitAll()
                 )
                 .build();
