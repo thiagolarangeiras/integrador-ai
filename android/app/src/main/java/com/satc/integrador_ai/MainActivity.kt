@@ -18,6 +18,9 @@ import com.satc.integrador_ai.telas.formularios.LanguageLevelScreen
 import com.satc.integrador_ai.telas.formularios.LanguageSelectionScreen
 import com.satc.integrador_ai.telas.formularios.StudyPlanScreen
 import com.satc.integrador_ai.telas.formularios.TemaAssuntoScreen
+import com.satc.integrador_ai.telas.login.LoginScreen
+import com.satc.integrador_ai.telas.login.SignUpScreen
+import com.satc.integrador_ai.telas.login.TalkAiWelcomeScreen
 
 
 @Preview(showBackground = true)

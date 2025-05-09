@@ -86,4 +86,8 @@ dependencies {
 
     // Material Theme
     implementation("androidx.compose.material3:material3:1.2.1")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }

@@ -27,6 +27,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.satc.integrador_ai.api.Plano
+import com.satc.integrador_ai.api.UsuarioPostDto
+import com.satc.integrador_ai.api.createUser
 
 // TELA DE CADASTRO
 
@@ -141,7 +144,20 @@ fun SignUpScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(60.dp))
 
         Button(
-            onClick = { navController.navigate("language") },
+            onClick = {
+                if (password != confirmPassword){
+                    return@Button;
+                }
+                val user = UsuarioPostDto(
+                    username,
+                    email,
+                    password,
+                    fullName,
+                    Plano.NORMAL
+                )
+                createUser(user);
+                navController.navigate("login");
+            },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier

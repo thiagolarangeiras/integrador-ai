@@ -47,7 +47,7 @@ fun PerfilScreen() {
         Spacer(modifier = Modifier.height(24.dp))
 
         Image(
-            painter = painterResource(id = R.drawable.foto_perfil),
+            painter = painterResource(id = R.drawable.foto_perfil1),
             contentDescription = "Foto de perfil",
             modifier = Modifier
                 .size(100.dp)
