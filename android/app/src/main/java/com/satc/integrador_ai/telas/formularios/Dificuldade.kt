@@ -1,14 +1,18 @@
 package com.satc.integrador_ai.telas.formularios
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,28 +25,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.R
 
-//TELA PARA SELEÇÃO DE ASSUNTOS
+//TELA PARA SELEÇÃO DA DIFICULDADE
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun TemaAssuntoScreenPreview() {
-    val navController = rememberNavController()
-    TemaAssuntoScreen(navController = navController)
+fun DificuldadeIdiomaScreenPreview() {
+    DificuldadeIdiomaScreen(onNext = {})
 }
 
 @Composable
-fun TemaAssuntoScreen(navController: NavHostController) {
-    val opcoes = listOf(
-        Triple("Viagens e Turismo", R.drawable.ic_travel, false),
-        Triple("Música e Cultura Pop", R.drawable.ic_music, false),
-        Triple("Tecnologia e Redes Sociais", R.drawable.ic_technology, false),
-        Triple("Comida e Culinária", R.drawable.ic_food, false),
-        Triple("Trabalho e Carreira", R.drawable.ic_work, false),
-        Triple("Séries, Filmes e Entretenimento", R.drawable.ic_entertainment, false)
+fun DificuldadeIdiomaScreen(onNext: () -> Unit) {
+    val dificuldades = listOf(
+        Pair("Falta de vocabulário", R.drawable.ic_vocabulary),
+        Pair("Gramática complexa", R.drawable.ic_grammar),
+        Pair("Pronúncia e escuta", R.drawable.ic_pronunciation),
+        Pair("Falta de prática", R.drawable.ic_practice)
     )
 
     val selected = remember { mutableStateListOf<String>() }
@@ -66,12 +65,12 @@ fun TemaAssuntoScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(45.dp))
 
         Text(
-            text = "Quais temas/assuntos\ndeseja estudar?",
+            text = "Tem alguma\ndificuldade específica com o idioma?",
             fontSize = 30.sp,
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(70.dp))
 
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
@@ -79,8 +78,8 @@ fun TemaAssuntoScreen(navController: NavHostController) {
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier.weight(1f)
         ) {
-            items(opcoes) { (titulo, icone, _) ->
-                TemaAssuntoOption(
+            items(dificuldades) { (titulo, icone) ->
+                DificuldadeOption(
                     title = titulo,
                     iconRes = icone,
                     isSelected = selected.contains(titulo),
@@ -96,10 +95,7 @@ fun TemaAssuntoScreen(navController: NavHostController) {
         }
 
         Button(
-            onClick = {
-                navController.navigate("dificuldadeidioma")
-                println("Selecionados: $selected")
-            },
+            onClick = { onNext() },
             enabled = selected.isNotEmpty(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -117,7 +113,7 @@ fun TemaAssuntoScreen(navController: NavHostController) {
 }
 
 @Composable
-fun TemaAssuntoOption(
+fun DificuldadeOption(
     title: String,
     iconRes: Int,
     isSelected: Boolean,
@@ -133,7 +129,9 @@ fun TemaAssuntoOption(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

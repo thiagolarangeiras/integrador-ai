@@ -21,8 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.satc.integrador_ai.R
 
+// TELA PERFIL
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PerfilScreenPreview() {
     PerfilScreen()
@@ -82,7 +83,7 @@ fun PerfilScreen() {
         EstatisticaItem(icon = Icons.Default.Star, label = "Total de Pontos", value = "1170")
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar()
+        //BottomNavigationBar()
     }
 }
 

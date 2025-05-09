@@ -19,10 +19,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+
+// TELA HOME
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
+    HomeScreen()
+}
+
+@Composable
+fun HomeScreenPreview(navController: NavHostController) {
     HomeScreen()
 }
 
@@ -55,7 +63,7 @@ fun HomeScreen() {
         ProgressoCard()
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar()
+        //BottomNavigationBar()
     }
 }
 
@@ -93,7 +101,7 @@ fun EstudoHojeCard() {
             .padding(16.dp)
     ) {
         Text(text = "Estudo de Hoje", fontWeight = FontWeight.Bold, fontSize = 20.sp,
-                modifier = Modifier
+            modifier = Modifier
                 .padding(bottom = 4.dp))
         Text(text = "Simple Present", fontSize = 16.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(16.dp))
@@ -102,9 +110,9 @@ fun EstudoHojeCard() {
             LinearProgressIndicator(
                 progress = { 0f },
                 modifier = Modifier
-                                    .weight(1f)
-                                    .height(10.dp)
-                                    .clip(RoundedCornerShape(4.dp)),
+                    .weight(1f)
+                    .height(10.dp)
+                    .clip(RoundedCornerShape(4.dp)),
                 color = Color(0xFFBDBDBD),
                 trackColor = Color(0xFFE0E0E0),
             )
@@ -188,4 +196,3 @@ fun ProgressoItem(icon: ImageVector, label: String, progresso: Int) {
         }
     }
 }
-

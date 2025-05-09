@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// TELA PLANO DE ENSINO
 
 @Preview(showBackground = true)
 @Composable
@@ -110,9 +111,9 @@ fun TarefaItem(titulo: String, descricao: String, progresso: Int, total: Int) {
         LinearProgressIndicator(
             progress = { progressoPercentual.coerceIn(0f, 1f) },
             modifier = Modifier
-                            .fillMaxWidth()
-                            .height(10.dp)
-                            .clip(RoundedCornerShape(4.dp)),
+                .fillMaxWidth()
+                .height(10.dp)
+                .clip(RoundedCornerShape(4.dp)),
             color = Color(0xFFBDBDBD),
             trackColor = Color(0xFFE0E0E0)
         )
