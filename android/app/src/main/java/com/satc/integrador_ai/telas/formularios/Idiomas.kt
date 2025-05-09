@@ -30,13 +30,13 @@ fun PreviewLanguageSelectionScreen() {
 
 @Composable
 fun LanguageSelectionScreen() {
-        val idiomas = listOf(
-        Pair("Inglês", R.drawable.ic_launcher_background), //flag_usa
-        Pair("Espanhol", R.drawable.ic_launcher_background),//flag_spain
-        Pair("Italiano", R.drawable.ic_launcher_background),//flag_italy
-        Pair("Francês", R.drawable.ic_launcher_background),//flag_france
-        Pair("Russo", R.drawable.ic_launcher_background),//flag_russia
-        Pair("Chinês", R.drawable.ic_launcher_background)//flag_china
+    val idiomas = listOf(
+        Pair("Inglês", R.drawable.flag_usa),
+        Pair("Espanhol", R.drawable.flag_spain),
+        Pair("Italiano", R.drawable.flag_italy),
+        Pair("Francês", R.drawable.flag_france),
+        Pair("Russo", R.drawable.flag_russia),
+        Pair("Chinês", R.drawable.flag_china)
     )
 
     var selectedLanguage by remember { mutableStateOf<String?>(null) }

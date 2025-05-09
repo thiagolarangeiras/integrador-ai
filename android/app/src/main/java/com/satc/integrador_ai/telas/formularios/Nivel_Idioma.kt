@@ -7,16 +7,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.sp
 
 // TELA PARA SELEÇÃO DO NÍVEL DO IDIOMA
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
     var selectedLevel by remember { mutableStateOf("") }
@@ -42,10 +44,11 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
     )
 
     Scaffold(
+
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton (onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
                     }
                 },
@@ -66,7 +69,7 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
                     .padding(16.dp)
                     .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF6C63FF),
+                    containerColor = Color(0xFF6C63FF),
                     contentColor = Color.White
                 )
             ) {
@@ -92,14 +95,14 @@ fun LanguageLevelScreen(onBack: () -> Unit, onNext: () -> Unit) {
             Spacer(modifier = Modifier.height(24.dp))
 
             levels.forEach { level ->
-                OutlinedButton(
+                OutlinedButton (
                     onClick = { selectedLevel = level },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 4.dp)
                         .height(48.dp),
                     colors = ButtonDefaults.outlinedButtonColors(
-                        backgroundColor = if (selectedLevel == level) Color(0xFFE0E0E0) else Color.Transparent
+                        containerColor = if (selectedLevel == level) Color(0xFFE0E0E0) else Color.Transparent
                     ),
                     border = BorderStroke(1.dp, Color.Black)
                 ) {

@@ -10,15 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Slider
-import androidx.compose.material.SliderDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
@@ -37,10 +28,21 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Text
 import androidx.compose.ui.draw.clip
 
 // TELA PARA SELEÇÃO DO TEMPO DISPONÍVEL
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
     var selectedDays by remember { mutableStateOf(setOf<String>()) }
@@ -50,7 +52,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
@@ -73,7 +75,7 @@ fun StudyPlanScreen(onBack: () -> Unit, onNext: () -> Unit) {
                     .padding(16.dp)
                     .height(48.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFF6C63FF),
+                    containerColor = Color(0xFF6C63FF),
                     contentColor = Color.White
                 )
             ) {
