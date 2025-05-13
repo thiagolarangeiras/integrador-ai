@@ -26,16 +26,18 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
+    private String nomeCompleto;
     private String password;
-    private List<Plano> plano;
+    private Plano plano;
 
     //Mappers
     public static UsuarioGetDto convertEntityToDto(Usuario usuario) {
         return new UsuarioGetDto(
-            usuario.getId(),
-            usuario.getUsername(),
-            usuario.getEmail(),
-            usuario.getPlano()
+                usuario.getId(),
+                usuario.getUsername(),
+                usuario.getEmail(),
+                usuario.getNomeCompleto(),
+                usuario.getPlano()
         );
     }
 
@@ -43,6 +45,7 @@ public class Usuario {
         Usuario u = new Usuario();
         u.setUsername(dto.username());
         u.setEmail(dto.email());
+        u.setNomeCompleto(dto.nomeCompleto());
         u.setPassword(new BCryptPasswordEncoder().encode(dto.password()));
         u.setPlano(dto.plano());
         return u;

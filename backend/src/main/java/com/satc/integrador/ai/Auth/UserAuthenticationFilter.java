@@ -27,13 +27,9 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
-        if(checkIfEndpointIsPrivate(request)){
-            String token = request.getHeader("Authorization");
-            if (token == null) {
-                throw new RuntimeException("O token está ausente.");
-            }
+        String token = request.getHeader("Authorization");
+        if (token != null) {
             token = token.replace("Bearer ", "");
-
             String subject = jwtTokenService.getSubjectFromToken(token);
             Usuario user = userRepository.findByUsername(subject).get();
             UserDetailsImpl userDetails = new UserDetailsImpl(user);

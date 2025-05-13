@@ -63,7 +63,7 @@ fun HomeScreen() {
         ProgressoCard()
 
         Spacer(modifier = Modifier.weight(1f))
-        //BottomNavigationBar()
+        BottomNavigationBar()
     }
 }
 
