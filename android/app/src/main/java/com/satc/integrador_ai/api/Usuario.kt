@@ -52,7 +52,7 @@ class ApiRepository(private val apiService: ApiService) {
 }
 
 object RetrofitClient {
-    private const val BASE_URL = "https://rickandmortyapi.com/api/"
+    private const val BASE_URL = "http://10.0.2.2:8080"
 
     val instance: ApiService by lazy {
         Retrofit.Builder()
@@ -63,28 +63,34 @@ object RetrofitClient {
     }
 }
 
-fun createUser(user: UsuarioPostDto){
+fun createUser(user: UsuarioPostDto, changeScreen: () -> Unit){
     RetrofitClient.instance.createUser(user).enqueue(object : Callback<UsuarioGetDto> {
         override fun onResponse(call: Call<UsuarioGetDto>, response: Response<UsuarioGetDto>) {
-            Log.d("main", response.toString())
+            Log.d("thiago", call.toString())
+            Log.d("thiago", response.toString())
+            changeScreen();
             if (response.isSuccessful) {
-
+                    changeScreen();
             }
         }
-        override fun onFailure(call: Call<UsuarioGetDto>, t: Throwable) { }
+        override fun onFailure(call: Call<UsuarioGetDto>, t: Throwable) {
+            Log.d("thiago", call.toString())
+            Log.d("thiago", t.toString())
+        }
     })
 }
 
 var LOGGED = false;
 var TOKEN = "";
 
-fun login(user: LoginDto){
+fun login(user: LoginDto, changeScreen: () -> Unit){
     RetrofitClient.instance.login(user).enqueue(object : Callback<TokenDto> {
         override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
             Log.d("main", response.toString())
             if (response.isSuccessful) {
                 LOGGED = true;
                 TOKEN = response.body()?.token ?: "";
+                changeScreen();
             }
         }
         override fun onFailure(call: Call<TokenDto>, t: Throwable) { }

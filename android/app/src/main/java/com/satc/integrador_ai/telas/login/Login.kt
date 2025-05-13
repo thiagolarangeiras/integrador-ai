@@ -22,8 +22,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.api.LoginDto
-import com.satc.integrador_ai.api.Plano
-import com.satc.integrador_ai.api.UsuarioPostDto
 import com.satc.integrador_ai.api.login
 
 // TELA DE LOGIN
@@ -134,8 +132,7 @@ fun LoginScreen(navController: NavHostController) {
                     email,
                     password
                 )
-                login(user);
-                navController.navigate("home")
+                login(user, changeScreen = { navController.navigate("home") });
             },
             colors = with(ButtonDefaults) { buttonColors(purple) },
             shape = RoundedCornerShape(16.dp),

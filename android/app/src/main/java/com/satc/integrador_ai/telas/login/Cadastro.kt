@@ -145,9 +145,6 @@ fun SignUpScreen(navController: NavHostController) {
 
         Button(
             onClick = {
-                if (password != confirmPassword){
-                    return@Button;
-                }
                 val user = UsuarioPostDto(
                     username,
                     email,
@@ -155,8 +152,7 @@ fun SignUpScreen(navController: NavHostController) {
                     fullName,
                     Plano.NORMAL
                 )
-                createUser(user);
-                navController.navigate("login");
+                createUser(user, changeScreen = { navController.navigate("language") });
             },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(16.dp),
