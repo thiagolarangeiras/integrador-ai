@@ -51,6 +51,8 @@ sealed class Screen(val route: String) {
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UserPreferences.init(this)
+
         setContent {
             MaterialTheme {
                 AppNavigation()
