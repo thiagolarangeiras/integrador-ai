@@ -1,5 +1,6 @@
 package com.satc.integrador_ai.telas.exercicios
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -28,30 +29,34 @@ fun ResultadoFinalScreen(
 ) {
     Scaffold(
         bottomBar = {
-            Button(
-                onClick = onContinuarClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF6C63FF),
-                    contentColor = Color.White
-                ),
-                shape = RoundedCornerShape(12.dp)
+            BottomAppBar(
+                containerColor = Color(0xFFF4F3F3),
             ) {
-                Text("Continuar", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Button(
+                    onClick = {},
+                    colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 48.dp, end = 48.dp, bottom = 24.dp)
+                        .height(48.dp)
+                        .imePadding(),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Avançar", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
             }
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(Color(0xFFF4F3F3))
                 .padding(innerPadding)
                 .padding(24.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Congrats !", fontSize = 56.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6C63FF))
+            Text("Congrats !", fontSize = 56.sp, fontWeight = FontWeight.Bold, color = Color(0xFF7061FD))
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -61,12 +66,12 @@ fun ResultadoFinalScreen(
                 "$score/$total",
                 fontSize = 56.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFF6C63FF)
+                color = Color(0xFF7061FD)
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("+$pontos points", fontSize = 24.sp, color = Color(0xFF6C63FF), fontWeight = FontWeight.Medium)
+            Text("+$pontos points", fontSize = 24.sp, color = Color(0xFF7061FD), fontWeight = FontWeight.Medium)
         }
     }
 }

@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     runtimeOnly("com.google.accompanist:accompanist-flowlayout:0.36.0")
     implementation("com.google.accompanist:accompanist-flowlayout:0.36.0")
+    implementation(platform("androidx.compose:compose-bom:2024.02.01"))
+    implementation("androidx.compose.material3:material3")
 
     // Jetpack Compose (Material)
     implementation ("androidx.compose.ui:ui:1.5.1")

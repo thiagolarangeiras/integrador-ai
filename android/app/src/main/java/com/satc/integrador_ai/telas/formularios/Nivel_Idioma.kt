@@ -22,6 +22,15 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,6 +48,7 @@ import androidx.compose.ui.unit.sp
 // TELA PARA SELEÇÃO DO NÍVEL DO IDIOMA
 
 @Preview(showBackground = true, showSystemUi = true)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LanguageLevelScreen() {
     LanguageLevelScreen(onNext = {})
@@ -54,6 +64,7 @@ fun LanguageLevelScreen(onNext: (String) -> Unit) {
     )
 
     Scaffold(
+
         topBar = {
             TopAppBar(
                 backgroundColor = Color.LightGray,
@@ -69,6 +80,10 @@ fun LanguageLevelScreen(onNext: (String) -> Unit) {
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
                         )
+            CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton (onClick = onBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Voltar")
                     }
                 },
                 navigationIcon = {
@@ -105,6 +120,7 @@ fun LanguageLevelScreen(onNext: (String) -> Unit) {
                     .padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = if (selectedLevel.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
+                    containerColor = Color(0xFF6C63FF),
                     contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(16.dp)
@@ -134,6 +150,7 @@ fun LanguageLevelScreen(onNext: (String) -> Unit) {
                 val isSelected = selectedLevel == level
 
                 OutlinedButton(
+                OutlinedButton (
                     onClick = { selectedLevel = level },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -145,6 +162,9 @@ fun LanguageLevelScreen(onNext: (String) -> Unit) {
                         backgroundColor = if (isSelected) Color(0xFF5F38FF) else Color.Transparent,
                         contentColor = if (isSelected) Color.White else Color.Black
                     )
+                        containerColor = if (selectedLevel == level) Color(0xFFE0E0E0) else Color.Transparent
+                    ),
+                    border = BorderStroke(1.dp, Color.Black)
                 ) {
                     Text(text = level, fontSize = 16.sp)
                 }
