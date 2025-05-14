@@ -27,6 +27,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.satc.integrador_ai.Screen
 import com.satc.integrador_ai.api.Plano
 import com.satc.integrador_ai.api.UsuarioPostDto
 import com.satc.integrador_ai.api.createUser
@@ -152,7 +153,7 @@ fun SignUpScreen(navController: NavHostController) {
                     fullName,
                     Plano.NORMAL
                 )
-                createUser(user, changeScreen = { navController.navigate("language") });
+                createUser(user, changeScreen = { navController.navigate(Screen.Login.route) });
             },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(16.dp),
