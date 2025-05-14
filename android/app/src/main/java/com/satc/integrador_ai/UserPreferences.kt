@@ -18,6 +18,10 @@ object UserPreferences {
     return prefs.getString("token", null);
   }
 
+  fun isLoggedIn(): Boolean {
+    return getToken() != null
+  }
+
   fun clearToken() {
     prefs.edit().remove("token").apply()
   }
