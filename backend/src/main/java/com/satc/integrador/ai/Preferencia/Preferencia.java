@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,10 @@ public class Preferencia {
     private List<DayOfWeek> diaSemana;
     private Integer tempoMinutos;
 
+    //valores de controle
+    private Boolean ativo;
+    private Date dataCriacao;
+
     //Mappers
     public static PreferenciaGetDto mapToDto(Preferencia obj) {
         return new PreferenciaGetDto(
@@ -40,7 +45,8 @@ public class Preferencia {
                 obj.getDificuldade(),
                 obj.getNivel(),
                 obj.getDiaSemana(),
-                obj.getTempoMinutos()
+                obj.getTempoMinutos(),
+                obj.getAtivo()
         );
     }
 
@@ -54,6 +60,8 @@ public class Preferencia {
         obj.setNivel(dto.nivel());
         obj.setDiaSemana(dto.diaSemana());
         obj.setTempoMinutos(dto.tempoMinutos());
+        obj.setAtivo(true);
+        obj.setDataCriacao(new Date());
         return obj;
     }
 }

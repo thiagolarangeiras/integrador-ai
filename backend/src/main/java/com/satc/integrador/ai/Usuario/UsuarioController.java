@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.Usuario;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,12 @@ public class UsuarioController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAll(
-            @RequestParam int page,
-            @RequestParam int count
+            @Nullable @RequestParam Integer page,
+            @Nullable @RequestParam Integer count
     ) {
+        if (page == null || count == null){
+            return ResponseEntity.ok(usuarioService.getCurrent());
+        }
         return ResponseEntity.ok(usuarioService.getAll(page, count));
     }
 

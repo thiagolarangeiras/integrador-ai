@@ -12,5 +12,6 @@ public record PreferenciaGetDto(
         String dificuldade,
         String nivel,
         List<DayOfWeek> diaSemana,
-        Integer tempoMinutos
+        Integer tempoMinutos,
+        Boolean ativo
 ) { }

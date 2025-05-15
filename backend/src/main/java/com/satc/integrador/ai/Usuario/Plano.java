@@ -4,4 +4,5 @@ public enum Plano {
     NORMAL,
     GRATIS,
     PAGO,
+    ADM
 }
