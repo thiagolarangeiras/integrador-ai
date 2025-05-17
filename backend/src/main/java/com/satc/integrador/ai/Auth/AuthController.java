@@ -21,7 +21,7 @@ public class AuthController {
     @Autowired private UsuarioService userService;
 	@Autowired private SecurityConfiguration securityConfiguration;
 
-    @PostMapping("/auth/login")
+    @PostMapping("auth/login")
     public ResponseEntity<RecoveryJwtTokenDto> authenticateUser(@RequestBody LoginUserDto dto) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
@@ -32,34 +32,40 @@ public class AuthController {
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
-    @PostMapping("/auth/signin")
+    @PostMapping("auth/signin")
     public ResponseEntity<UsuarioGetDto> signin(@RequestBody UsuarioPostDto dto) {
-        return new ResponseEntity<>(userService.post(dto), HttpStatus.OK);
+        return new ResponseEntity<>(userService.postLogin(dto), HttpStatus.OK);
     }
 
-
-    @GetMapping("/teste")
+    @GetMapping("test")
     @ResponseStatus(HttpStatus.OK)
-    public String teste() {
+    public String test() {
         return "Servidor OK";
     }
 
-	@GetMapping("/teste/login")
+	@GetMapping("test/login")
     @ResponseStatus(HttpStatus.OK)
-    public String testeLogin() {
+    public String testLogin() {
         return "Login OK";
     }
 
 
-    @GetMapping("/teste/adm")
+    @GetMapping("test/normal")
     @ResponseStatus(HttpStatus.OK)
-    public String testeAdm() {
-        return "Adm OK";
+    public String testNormal() {
+        return "Normal OK";
     }
 
-    @GetMapping("/teste/vendedor")
+    @GetMapping("test/pago")
     @ResponseStatus(HttpStatus.OK)
-    public String testeVendedor() {
-        return "Vendedor OK";
+    public String testPago() {
+        return "Pago OK";
     }
+
+    @GetMapping("test/gratis")
+    @ResponseStatus(HttpStatus.OK)
+    public String testGratis() {
+        return "Gratis OK";
+    }
+
 }

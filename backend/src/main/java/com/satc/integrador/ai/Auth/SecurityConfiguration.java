@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.Auth;
 
+import com.satc.integrador.ai.Usuario.Plano;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +26,16 @@ public class SecurityConfiguration {
             "/usuario/*",
     };
 
-    public static final String[] AUTH_CARGO_ADM = {
-            "/teste/adm"
+    public static final String[] AUTH_PLANO_NORMAL = {
+            "/test/normal"
     };
 
-    public static final String[] AUTH_CARGO_VENDEDOR = {
-            "/teste/vendedor"
+    public static final String[] AUTH_PLANO_PAGO = {
+            "/test/pago"
+    };
+
+    public static final String[] AUTH_PLANO_GRATIS = {
+            "/test/gratis"
     };
 
     @Bean
@@ -41,6 +46,9 @@ public class SecurityConfiguration {
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_REQUIRED).authenticated()
+                        .requestMatchers(AUTH_PLANO_NORMAL).hasAuthority(Plano.NORMAL.name())
+                        .requestMatchers(AUTH_PLANO_PAGO).hasAuthority(Plano.PAGO.name())
+                        .requestMatchers(AUTH_PLANO_GRATIS).hasAuthority(Plano.GRATIS.name())
                         .anyRequest().permitAll()
                 )
                 .build();
