@@ -1,6 +1,7 @@
 package com.satc.integrador_ai.api
 
 import android.util.Log
+import com.satc.integrador_ai.UserPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,36 +64,40 @@ object RetrofitClient {
     }
 }
 
-fun createUser(user: UsuarioPostDto, changeScreen: () -> Unit){
+fun createUser(user: UsuarioPostDto, changeScreen: () -> Unit) {
     RetrofitClient.instance.createUser(user).enqueue(object : Callback<UsuarioGetDto> {
         override fun onResponse(call: Call<UsuarioGetDto>, response: Response<UsuarioGetDto>) {
-            Log.d("thiago", call.toString())
-            Log.d("thiago", response.toString())
-            changeScreen();
             if (response.isSuccessful) {
-                    changeScreen();
+                changeScreen()
+            } else {
+                Log.d("Erro no cadastro de usuário: ", response.errorBody()?.string().orEmpty())
             }
         }
+
         override fun onFailure(call: Call<UsuarioGetDto>, t: Throwable) {
-            Log.d("thiago", call.toString())
-            Log.d("thiago", t.toString())
+            Log.e("Erro no login: ", "${t.localizedMessage ?: "Erro desconhecido"}")
         }
     })
 }
 
-var LOGGED = false;
-var TOKEN = "";
-
-fun login(user: LoginDto, changeScreen: () -> Unit){
+fun login(user: LoginDto, changeScreen: () -> Unit) {
     RetrofitClient.instance.login(user).enqueue(object : Callback<TokenDto> {
         override fun onResponse(call: Call<TokenDto>, response: Response<TokenDto>) {
-            Log.d("main", response.toString())
             if (response.isSuccessful) {
-                LOGGED = true;
-                TOKEN = response.body()?.token ?: "";
-                changeScreen();
+                val tokenDto = response.body()
+
+                if (tokenDto != null) {
+                    UserPreferences.saveToken(tokenDto.token)
+                    Log.d("Token salvo: ", tokenDto.token)
+                    changeScreen()
+                }
+            } else {
+                Log.d("Erro no login: ", response.errorBody()?.string().orEmpty())
             }
         }
-        override fun onFailure(call: Call<TokenDto>, t: Throwable) { }
+
+        override fun onFailure(call: Call<TokenDto>, t: Throwable) {
+            Log.e("Erro no login: ", "${t.localizedMessage ?: "Erro desconhecido"}")
+        }
     })
 }

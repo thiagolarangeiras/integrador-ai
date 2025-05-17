@@ -38,10 +38,10 @@ sealed class Screen(val route: String) {
     object Login : Screen("login")
     object Home : Screen("home")
     object Language : Screen("language")
-    object Exercise: Screen("exercise")
-    object TemaAssunto: Screen("temaassunto")
-    object DificuldadeIdioma: Screen("dificuldadeidioma")
-    object LanguageLevel: Screen("languagelevel")
+    object Exercise : Screen("exercise")
+    object TemaAssunto : Screen("temaassunto")
+    object DificuldadeIdioma : Screen("dificuldadeidioma")
+    object LanguageLevel : Screen("languagelevel")
 
     object StudyPlan : Screen("StudyPlanScreen/{level}") {
         fun createRoute(level: String) = "StudyPlanScreen/$level"
@@ -51,6 +51,8 @@ sealed class Screen(val route: String) {
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UserPreferences.init(this)
+
         setContent {
             MaterialTheme {
                 AppNavigation()
@@ -62,8 +64,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    var startDestination = Screen.Welcome.route
 
-    NavHost(navController = navController, startDestination = Screen.Welcome.route) {
+    if (UserPreferences.isLoggedIn()) {
+        startDestination = Screen.Home.route
+    }
+
+    NavHost(navController = navController, startDestination = startDestination) {
         composable(Screen.Welcome.route) {
             TalkAiWelcomeScreen(navController)
         }
@@ -107,7 +114,7 @@ fun AppNavigation() {
             StudyPlanScreen(level = level, onNext = { selectedDays, studyMinutes ->
                 // Você pode tratar os dados aqui ou navegar para outra tela
                 println("Plano criado: $selectedDays, $studyMinutes minutos")
-                }
+            }
             )
         }
         composable(
