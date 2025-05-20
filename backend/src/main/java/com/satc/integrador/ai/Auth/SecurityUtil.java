@@ -1,6 +1,6 @@
 package com.satc.integrador.ai.Auth;
 
-import com.satc.integrador.ai.Usuario.UsuarioRepo;
+import com.satc.integrador.ai.user.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +11,10 @@ import java.util.Collection;
 
 @Service
 public class SecurityUtil {
-    @Autowired UsuarioRepo repo;
+
+    @Autowired
+    private UsuarioService repo;
+
     public static String getCurrentUserSubject() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {

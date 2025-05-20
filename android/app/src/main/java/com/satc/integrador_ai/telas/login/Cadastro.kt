@@ -25,12 +25,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.Screen
-import com.satc.integrador_ai.api.Plano
-import com.satc.integrador_ai.api.UsuarioPostDto
-import com.satc.integrador_ai.api.createUser
+import com.satc.integrador_ai.deprecated.Plano
+import com.satc.integrador_ai.deprecated.UsuarioPostDto
+import com.satc.integrador_ai.deprecated.createUser
+import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE CADASTRO
 
@@ -42,7 +44,7 @@ fun SignUpScreen() {
 }
 
 @Composable
-fun SignUpScreen(navController: NavHostController) {
+fun SignUpScreen(navController: NavHostController, preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()) {
     val purple = Color(0xFF7B61FF)
     val roundedShape = RoundedCornerShape(12.dp)
 
@@ -153,7 +155,7 @@ fun SignUpScreen(navController: NavHostController) {
                     fullName,
                     Plano.NORMAL
                 )
-                createUser(user, changeScreen = { navController.navigate(Screen.Login.route) });
+                createUser(user, changeScreen = { navController.navigate(Screen.Language.route) }, preferencesUserViewModel);
             },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(16.dp),

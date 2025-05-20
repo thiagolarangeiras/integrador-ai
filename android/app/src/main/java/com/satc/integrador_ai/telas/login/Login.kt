@@ -20,10 +20,12 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.satc.integrador_ai.api.LoginDto
-import com.satc.integrador_ai.api.login
+import com.satc.integrador_ai.deprecated.LoginDto
+import com.satc.integrador_ai.deprecated.login
+import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE LOGIN
 
@@ -31,11 +33,11 @@ import com.satc.integrador_ai.api.login
 @Composable
 fun LoginScreenPreview() {
     val navController = rememberNavController()
-    LoginScreen(navController = navController)
+//    LoginScreen(navController = navController)
 }
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(navController: NavHostController, preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()) {
     val purple = Color(0xFF7B61FF)
     val roundedShape = RoundedCornerShape(12.dp)
 
@@ -133,7 +135,7 @@ fun LoginScreen(navController: NavHostController) {
                     email,
                     password
                 )
-                login(user, changeScreen = { navController.navigate("home") });
+                login(user, changeScreen = { navController.navigate("home") }, preferencesUserViewModel);
             },
             colors = with(ButtonDefaults) { buttonColors(purple) },
             shape = RoundedCornerShape(16.dp),

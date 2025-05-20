@@ -6,22 +6,23 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavType
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.satc.integrador_ai.storage.FormularioViewModel
+import com.satc.integrador_ai.storage.PreferencesUserViewModel
 import com.satc.integrador_ai.telas.HomeScreenPreview
-import com.satc.integrador_ai.telas.formularios.DificuldadeIdiomaScreen
+import com.satc.integrador_ai.telas.formularios.DifficultyScreen
 import com.satc.integrador_ai.telas.formularios.ExerciseSelectionScreen
 import com.satc.integrador_ai.telas.formularios.LanguageLevelScreen
 import com.satc.integrador_ai.telas.formularios.LanguageSelectionScreen
 import com.satc.integrador_ai.telas.formularios.StudyPlanScreen
-import com.satc.integrador_ai.telas.formularios.TemaAssuntoScreen
+import com.satc.integrador_ai.telas.formularios.SubjectScreen
 import com.satc.integrador_ai.telas.login.LoginScreen
 import com.satc.integrador_ai.telas.login.SignUpScreen
 import com.satc.integrador_ai.telas.login.TalkAiWelcomeScreen
-
+import dagger.hilt.android.AndroidEntryPoint
 
 @Preview(showBackground = true)
 @Composable
@@ -31,28 +32,23 @@ fun AppPreview() {
     }
 }
 
-
 sealed class Screen(val route: String) {
     object Welcome : Screen("welcome")
     object SignUp : Screen("signup")
     object Login : Screen("login")
     object Home : Screen("home")
     object Language : Screen("language")
-    object Exercise : Screen("exercise")
-    object TemaAssunto : Screen("temaassunto")
-    object DificuldadeIdioma : Screen("dificuldadeidioma")
-    object LanguageLevel : Screen("languagelevel")
-
-    object StudyPlan : Screen("StudyPlanScreen/{level}") {
-        fun createRoute(level: String) = "StudyPlanScreen/$level"
-    }
+    object Exercise: Screen("exercise")
+    object Subject: Screen("subject")
+    object Difficulty: Screen("difficulty")
+    object LanguageLevel: Screen("language_level")
+    object StudyPlan: Screen("study_plan")
 }
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UserPreferences.init(this)
-
         setContent {
             MaterialTheme {
                 AppNavigation()
@@ -62,11 +58,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(), preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     var startDestination = Screen.Welcome.route
 
-    if (UserPreferences.isLoggedIn()) {
+    if (preferencesUserViewModel.isLoggedIn()) {
         startDestination = Screen.Home.route
     }
 
@@ -83,54 +79,52 @@ fun AppNavigation() {
         composable(Screen.Home.route) {
             HomeScreenPreview(navController)
         }
+
+        /*-------------------------------- FORMULARIOS ------------------------------------*/
         composable(Screen.Language.route) {
-            LanguageSelectionScreen(navController)
+            LanguageSelectionScreen(
+                onNext = {
+                    navController.navigate(Screen.Exercise.route)
+                },
+                formularioViewModel
+            )
         }
         composable(Screen.Exercise.route) {
-            ExerciseSelectionScreen(navController)
+            ExerciseSelectionScreen(onNext = {
+                navController.navigate(Screen.Subject.route)
+            },
+            formularioViewModel)
         }
-        composable(Screen.TemaAssunto.route) {
-            TemaAssuntoScreen(navController)
+        composable(Screen.Subject.route) {
+            SubjectScreen(onNext = {
+                navController.navigate(Screen.Difficulty.route)
+            },
+            formularioViewModel)
         }
-        composable(Screen.DificuldadeIdioma.route) {
-            DificuldadeIdiomaScreen(
+        composable(Screen.Difficulty.route) {
+            DifficultyScreen (
                 onNext = {
                     navController.navigate(Screen.LanguageLevel.route)
-                }
+                },
+                formularioViewModel
             )
         }
         composable(Screen.LanguageLevel.route) {
             LanguageLevelScreen(
-                onNext = { selectedLevel ->
-                    navController.navigate(Screen.StudyPlan.createRoute(selectedLevel))
-                }
+                onNext = {
+                    navController.navigate(Screen.StudyPlan.route)
+                },
+                formularioViewModel
             )
         }
-        composable(
-            route = Screen.StudyPlan.route,
-            arguments = listOf(navArgument("level") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val level = backStackEntry.arguments?.getString("level") ?: ""
-            StudyPlanScreen(level = level, onNext = { selectedDays, studyMinutes ->
-                // Você pode tratar os dados aqui ou navegar para outra tela
-                println("Plano criado: $selectedDays, $studyMinutes minutos")
-            }
-            )
-        }
-        composable(
-            route = Screen.StudyPlan.route,
-            arguments = listOf(navArgument("level") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val level = backStackEntry.arguments?.getString("level") ?: ""
-
+        composable(Screen.StudyPlan.route) {
             StudyPlanScreen(
-                level = level,
-                onNext = { days, minutes ->
-                    navController.navigate(Screen.Home.route) {
-                        popUpTo(Screen.LanguageLevel.route) { inclusive = true }
-                    }
-                }
+                onNext = {
+                    navController.navigate(Screen.Home.route)
+                },
+                formularioViewModel
             )
         }
+        /*-------------------------------- FORMULARIOS ------------------------------------*/
     }
 }
