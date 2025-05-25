@@ -21,8 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
-// TELA HOME
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
@@ -41,29 +39,29 @@ fun HomeScreen() {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         Text(
             text = "Olá, Estudante!",
-            fontSize = 32.sp,
+            fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(start = 16.dp)
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         CardSection(
             title = "Inglês Intermediário",
             subtitle = "42% concluído",
             buttonText = "Ir para Plano de Estudo"
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         EstudoHojeCard()
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         ProgressoCard()
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar()
+        BottomNavigationBar(0)
     }
 }
 
@@ -76,14 +74,14 @@ fun CardSection(title: String, subtitle: String, buttonText: String) {
             .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ) {
-        Text(text = title, fontWeight = FontWeight.Bold, fontSize = 20.sp,
+        Text(text = title, fontWeight = FontWeight.Bold, fontSize = 18.sp,
             modifier = Modifier.padding(bottom = 4.dp))
-        Text(text = subtitle, fontSize = 16.sp, color = Color.Gray)
+        Text(text = subtitle, fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { /* TODO */ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)),
-            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
+            shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = buttonText, color = Color.White)
@@ -100,31 +98,31 @@ fun EstudoHojeCard() {
             .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ) {
-        Text(text = "Estudo de Hoje", fontWeight = FontWeight.Bold, fontSize = 20.sp,
+        Text(text = "Estudo de Hoje", fontWeight = FontWeight.Bold, fontSize = 18.sp,
             modifier = Modifier
                 .padding(bottom = 4.dp))
-        Text(text = "Simple Present", fontSize = 16.sp, color = Color.Gray)
+        Text(text = "Simple Present", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             LinearProgressIndicator(
-                progress = { 0f },
+                progress = { 0.0F },
                 modifier = Modifier
                     .weight(1f)
                     .height(10.dp)
                     .clip(RoundedCornerShape(4.dp)),
-                color = Color(0xFFBDBDBD),
-                trackColor = Color(0xFFE0E0E0),
+                color = Color(0xFF7061FD),
+                trackColor = Color(0xFFF4F3F3),
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "30 min", fontSize = 12.sp)
+            Text(text = "30 min", fontSize = 14.sp)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = { /* TODO */ },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7C4DFF)),
-            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
+            shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Começar Agora", color = Color.White)
@@ -141,21 +139,29 @@ fun ProgressoCard() {
             .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ) {
-        Text(text = "Seu Progresso", fontWeight = FontWeight.Bold, fontSize = 20.sp)
-        Spacer(modifier = Modifier.height(16.dp))
+        Text(text = "Seu Progresso", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+        Spacer(modifier = Modifier.height(12.dp))
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
             ProgressoItem(icon = Icons.Default.Translate, label = "Vocabulário", progresso = 0)
-            ProgressoItem(icon = Icons.Default.List, label = "Gramática", progresso = 0)
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
             ProgressoItem(icon = Icons.Default.Headphones, label = "Audição", progresso = 0)
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            ProgressoItem(icon = Icons.Default.List, label = "Gramática", progresso = 0)
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
             ProgressoItem(icon = Icons.Default.Mic, label = "Fala", progresso = 100)
         }
     }
@@ -171,13 +177,13 @@ fun ProgressoItem(icon: ImageVector, label: String, progresso: Int) {
         Icon(
             imageVector = icon,
             contentDescription = label,
-            modifier = Modifier.size(40.dp)
+            modifier = Modifier.size(36.dp)
         )
 
         Column(
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            Text(text = label, fontSize = 16.sp)
+            Text(text = label, fontSize = 14.sp)
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
@@ -185,13 +191,13 @@ fun ProgressoItem(icon: ImageVector, label: String, progresso: Int) {
                 LinearProgressIndicator(
                     progress = { progresso / 100f },
                     modifier = Modifier
-                        .width(60.dp)
+                        .width(230.dp)
                         .height(10.dp)
                         .clip(RoundedCornerShape(4.dp)),
-                    color = if (progresso == 100) Color(0xFF7C4DFF) else Color(0xFFBDBDBD),
-                    trackColor = Color(0xFFE0E0E0),
+                    color = if (progresso == 100) Color(0xFF7061FD) else Color(0xFFF4F3F3),
+                    trackColor = Color(0xFFF4F3F3),
                 )
-                Text(text = "$progresso%", fontSize = 12.sp)
+                Text(text = "$progresso%", fontSize = 14.sp)
             }
         }
     }

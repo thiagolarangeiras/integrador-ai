@@ -33,7 +33,7 @@ import com.satc.integrador_ai.storage.PreferencesUserViewModel
 @Composable
 fun LoginScreenPreview() {
     val navController = rememberNavController()
-//    LoginScreen(navController = navController)
+    LoginScreen(navController = navController)
 }
 
 @Composable

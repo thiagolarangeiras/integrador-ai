@@ -98,7 +98,7 @@ fun SentenceOrderingScreen(
                 // Title
                 Text(
                     text = "Gramática",
-                    fontSize = 32.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
@@ -108,7 +108,7 @@ fun SentenceOrderingScreen(
                 Text(
                     text = "Ele está interessado em aprender inglês?",
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 24.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -132,7 +132,7 @@ fun SentenceOrderingScreen(
                 Text(
                     text = "Organize a frase na ordem correta:",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
 

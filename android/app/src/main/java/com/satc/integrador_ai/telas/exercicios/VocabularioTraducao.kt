@@ -60,7 +60,7 @@ fun VocabularyExerciseScreen(
 
     Scaffold (
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n5 de 8")
+            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n3 de 8")
         },
         bottomBar = {
             BottomAppBar (
@@ -94,7 +94,7 @@ fun VocabularyExerciseScreen(
 
                 Text(
                     text = "Vocabulário",
-                    fontSize = 32.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
@@ -105,7 +105,7 @@ fun VocabularyExerciseScreen(
                 Text(
                     text = "One coffee please.",
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 24.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -114,7 +114,7 @@ fun VocabularyExerciseScreen(
 
                 Text(
                     "Traduza a frase:",
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     modifier = Modifier.fillMaxWidth()
                 )
 

@@ -38,7 +38,7 @@ import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SignUpScreen() {
+fun SignUpScreenPreview() {
     val navController = rememberNavController()
     SignUpScreen(navController = navController)
 }

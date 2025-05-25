@@ -71,7 +71,7 @@ fun RespostaCorretaScreen() {
                 Spacer(modifier = Modifier.height(24.dp))
 
                 Text("Bom trabalho !", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                Text("Você acertou a resposta.", fontSize = 16.sp, color = Color.Gray)
+                Text("Você acertou a resposta.", fontSize = 18.sp, color = Color.Gray)
 
                 Spacer(modifier = Modifier.height(32.dp))
 

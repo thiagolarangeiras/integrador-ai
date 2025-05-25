@@ -25,8 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-// TELA PLANO DE ENSINO
-
 @Preview(showBackground = true)
 @Composable
 fun PlanoDeEstudoPreview() {
@@ -58,7 +56,7 @@ fun PlanoDeEstudoScreen() {
         TarefaItem("Compreensão Auditiva", "Exercícios de escuta", 0, 15)
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar()
+        BottomNavigationBar(1)
     }
 }
 
@@ -127,13 +125,13 @@ fun TarefaItem(titulo: String, descricao: String, progresso: Int, total: Int) {
 }
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(index: Int) {
     val items = listOf("Home", "Plano de Estudo", "Chat", "Perfil")
     val icons = listOf(Icons.Default.Home, Icons.Default.CalendarToday, Icons.Default.ChatBubble, Icons.Default.Person)
-    var selectedItem by remember { mutableIntStateOf(1) }
+    var selectedItem by remember { mutableIntStateOf(index) }
 
     NavigationBar(
-        containerColor = Color(0xFFE0E0E0),
+        containerColor = Color(0xFFF4F3F3),
         modifier = Modifier.height(72.dp)
     ) {
         items.forEachIndexed { index, item ->
@@ -152,8 +150,8 @@ fun BottomNavigationBar() {
                 onClick = { selectedItem = index },
                 alwaysShowLabel = true,
                 colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
-                    selectedIconColor = Color(0xFF7C4DFF),
-                    selectedTextColor = Color(0xFF7C4DFF),
+                    selectedIconColor = Color(0xFF7061FD),
+                    selectedTextColor = Color(0xFF7061FD),
                     unselectedIconColor = Color.Black,
                     unselectedTextColor = Color.Black,
                     indicatorColor = Color.Transparent

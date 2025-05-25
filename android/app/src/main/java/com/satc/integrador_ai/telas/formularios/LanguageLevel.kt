@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,6 +23,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,17 +39,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.satc.integrador_ai.storage.FormularioViewModel
+import com.satc.integrador_ai.telas.exercicios.AppTopBar
 
-// TELA PARA SELEÇÃO DO NÍVEL DO IDIOMA
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun LanguageLevelScreenPreview() {
-//    LanguageLevelScreen(onNext = {})
+    //LanguageLevelScreen( onBack = { }, onExit = { }, onNext = { });
 }
 
 @Composable
-fun LanguageLevelScreen(onNext: () -> Unit, formularioViewModel: FormularioViewModel) {
+fun LanguageLevelScreen(
+    onBack: () -> Unit,
+    onNext: () -> Unit,
+    onExit: () -> Unit,
+    formularioViewModel: FormularioViewModel
+) {
     var selectedLevel by remember { mutableStateOf("") }
 
     val levels = listOf(
@@ -57,103 +63,85 @@ fun LanguageLevelScreen(onNext: () -> Unit, formularioViewModel: FormularioViewM
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                backgroundColor = Color.LightGray,
-                elevation = 4.dp,
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "Comece seu\nPlano de Estudo",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                },
-                navigationIcon = {
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .size(40.dp)
-                            .border(1.dp, Color.Black, shape = RoundedCornerShape(8.dp))
-                            .background(Color(0xFF5F38FF), shape = RoundedCornerShape(8.dp))
-                            .clickable {
-                                // Substitua com navController.popBackStack() se necessário
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Voltar",
-                            tint = Color.White
-                        )
-                    }
-                }
+            AppTopBar(
+                onExitClick = onExit,
+                onBackClick = onBack,
+                title = "Comece Seu \n Plano de Estudo",
+                showExitButton = false
             )
         },
         bottomBar = {
-            Button(
-                onClick = {
-                    if (selectedLevel.isNotEmpty()) {
-                        formularioViewModel.setNivel(selectedLevel)
-                        onNext()
-                    }
-                },
-                enabled = selectedLevel.isNotEmpty(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = if (selectedLevel.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
-                    contentColor = Color.White
-                ),
-                shape = RoundedCornerShape(16.dp)
+            BottomAppBar(
+                containerColor = Color.White
             ) {
-                Text("Avançar", fontSize = 16.sp)
-            }
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp, vertical = 16.dp)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(50.dp))
-
-            Text(
-                text = "Qual seu nível\nde conhecimento ?",
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(50.dp))
-
-            levels.forEach { level ->
-                val isSelected = selectedLevel == level
-
-                OutlinedButton(
-                    onClick = { selectedLevel = level },
+                Button(
+                    onClick = {
+                        if (selectedLevel.isNotEmpty()) {
+                            formularioViewModel.setNivel(selectedLevel)
+                            onNext()
+                        }
+                    },
+                    enabled = selectedLevel.isNotEmpty(),
+                    colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                        .height(48.dp),
-                    border = BorderStroke(1.dp, Color.Black),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        backgroundColor = if (isSelected) Color(0xFF5F38FF) else Color.Transparent,
-                        contentColor = if (isSelected) Color.White else Color.Black
-                    )
+                        .padding(start = 48.dp, end = 48.dp, bottom = 24.dp)
+                        .height(48.dp)
+                        .imePadding(),
+                    shape = RoundedCornerShape(12.dp)
                 ) {
-                    Text(text = level, fontSize = 16.sp)
+                    Text(
+                        "Avançar",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
                 }
             }
+        },
+        content = { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(paddingValues)
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(40.dp))
 
-            Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "Qual seu nível de conhecimento?",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                levels.forEach { level ->
+                    val isSelected = selectedLevel == level
+
+                    OutlinedButton(
+                        onClick = { selectedLevel = level },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp)
+                            .height(48.dp),
+                        border = BorderStroke(2.dp, if (isSelected) Color.Transparent else Color.LightGray),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            backgroundColor = if (isSelected) Color(0xFF5F38FF) else Color(0xFFF4F3F3),
+                            contentColor = if (isSelected) Color.White else Color.Black
+                        )
+                    ) {
+                        Text(text = level, fontSize = 16.sp)
+                    }
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+            }
         }
-    }
+    )
 }
+

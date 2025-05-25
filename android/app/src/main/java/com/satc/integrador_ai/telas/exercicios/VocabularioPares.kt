@@ -91,7 +91,7 @@ fun MatchPairsExerciseScreen(
 
                 Text(
                     text = "Vocabulário",
-                    fontSize = 32.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
@@ -101,7 +101,7 @@ fun MatchPairsExerciseScreen(
                 Text(
                     text = "Combine os pares:",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
 

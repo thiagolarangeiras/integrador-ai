@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -41,7 +42,7 @@ fun TalkAiWelcomeScreen() {
 
 @Composable
 fun TalkAiWelcomeScreen(navController: NavController) {
-    val purple = Color(0xFF7B61FF)
+    val purple = Color(0xFF7061FD)
 
     Column(
         modifier = Modifier
@@ -66,22 +67,22 @@ fun TalkAiWelcomeScreen(navController: NavController) {
             )
         }
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Text(
             text = "Talk.ai",
-            fontSize = 36.sp,
+            fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black
         )
 
-        Spacer(modifier = Modifier.height(72.dp))
+        Spacer(modifier = Modifier.height(80.dp))
 
         Text(
-            text = "Aprenda idiomas\nde forma personalizada",
+            text = "Aprenda idiomas \n de forma personalizada",
             fontSize = 20.sp,
-            color = Color.DarkGray,
-            fontWeight = FontWeight.Bold,
+            color = Color.Black,
+            fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Center,
             lineHeight = 26.sp
         )
@@ -105,6 +106,7 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         // Botão de login
         OutlinedButton(
             onClick = { navController.navigate("login") },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4F3F3)),
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier

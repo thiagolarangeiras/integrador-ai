@@ -24,18 +24,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.R
 import com.satc.integrador_ai.storage.FormularioViewModel
+import com.satc.integrador_ai.telas.exercicios.AppTopBar
+import kotlin.toString
 
-//TELA PARA SELEÇÃO DE ASSUNTOS
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun SubjectScreenPreview() {
-    val navController = rememberNavController()
-//    SubjectScreen(navController = navController)
+    //SubjectScreen( onBack = { }, onExit = { }, onNext = { });
 }
 
 @Composable
-fun SubjectScreen(onNext: () -> Unit, formularioViewModel: FormularioViewModel) {
+fun SubjectScreen(
+    onBack: () -> Unit,
+    onNext: () -> Unit,
+    onExit: () -> Unit,
+    formularioViewModel: FormularioViewModel
+) {
     val opcoes = listOf(
         Triple("Viagens e Turismo", R.drawable.ic_travel, false),
         Triple("Música e Cultura Pop", R.drawable.ic_music, false),
@@ -47,75 +51,77 @@ fun SubjectScreen(onNext: () -> Unit, formularioViewModel: FormularioViewModel) 
 
     val selected = remember { mutableStateListOf<String>() }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "Comece seu\nPlano de Estudo",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(45.dp))
-
-        Text(
-            text = "Quais temas/assuntos\ndeseja estudar?",
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            modifier = Modifier.weight(1f)
-        ) {
-            items(opcoes) { (titulo, icone, _) ->
-                SubjectOption(
-                    title = titulo,
-                    iconRes = icone,
-                    isSelected = selected.contains(titulo),
+    Scaffold(
+        topBar = {
+            AppTopBar(onExitClick = onExit,onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false )
+        },
+        bottomBar = {
+            BottomAppBar(
+                containerColor = Color.White
+            ) {
+                Button(
                     onClick = {
-                        if (selected.contains(titulo)) {
-                            selected.remove(titulo)
-                        } else {
-                            selected.add(titulo)
-                        }
-                    }
+                        formularioViewModel.setTemas(selected)
+                        onNext()
+                    },
+                    enabled = selected.isNotEmpty(),
+                    colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 48.dp, end = 48.dp, bottom = 24.dp)
+                        .height(48.dp)
+                        .imePadding(),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Avançar", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
+            }
+        },
+        content = { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(paddingValues)
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                Text(
+                    text = "Quais assuntos deseja estudar?",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
                 )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    items(opcoes) { (titulo, icone, _) ->
+                        SubjectOption(
+                            title = titulo,
+                            iconRes = icone,
+                            isSelected = selected.contains(titulo),
+                            onClick = {
+                                if (selected.contains(titulo)) {
+                                    selected.remove(titulo)
+                                } else {
+                                    selected.add(titulo)
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
-
-        Button(
-            onClick = {
-                formularioViewModel.setTemas(selected)
-                onNext()
-//                navController.navigate("difficulty")
-//                println("Selecionados: $selected")
-            },
-            enabled = selected.isNotEmpty(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(top = 24.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (selected.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = "Avançar", fontSize = 16.sp)
-        }
-    }
+    )
 }
 
 @Composable
@@ -126,23 +132,28 @@ fun SubjectOption(
     onClick: () -> Unit
 ) {
     Card(
-        border = BorderStroke(2.dp, if (isSelected) Color(0xFF5F38FF) else Color.LightGray),
+        border = BorderStroke(2.dp, if (isSelected) Color(0xFF7061FD) else Color.LightGray),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1.2f)
+            .aspectRatio(1.4f)
             .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFF4F3F3)
+        )
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Image(
                 painter = painterResource(id = iconRes),
                 contentDescription = title,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(40.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.height(12.dp))
