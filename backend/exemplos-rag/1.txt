@@ -1,0 +1,84 @@
+PARA CADA EXERCICIO FAZER UM
+
+
+EXEMPLO PARA MANDAR:
+
+Gerar um plano de estudo com base nesse dados:
+	idioma = ingles;
+	tipoExercicio = Vocabulario e leitura;
+	temas = tecnologia e redes sociais;
+	dificuldade que tem = falta de vocabulario;
+	nivel = intermediario;
+
+Retornar 5 exercios de:
+	Completar uma frase : Gerar uma frase na lingua selecionada e remover uma palavra dela e gerar similares para aquela palavra
+	exemplo de json de retorno:
+		{
+			frase_completa: "my name is lucas",
+			frase_incompleta: "my name ... lucas",
+			opcao_correta: "is",
+			opcao_incorreta: ["are", "we", "if"]
+		}
+
+retornar esses exercios dentro de um json assim:
+[
+	{
+		tipo: "completar uma frase",
+		dados: {
+			frase_completa: "my name is lucas",
+			frase_incompleta: "my name ... lucas",
+			opcao_correta: "is",
+			opcao_incorreta: ["are", "we", "if"]
+		},
+	}
+]
+
+
+RESPOSTA DO GPT NORMAL:
+[
+  {
+    "tipo": "completar uma frase",
+    "dados": {
+      "frase_completa": "Social media platforms influence how people communicate.",
+      "frase_incompleta": "Social media platforms ... how people communicate.",
+      "opcao_correta": "influence",
+      "opcao_incorreta": ["create", "follow", "interrupt"]
+    }
+  },
+  {
+    "tipo": "completar uma frase",
+    "dados": {
+      "frase_completa": "He uploaded a video about new smartphone features.",
+      "frase_incompleta": "He ... a video about new smartphone features.",
+      "opcao_correta": "uploaded",
+      "opcao_incorreta": ["borrowed", "deleted", "ignored"]
+    }
+  },
+  {
+    "tipo": "completar uma frase",
+    "dados": {
+      "frase_completa": "Artificial intelligence is transforming modern technology.",
+      "frase_incompleta": "Artificial intelligence is ... modern technology.",
+      "opcao_correta": "transforming",
+      "opcao_incorreta": ["translating", "predicting", "connecting"]
+    }
+  },
+  {
+    "tipo": "completar uma frase",
+    "dados": {
+      "frase_completa": "Many teenagers spend hours scrolling through social networks.",
+      "frase_incompleta": "Many teenagers spend hours ... through social networks.",
+      "opcao_correta": "scrolling",
+      "opcao_incorreta": ["jumping", "walking", "calling"]
+    }
+  },
+  {
+    "tipo": "completar uma frase",
+    "dados": {
+      "frase_completa": "Privacy concerns are growing with the rise of social apps.",
+      "frase_incompleta": "Privacy concerns are ... with the rise of social apps.",
+      "opcao_correta": "growing",
+      "opcao_incorreta": ["sleeping", "failing", "leaving"]
+    }
+  }
+]

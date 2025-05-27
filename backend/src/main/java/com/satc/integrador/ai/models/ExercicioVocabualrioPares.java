@@ -1,0 +1,26 @@
+package com.satc.integrador.ai.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Table(name = "exercicio_vocabulario_pares")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ExercicioVocabualrioPares {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private Integer idOrdemExercicio;
+    private Integer idPlanoEstudo;
+
+    private List<String> paresEsquerda;
+    private List<String> paresDireita;
+}
