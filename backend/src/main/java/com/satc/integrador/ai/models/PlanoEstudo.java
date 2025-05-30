@@ -3,6 +3,8 @@ package com.satc.integrador.ai.models;
 import com.satc.integrador.ai.enums.TipoExercicios;
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.preference.dto.PreferenciaPostDto;
+import com.satc.integrador.ai.studyPlan.dto.PlanoEstudoGetDto;
+import com.satc.integrador.ai.studyPlan.dto.PlanoEstudoPostDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,34 +30,30 @@ public class PlanoEstudo {
     private Integer qtExerciciosDia;
     private List<TipoExercicios> tiposExerciciosContidos;
 
+    public PlanoEstudo(Integer idUsuario, Integer idPreferencia, Integer qtExercicios, List<TipoExercicios> tiposExerciciosContidos){
+        this.idUsuario = idUsuario;
+        this.idPreferencia = idPreferencia;
+        this.qtExerciciosDia = qtExerciciosDia;
+        this.tiposExerciciosContidos = tiposExerciciosContidos;
+    }
+
     //Mappers
-    public static PreferenciaGetDto mapToDto(Preferencia obj) {
-        return new PreferenciaGetDto(
+    public static PlanoEstudoGetDto mapToDto(PlanoEstudo obj) {
+        return new PlanoEstudoGetDto(
                 obj.getId(),
                 obj.getIdUsuario(),
-                obj.getIdioma(),
-                obj.getTipoExercicio(),
-                obj.getTemas(),
-                obj.getDificuldade(),
-                obj.getNivel(),
-                obj.getDiaSemana(),
-                obj.getTempoMinutos(),
-                obj.getAtivo()
+                obj.getIdPreferencia(),
+                obj.getQtExerciciosDia(),
+                obj.getTiposExerciciosContidos()
         );
     }
 
-    public static Preferencia mapToObj(PreferenciaPostDto dto) {
-        Preferencia obj = new Preferencia();
-        obj.setIdUsuario(dto.idUsuario());
-        obj.setIdioma(dto.idioma());
-        obj.setTipoExercicio(dto.tipoExercicio());
-        obj.setTemas(dto.temas());
-        obj.setDificuldade(dto.dificuldade());
-        obj.setNivel(dto.nivel());
-        obj.setDiaSemana(dto.diaSemana());
-        obj.setTempoMinutos(dto.tempoMinutos());
-        obj.setAtivo(true);
-        obj.setDataCriacao(new Date());
+    public static PlanoEstudo mapToObj(PlanoEstudoPostDto dto) {
+        PlanoEstudo obj = new PlanoEstudo();
+        obj.setIdUsuario(dto.idUsuario);
+        obj.setIdPreferencia(dto.idPreferencia);
+        obj.setQtExerciciosDia(dto.qtExerciciosDia);
+        obj.setTiposExerciciosContidos(dto.tiposExerciciosContidos);
         return obj;
     }
 }

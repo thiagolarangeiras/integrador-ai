@@ -13,6 +13,6 @@ public class PlanoEstudoController {
     @GetMapping("generate-new-plan")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> generateNewPlan() {
-        return ResponseEntity.ok(service.genereteNewPlan());
+        return ResponseEntity.ok(service.generateNewPlan());
     }
 }

@@ -8,6 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+//{
+//    "tipo": "GRAMATICA_ORDEM",
+//    "dados": {
+//        "frase_completa": "Social media platforms influence how people communicate.",
+//        "ordem_correta": ["Social", "media", "platforms", "influence", "how", "people", "communicate."],
+//        "ordem_aleatoria": ["communicate.", "media", "Social", "influence", "platforms", "how", "people"]
+//    }
+//},
+
 @Entity
 @Table(name = "exercicio_gramatica_ordem")
 @Data

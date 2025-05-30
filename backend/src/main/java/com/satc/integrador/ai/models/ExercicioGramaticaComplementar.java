@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 //{
-//    "tipo": "completar uma frase", enum = 0
+//    "tipo": "GRAMATICA_COMPLEMENTAR",
 //    "dados": {
 //        "frase_completa": "Social media platforms influence how people communicate.",
 //        "frase_incompleta": "Social media platforms ... how people communicate.",
