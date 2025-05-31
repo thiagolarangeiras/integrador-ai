@@ -9,10 +9,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanoEstudoGetDto {
-    Integer id;
-    Integer idUsuario;
-    Integer idPreferencia; //preferencias que moldaram esse plano
-
-    Integer qtExerciciosDia;
-    List<TipoExercicios> tiposExerciciosContidos;
+    public Integer id;
+    public Integer idUsuario;
+    public Integer idPreferencia;
+    public Integer qtExerciciosDia;
+    public List<TipoExercicios> tiposExerciciosContidos;
+    public ExercicioGramaticaComplementarGetDto exercicioGramaticaComplementarGetDto;
+    public ExercicioGramaticaOrdemGetDto exercicioGramaticaOrdemGetDto;
+    public ExercicioVocabualrioParesGetDto exercicioVocabualrioParesGetDto;
 }

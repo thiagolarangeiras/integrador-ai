@@ -23,32 +23,29 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-class ExerciciosGpt {
-    public TipoExercicios tipo;
-    public Object dados;
-}
-
-class ExercicioDtoGramaticaCompl {
-    public String fraseCompleta;
-    public String fraseIncompleta;
-    public String opcaoCorreta;
-    public List<String> opcaoIncorreta;
-}
-
-class ExercicioDtoGramaticaOrdem {
-    public String fraseCompleta;
-    public List<String> ordemCorreta;
-    public List<String> ordemAleatoria;
-}
-
-class ExercicioDtoVocPares {
-    public List<String> paresEsquerda;
-    public List<String> paresDireita;
-}
-
 @Service
 public class PlanoEstudoService {
+    @Data
+    class ExerciciosGpt {
+        public TipoExercicios tipo;
+        public Object dados;
+    }
+
+    class ExercicioDtoGramaticaCompl {
+        public String fraseCompleta;
+        public String fraseIncompleta;
+        public String opcaoCorreta;
+        public List<String> opcaoIncorreta;
+    }
+    class ExercicioDtoGramaticaOrdem {
+        public String fraseCompleta;
+        public List<String> ordemCorreta;
+        public List<String> ordemAleatoria;
+    }
+    class ExercicioDtoVocPares {
+        public List<String> paresEsquerda;
+        public List<String> paresDireita;
+    }
     @Autowired private UsuarioService usuarioService;
     @Autowired private PreferenciaService preferenciaService;
     @Autowired private PlanoEstudoRepo repo;
@@ -117,4 +114,16 @@ public class PlanoEstudoService {
         }
         return PlanoEstudo.mapToDto(planoEstudo);
     }
+
+    public PlanoEstudoGetDto get() {
+        Integer userId = usuarioService.getCurrentUserid();
+        PlanoEstudo planoEstudo = repo.findByIdUsuarioActive(userId);
+        PlanoEstudoGetDto dto = PlanoEstudo.mapToDto(planoEstudo);
+        dto.exercicioGramaticaComplementarGetDto = exerGramaComplRepo.findById(dto.);
+                dto.exercicioGramaticaOrdemGetDto = ;
+        dto.exercicioVocabualrioParesGetDto = ;
+
+
+    }
+
 }

@@ -29,6 +29,7 @@ public class PlanoEstudo {
 
     private Integer qtExerciciosDia;
     private List<TipoExercicios> tiposExerciciosContidos;
+    private Boolean ativo;
 
     public PlanoEstudo(Integer idUsuario, Integer idPreferencia, Integer qtExercicios, List<TipoExercicios> tiposExerciciosContidos){
         this.idUsuario = idUsuario;
@@ -39,13 +40,13 @@ public class PlanoEstudo {
 
     //Mappers
     public static PlanoEstudoGetDto mapToDto(PlanoEstudo obj) {
-        return new PlanoEstudoGetDto(
-                obj.getId(),
-                obj.getIdUsuario(),
-                obj.getIdPreferencia(),
-                obj.getQtExerciciosDia(),
-                obj.getTiposExerciciosContidos()
-        );
+        PlanoEstudoGetDto dto = new PlanoEstudoGetDto();
+        dto.id = obj.getId();
+        dto.idUsuario = obj.getIdUsuario();
+        dto.idPreferencia = obj.getIdPreferencia();
+        dto.qtExerciciosDia = obj.getQtExerciciosDia();
+        dto.tiposExerciciosContidos = obj.getTiposExerciciosContidos();
+        return dto;
     }
 
     public static PlanoEstudo mapToObj(PlanoEstudoPostDto dto) {

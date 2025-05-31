@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.studyPlan;
 
+import com.satc.integrador.ai.studyPlan.dto.PlanoEstudoGetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,15 @@ import org.springframework.web.bind.annotation.*;
 public class PlanoEstudoController {
     @Autowired private PlanoEstudoService service;
 
-    @GetMapping("generate-new-plan")
+    @PostMapping("generate-new-plan")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> generateNewPlan() {
+    public ResponseEntity<PlanoEstudoGetDto> generateNewPlan() {
         return ResponseEntity.ok(service.generateNewPlan());
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PlanoEstudoGetDto> get() {
+        return ResponseEntity.ok(service.get());
     }
 }
