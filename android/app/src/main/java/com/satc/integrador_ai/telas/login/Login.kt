@@ -29,7 +29,7 @@ import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE LOGIN
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     val navController = rememberNavController()
@@ -38,7 +38,7 @@ fun LoginScreenPreview() {
 
 @Composable
 fun LoginScreen(navController: NavHostController, preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()) {
-    val purple = Color(0xFF7B61FF)
+    val purple = Color(0xFF7061FD)
     val roundedShape = RoundedCornerShape(12.dp)
 
     var email by remember { mutableStateOf("") }
@@ -63,7 +63,7 @@ fun LoginScreen(navController: NavHostController, preferencesUserViewModel: Pref
         Spacer(modifier = Modifier.height(4.dp))
 
         Text(
-            text = "Digite seus dados para continuar",
+            text = "Informe seus dados para continuar",
             fontSize = 16.sp,
             color = Color.Gray
         )
@@ -73,7 +73,7 @@ fun LoginScreen(navController: NavHostController, preferencesUserViewModel: Pref
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Digite seu usuário") },
+            label = { Text("Informe seu usuário") },
             placeholder = { Text("usuario123") },
             singleLine = true,
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
@@ -86,7 +86,7 @@ fun LoginScreen(navController: NavHostController, preferencesUserViewModel: Pref
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Digite sua senha") },
+            label = { Text("Informe sua senha") },
             placeholder = { Text("********") },
             singleLine = true,
             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
@@ -138,7 +138,7 @@ fun LoginScreen(navController: NavHostController, preferencesUserViewModel: Pref
                 login(user, changeScreen = { navController.navigate("home") }, preferencesUserViewModel);
             },
             colors = with(ButtonDefaults) { buttonColors(purple) },
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(40.dp)
@@ -154,11 +154,11 @@ fun LoginScreen(navController: NavHostController, preferencesUserViewModel: Pref
                 containerColor = Color.White,
                 contentColor = Color.Black
             ),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(8.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text("Voltar", fontSize = 16.sp, color = Color.Black)
         }
