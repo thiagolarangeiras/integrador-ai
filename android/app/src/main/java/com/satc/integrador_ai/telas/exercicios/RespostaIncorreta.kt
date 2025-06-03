@@ -68,7 +68,7 @@ fun RespostaIncorretaScreen(onProximoClick: () -> Unit) {
 
                 Text("Resposta Incorreta.", fontSize = 24.sp, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.height(40.dp))
-                Text("Resposta Correta:", fontSize = 16.sp, color = Color.Gray)
+                Text("Resposta Correta:", fontSize = 18.sp, color = Color.Gray)
 
                 Spacer(modifier = Modifier.height(12.dp))
 

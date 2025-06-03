@@ -26,138 +26,23 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.R
 import com.satc.integrador_ai.storage.FormularioViewModel
+import com.satc.integrador_ai.telas.exercicios.AppTopBar
+import kotlin.toString
 
-//TELA PARA SELEÇÃO DE EXERCÍCIOS
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun ExerciseSelectionScreen() {
-    val navController = rememberNavController()
-//    ExerciseSelectionScreen(navController = navController)
+fun ExerciseSelectionScreenPreview() {
+    //ExerciseSelectionScreen( onBack = { }, onExit = { }, onNext = { });
 }
 
-//@Composable
-//fun ExerciseSelectionScreen(navController: NavHostController) {
-//    val exercicios = listOf(
-//        Triple("Leitura", R.drawable.ic_reading, false),
-//        Triple("Escrita", R.drawable.ic_writing, false),
-//        Triple("Vocabulário", R.drawable.ic_vocabulary, false),
-//        Triple("Gramática", R.drawable.ic_grammar, false),
-//        Triple("Conversação", R.drawable.ic_conversation, false),
-//        Triple("Quizzes", R.drawable.ic_quiz, false)
-//    )
-//
-//    val selected = remember { mutableStateListOf<String>() }
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.White)
-//            .padding(24.dp),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//        Spacer(modifier = Modifier.height(12.dp))
-//
-//        Text(
-//            text = "Comece seu\nPlano de Estudo",
-//            fontSize = 20.sp,
-//            fontWeight = FontWeight.Bold,
-//            textAlign = TextAlign.Center
-//        )
-//
-//        Spacer(modifier = Modifier.height(45.dp))
-//
-//        Text(
-//            text = "Quais tipos de exercícios deseja praticar?",
-//            fontSize = 28.sp,
-//            fontWeight = FontWeight.Bold,
-//            textAlign = TextAlign.Center,
-//            modifier = Modifier.padding(bottom = 24.dp)
-//        )
-//
-//        Spacer(modifier = Modifier.height(30.dp))
-//
-//        LazyVerticalGrid(
-//            columns = GridCells.Fixed(2),
-//            verticalArrangement = Arrangement.spacedBy(20.dp),
-//            horizontalArrangement = Arrangement.spacedBy(20.dp),
-//            modifier = Modifier.weight(1f)
-//        ) {
-//            items(exercicios) { (titulo, icone, _) ->
-//                ExerciseOption(
-//                    title = titulo,
-//                    iconRes = icone,
-//                    isSelected = selected.contains(titulo),
-//                    onClick = {
-//                        if (selected.contains(titulo)) {
-//                            selected.remove(titulo)
-//                        } else {
-//                            selected.add(titulo)
-//                        }
-//                    }
-//                )
-//            }
-//        }
-//
-//        Button(
-//            onClick = {navController.navigate("temaassunto")
-//                println("Exercícios selecionados: $selected")
-//            },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(60.dp)
-//                .padding(top = 24.dp),
-//            shape = RoundedCornerShape(16.dp),
-//            colors = ButtonDefaults.buttonColors(
-//                containerColor = Color(0xFF5F38FF),
-//                contentColor = Color.White
-//            )
-//        ) {
-//            Text(text = "Avançar")
-//        }
-//    }
-//}
-//
-//@Composable
-//fun ExerciseOption(
-//    title: String,
-//    iconRes: Int,
-//    isSelected: Boolean,
-//    onClick: () -> Unit
-//) {
-//    Card(
-//        border = BorderStroke(2.dp, if (isSelected) Color(0xFF5F38FF) else Color.LightGray),
-//        shape = RoundedCornerShape(16.dp),
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .aspectRatio(1.2f)
-//            .clickable { onClick() },
-//        elevation = CardDefaults.cardElevation(4.dp)
-//    ) {
-//        Column(
-//            modifier = Modifier.padding(16.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Image(
-//                painter = painterResource(id = iconRes),
-//                contentDescription = title,
-//                modifier = Modifier.size(48.dp),
-//                contentScale = ContentScale.Fit
-//            )
-//            Spacer(modifier = Modifier.height(12.dp))
-//            Text(
-//                text = title,
-//                fontSize = 16.sp,
-//                fontWeight = FontWeight.Medium,
-//                textAlign = TextAlign.Center
-//            )
-//        }
-//    }
-//}
-
 @Composable
-fun ExerciseSelectionScreen(onNext: () -> Unit, formularioViewModel: FormularioViewModel) {
+fun ExerciseSelectionScreen(
+    onBack: () -> Unit,
+    onNext: () -> Unit,
+    onExit: () -> Unit,
+    formularioViewModel: FormularioViewModel
+    ) {
+
     val exercicios = listOf(
         Triple("Leitura", R.drawable.ic_reading, false),
         Triple("Escrita", R.drawable.ic_writing, false),
@@ -169,75 +54,76 @@ fun ExerciseSelectionScreen(onNext: () -> Unit, formularioViewModel: FormularioV
 
     val selected = remember { mutableStateListOf<String>() }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "Comece seu\nPlano de Estudo",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(45.dp))
-
-        Text(
-            text = "Quais tipos de exercícios\ndeseja praticar?",
-            fontSize = 30.sp,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(50.dp))
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            modifier = Modifier.weight(1f)
-        ) {
-            items(exercicios) { (titulo, icone, _) ->
-                ExerciseOption(
-                    title = titulo,
-                    iconRes = icone,
-                    isSelected = selected.contains(titulo),
+    Scaffold(
+        topBar = {
+            AppTopBar(onExitClick = onExit,onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false )
+        },
+        bottomBar = {
+            BottomAppBar(
+                containerColor = Color.White
+            ) {
+                Button(
                     onClick = {
-                        if (selected.contains(titulo)) {
-                            selected.remove(titulo)
-                        } else {
-                            selected.add(titulo)
-                        }
-                    }
+                        formularioViewModel.setTiposExercicios(selected)
+                        onNext()
+                    },
+                    enabled = selected.isNotEmpty(),
+                    colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 48.dp, end = 48.dp, bottom = 24.dp)
+                        .height(48.dp)
+                        .imePadding(),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Avançar", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                }
+            }
+        },
+        content = { paddingValues ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(paddingValues)
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(40.dp))
+
+                Text(
+                    text = "Quais tipos de exercícios deseja praticar?",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Center
                 )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    items(exercicios) { (titulo, icone, _) ->
+                        ExerciseOption(
+                            title = titulo,
+                            iconRes = icone,
+                            isSelected = selected.contains(titulo),
+                            onClick = {
+                                if (selected.contains(titulo)) {
+                                    selected.remove(titulo)
+                                } else {
+                                    selected.add(titulo)
+                                }
+                            }
+                        )
+                    }
+                }
             }
         }
-
-        Button(
-            onClick = {
-                formularioViewModel.setTiposExercicios(selected)
-                onNext()
-//                navController.navigate("subject")
-//                println("Exercícios selecionados: $selected")
-            },
-            enabled = selected.isNotEmpty(),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .padding(top = 24.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (selected.isNotEmpty()) Color(0xFF5F38FF) else Color.LightGray,
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = "Avançar", fontSize = 16.sp)
-        }
-    }
+    )
 }
 
 @Composable
@@ -248,13 +134,16 @@ fun ExerciseOption(
     onClick: () -> Unit
 ) {
     Card(
-        border = BorderStroke(2.dp, if (isSelected) Color(0xFF5F38FF) else Color.LightGray),
+        border = BorderStroke(2.dp, if (isSelected) Color(0xFF7061FD) else Color.LightGray),
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(1.2f)
+            .aspectRatio(1.4f)
             .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFF4F3F3)
+        )
     ) {
         Column(
             modifier = Modifier
@@ -266,13 +155,13 @@ fun ExerciseOption(
             Image(
                 painter = painterResource(id = iconRes),
                 contentDescription = title,
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(40.dp),
                 contentScale = ContentScale.Fit
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = title,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center
             )

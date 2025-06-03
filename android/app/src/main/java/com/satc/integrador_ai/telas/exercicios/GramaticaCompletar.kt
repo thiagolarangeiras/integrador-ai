@@ -59,7 +59,7 @@ fun GrammarExerciseScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n7 de 8")
+            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n5 de 8")
         },
         bottomBar = {
             BottomAppBar(
@@ -94,7 +94,7 @@ fun GrammarExerciseScreen(
                 // Title
                 Text(
                     text = "Gramática",
-                    fontSize = 32.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
@@ -104,7 +104,7 @@ fun GrammarExerciseScreen(
                 Text(
                     text = "He is interested ___ learning English .",
                     style = MaterialTheme.typography.titleMedium,
-                    fontSize = 24.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
@@ -114,7 +114,7 @@ fun GrammarExerciseScreen(
                 Text(
                     text = "Complete o espaço vazio:",
                     style = MaterialTheme.typography.bodyMedium,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
 

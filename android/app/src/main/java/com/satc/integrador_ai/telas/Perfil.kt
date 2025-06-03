@@ -21,9 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.satc.integrador_ai.R
 
-// TELA PERFIL
-
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun PerfilScreenPreview() {
     PerfilScreen()
@@ -42,9 +40,9 @@ fun PerfilScreen() {
             text = "Perfil",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF7C4DFF)
+            color = Color(0xFF7061FD)
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Image(
             painter = painterResource(id = R.drawable.foto_perfil1),
@@ -58,7 +56,7 @@ fun PerfilScreen() {
             text = "Ana Souza",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF7C4DFF)
+            color = Color(0xFF7061FD)
         )
         Text(
             text = "Criciúma",
@@ -69,8 +67,8 @@ fun PerfilScreen() {
 
         Spacer(modifier = Modifier.height(64.dp))
         Text(
-            text = "ESTATÍSTICAS GERAIS",
-            fontWeight = FontWeight.Bold,
+            text = "Estatísticas Gerais",
+            fontWeight = FontWeight.SemiBold,
             fontSize = 18.sp,
             modifier = Modifier.align(Alignment.Start).padding(start = 16.dp, end = 16.dp),
             color = Color.Black
@@ -83,7 +81,7 @@ fun PerfilScreen() {
         EstatisticaItem(icon = Icons.Default.Star, label = "Total de Pontos", value = "1170")
 
         Spacer(modifier = Modifier.weight(1f))
-        //BottomNavigationBar()
+        BottomNavigationBar(3)
     }
 }
 
@@ -107,7 +105,7 @@ fun EstatisticaItem(icon: ImageVector, label: String, value: String) {
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = label,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.weight(1f)
         )

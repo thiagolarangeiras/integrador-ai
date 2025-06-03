@@ -65,7 +65,7 @@ fun ReadingExerciseScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n7 de 8")
+            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n8 de 8")
         },
         bottomBar = {
             BottomAppBar(
@@ -99,7 +99,7 @@ fun ReadingExerciseScreen(
 
                 Text(
                     text = "Leitura",
-                    fontSize = 32.sp,
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )

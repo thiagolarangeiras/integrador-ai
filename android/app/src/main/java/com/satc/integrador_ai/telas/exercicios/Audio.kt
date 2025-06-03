@@ -1,9 +1,11 @@
-package com.satc.integrador_ai.telas.exercicios
+ package com.satc.integrador_ai.telas.exercicios
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,11 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
@@ -88,8 +87,8 @@ fun AudioExerciseScreen() {
 
                 Text(
                     text = "Compreensão\n Auditiva",
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center
                 )
 
@@ -133,7 +132,7 @@ fun AudioExerciseScreen() {
                 Text(
                     "Escreva o que escutar:",
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp,
+                    fontSize = 18.sp,
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -162,11 +161,13 @@ fun AudioExerciseScreen() {
 fun AppTopBar(
     onExitClick: () -> Unit,
     onBackClick: () -> Unit,
-    title: String
+    title: String,
+    showBackIcon: Boolean = true,
+    showExitButton: Boolean = true
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Box(
+                Box(
                 modifier = Modifier.fillMaxHeight(),
                 contentAlignment = Alignment.Center
             ) {
@@ -179,27 +180,37 @@ fun AppTopBar(
                 )
             }
         },
-        navigationIcon = {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Voltar",
-                    tint = Color.Black
-                )
+        navigationIcon = if (showBackIcon) {
+            {
+                IconButton(
+                    onClick = onBackClick,
+
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Voltar",
+                        tint = Color.Black,
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
             }
+        } else {
+            {}
         },
         actions = {
-            Box(
-                modifier = Modifier.fillMaxHeight(),
-                contentAlignment = Alignment.Center
-            ) {
-                TextButton(onClick = onExitClick) {
-                    Text(
-                        text = "Sair",
-                        color = Color(0xFF7061FD),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
+            if (showExitButton) {
+                Box(
+                    modifier = Modifier.fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    TextButton(onClick = onExitClick) {
+                        Text(
+                            text = "Sair",
+                            color = Color(0xFF7061FD),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                 }
             }
         },

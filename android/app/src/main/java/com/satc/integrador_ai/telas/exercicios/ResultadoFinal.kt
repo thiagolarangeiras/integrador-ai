@@ -56,11 +56,11 @@ fun ResultadoFinalScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Congrats !", fontSize = 56.sp, fontWeight = FontWeight.Bold, color = Color(0xFF7061FD))
+            Text("Parabéns!", fontSize = 56.sp, fontWeight = FontWeight.Bold, color = Color(0xFF7061FD))
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            Text("Your Score:", fontSize = 20.sp)
+            Text("Sua Pontuação:", fontSize = 20.sp)
 
             Text(
                 "$score/$total",
@@ -71,7 +71,7 @@ fun ResultadoFinalScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("+$pontos points", fontSize = 24.sp, color = Color(0xFF7061FD), fontWeight = FontWeight.Medium)
+            Text("+$pontos pontos", fontSize = 24.sp, color = Color(0xFF7061FD), fontWeight = FontWeight.Medium)
         }
     }
 }

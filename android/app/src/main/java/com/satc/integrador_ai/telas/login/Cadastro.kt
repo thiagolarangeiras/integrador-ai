@@ -36,16 +36,19 @@ import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE CADASTRO
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun SignUpScreen() {
+fun SignUpScreenPreview() {
     val navController = rememberNavController()
-    SignUpScreen(navController = navController)
+    SignUpScreen(navController)
 }
 
 @Composable
-fun SignUpScreen(navController: NavHostController, preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()) {
-    val purple = Color(0xFF7B61FF)
+fun SignUpScreen(
+    navController: NavHostController,
+    preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel()
+) {
+    val purple = Color(0xFF7061FD)
     val roundedShape = RoundedCornerShape(12.dp)
 
     var fullName by remember { mutableStateOf("") }
@@ -57,7 +60,7 @@ fun SignUpScreen(navController: NavHostController, preferencesUserViewModel: Pre
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 32.dp),
+            .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -68,15 +71,7 @@ fun SignUpScreen(navController: NavHostController, preferencesUserViewModel: Pre
             color = Color.Black
         )
 
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = "Criar uma conta",
-            fontSize = 16.sp,
-            color = Color.Gray
-        )
-
-        Spacer(modifier = Modifier.height(45.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
         OutlinedTextField(
             value = fullName,
@@ -158,27 +153,25 @@ fun SignUpScreen(navController: NavHostController, preferencesUserViewModel: Pre
                 createUser(user, changeScreen = { navController.navigate(Screen.Language.route) }, preferencesUserViewModel);
             },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
+            shape = RoundedCornerShape(8.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Cadastrar", fontSize = 16.sp, color = Color.White)
+            Text(text = "Cadastrar", color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedButton(
-            onClick = { navController.popBackStack() },
+            onClick = {  },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = Color.White,
                 contentColor = Color.Black
             ),
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(8.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(40.dp)
         ) {
             Text("Voltar", fontSize = 16.sp, color = Color.Black)
         }
