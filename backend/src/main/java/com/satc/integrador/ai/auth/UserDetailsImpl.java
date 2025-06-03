@@ -1,6 +1,6 @@
 package com.satc.integrador.ai.auth;
 
-import com.satc.integrador.ai.models.Usuario;
+import com.satc.integrador.ai.user.Usuario;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

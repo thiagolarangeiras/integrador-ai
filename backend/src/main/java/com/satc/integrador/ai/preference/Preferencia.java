@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.models;
+package com.satc.integrador.ai.preference;
 
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.preference.dto.PreferenciaPostDto;

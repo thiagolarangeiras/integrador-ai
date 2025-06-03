@@ -1,7 +1,7 @@
 package com.satc.integrador.ai.auth;
 
-import com.satc.integrador.ai.models.Usuario;
-import com.satc.integrador.ai.repository.UsuarioRepo;
+import com.satc.integrador.ai.user.Usuario;
+import com.satc.integrador.ai.user.UsuarioRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping
 public class AuthController {
-
     @Autowired
     private UsuarioService userService;
 
