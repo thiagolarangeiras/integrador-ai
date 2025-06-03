@@ -2,7 +2,6 @@ package com.satc.integrador.ai.auth;
 
 import com.satc.integrador.ai.auth.dto.LoginUserDto;
 import com.satc.integrador.ai.auth.dto.RecoveryJwtTokenDto;
-import com.satc.integrador.ai.studyplan.OpenAiExample;
 import com.satc.integrador.ai.user.dto.CreatedLoggedUserDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;
 import com.satc.integrador.ai.user.UsuarioService;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping
 public class AuthController {
-    @Autowired private OpenAiExample gpt;
-
     @Autowired
     private UsuarioService userService;
 
@@ -36,7 +33,6 @@ public class AuthController {
     @GetMapping("test")
     @ResponseStatus(HttpStatus.OK)
     public String test() {
-        OpenAiExample.chat();
         return "Servidor OK";
     }
 

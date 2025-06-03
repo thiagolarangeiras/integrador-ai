@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.exercicios;
 
+import com.satc.integrador.ai.exercicios.dto.ExercicioVocabualrioParesGetDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,6 +32,7 @@ public class ExercicioVocabualrioPares {
 
     private List<String> paresEsquerda;
     private List<String> paresDireita;
+    private Boolean finalizado;
 
     public static ExercicioVocabualrioParesGetDto mapToDto(ExercicioVocabualrioPares obj) {
         return new ExercicioVocabualrioParesGetDto(

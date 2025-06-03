@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.Auth;
+package com.satc.integrador.ai.auth;
 
 import com.satc.integrador.ai.user.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,16 @@
 package com.satc.integrador.ai.studyplan.dto;
 
 import com.satc.integrador.ai.enums.TipoExercicios;
-import com.satc.integrador.ai.exercicios.ExercicioGramaticaComplementarGetDto;
-import com.satc.integrador.ai.exercicios.ExercicioGramaticaOrdemGetDto;
-import com.satc.integrador.ai.exercicios.ExercicioVocabualrioParesGetDto;
+import com.satc.integrador.ai.exercicios.dto.ExercicioGramaticaComplementarGetDto;
+import com.satc.integrador.ai.exercicios.dto.ExercicioGramaticaOrdemGetDto;
+import com.satc.integrador.ai.exercicios.dto.ExercicioVocabualrioParesGetDto;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlanoEstudoGetDto {

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface PlanoEstudoRepo extends JpaRepository<PlanoEstudo, Integer> {
+    @Query(value = "select * from plano_estudo where id_usuario = ?1", nativeQuery = true)
     Page<PlanoEstudo> findByIdUsuario(Integer idUsuario, Pageable pageable);
 
     @Query(value = "select * from plano_estudo where id_usuario = ?1 and ativo = true LIMIT 1", nativeQuery = true)

@@ -6,7 +6,7 @@ import com.satc.integrador.ai.enums.Plano;
 import com.satc.integrador.ai.user.dto.CreatedLoggedUserDto;
 import com.satc.integrador.ai.user.dto.UsuarioGetDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;
-import com.satc.integrador.ai.Auth.SecurityUtil;
+import com.satc.integrador.ai.auth.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

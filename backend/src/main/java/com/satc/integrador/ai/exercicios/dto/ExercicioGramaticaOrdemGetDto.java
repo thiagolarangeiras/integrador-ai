@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.exercicios;
+package com.satc.integrador.ai.exercicios.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExercicioVocabualrioParesGetDto {
+public class ExercicioGramaticaOrdemGetDto {
     private Integer id;
     private Integer idOrdemExercicio;
     private Integer idPlanoEstudo;
 
-    private List<String> paresEsquerda;
-    private List<String> paresDireita;
+    private String fraseCompleta;
+    private List<String> ordemCorreta;
+    private List<String> ordemAleatoria;
 }

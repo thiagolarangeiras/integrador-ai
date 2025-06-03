@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlanoEstudo {
+public class PlanoEstudo { // Alterar o nome para plano_diario
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,6 +29,7 @@ public class PlanoEstudo {
     private List<TipoExercicios> tiposExerciciosContidos;
     private LocalDate data;
     private Boolean ativo;
+    private Boolean finalizado;
 
     public PlanoEstudo(Integer idUsuario, Integer idPreferencia, Integer qtExercicios, List<TipoExercicios> tiposExerciciosContidos){
         this.idUsuario = idUsuario;

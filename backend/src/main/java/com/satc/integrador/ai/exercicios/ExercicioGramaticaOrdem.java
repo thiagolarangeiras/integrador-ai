@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.exercicios;
 
+import com.satc.integrador.ai.exercicios.dto.ExercicioGramaticaOrdemGetDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,7 @@ public class ExercicioGramaticaOrdem {
     private String fraseCompleta;
     private List<String> ordemCorreta;
     private List<String> ordemAleatoria;
+    private Boolean finalizado;
 
     public static ExercicioGramaticaOrdemGetDto mapToDto(ExercicioGramaticaOrdem obj) {
         return new ExercicioGramaticaOrdemGetDto(

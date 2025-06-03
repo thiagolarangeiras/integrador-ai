@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.exercicios;
+package com.satc.integrador.ai.exercicios.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

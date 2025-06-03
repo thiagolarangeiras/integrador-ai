@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.exercicios;
 
+import com.satc.integrador.ai.exercicios.dto.ExercicioGramaticaComplementarGetDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class ExercicioGramaticaComplementar {
     private String fraseIncompleta;
     private String opcaoCorreta;
     private List<String> opcaoIncorreta;
+    private Boolean finalizado;
 
     public static ExercicioGramaticaComplementarGetDto mapToDto(ExercicioGramaticaComplementar obj) {
         return new ExercicioGramaticaComplementarGetDto(
