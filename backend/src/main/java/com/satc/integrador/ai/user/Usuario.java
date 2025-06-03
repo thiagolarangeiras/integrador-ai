@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.models;
+package com.satc.integrador.ai.user;
 
 import com.satc.integrador.ai.user.dto.UsuarioGetDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;

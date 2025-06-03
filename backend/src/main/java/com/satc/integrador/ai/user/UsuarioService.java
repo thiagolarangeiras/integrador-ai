@@ -3,8 +3,6 @@ package com.satc.integrador.ai.user;
 import com.satc.integrador.ai.auth.AuthService;
 import com.satc.integrador.ai.auth.dto.RecoveryJwtTokenDto;
 import com.satc.integrador.ai.enums.Plano;
-import com.satc.integrador.ai.models.Usuario;
-import com.satc.integrador.ai.repository.UsuarioRepo;
 import com.satc.integrador.ai.user.dto.CreatedLoggedUserDto;
 import com.satc.integrador.ai.user.dto.UsuarioGetDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;

@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.studyPlan;
+package com.satc.integrador.ai.studyplan;
 
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;

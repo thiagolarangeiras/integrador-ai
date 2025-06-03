@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.models;
+package com.satc.integrador.ai.exercicios;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,4 +31,14 @@ public class ExercicioVocabualrioPares {
 
     private List<String> paresEsquerda;
     private List<String> paresDireita;
+
+    public static ExercicioVocabualrioParesGetDto mapToDto(ExercicioVocabualrioPares obj) {
+        return new ExercicioVocabualrioParesGetDto(
+                obj.getId(),
+                obj.getIdOrdemExercicio(),
+                obj.getIdPlanoEstudo(),
+                obj.getParesEsquerda(),
+                obj.getParesDireita()
+        );
+    }
 }

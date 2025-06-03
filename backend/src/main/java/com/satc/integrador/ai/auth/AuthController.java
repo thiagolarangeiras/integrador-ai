@@ -2,7 +2,7 @@ package com.satc.integrador.ai.auth;
 
 import com.satc.integrador.ai.auth.dto.LoginUserDto;
 import com.satc.integrador.ai.auth.dto.RecoveryJwtTokenDto;
-import com.satc.integrador.ai.studyPlan.OpenAiExample;
+import com.satc.integrador.ai.studyplan.OpenAiExample;
 import com.satc.integrador.ai.user.dto.CreatedLoggedUserDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;
 import com.satc.integrador.ai.user.UsuarioService;

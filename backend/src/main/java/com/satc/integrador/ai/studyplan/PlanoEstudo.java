@@ -1,17 +1,15 @@
-package com.satc.integrador.ai.models;
+package com.satc.integrador.ai.studyplan;
 
 import com.satc.integrador.ai.enums.TipoExercicios;
-import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
-import com.satc.integrador.ai.preference.dto.PreferenciaPostDto;
-import com.satc.integrador.ai.studyPlan.dto.PlanoEstudoGetDto;
-import com.satc.integrador.ai.studyPlan.dto.PlanoEstudoPostDto;
+import com.satc.integrador.ai.studyplan.dto.PlanoEstudoGetDto;
+import com.satc.integrador.ai.studyplan.dto.PlanoEstudoPostDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -29,6 +27,7 @@ public class PlanoEstudo {
 
     private Integer qtExerciciosDia;
     private List<TipoExercicios> tiposExerciciosContidos;
+    private LocalDate data;
     private Boolean ativo;
 
     public PlanoEstudo(Integer idUsuario, Integer idPreferencia, Integer qtExercicios, List<TipoExercicios> tiposExerciciosContidos){
@@ -36,6 +35,7 @@ public class PlanoEstudo {
         this.idPreferencia = idPreferencia;
         this.qtExerciciosDia = qtExerciciosDia;
         this.tiposExerciciosContidos = tiposExerciciosContidos;
+        this.data = LocalDate.now();
     }
 
     //Mappers

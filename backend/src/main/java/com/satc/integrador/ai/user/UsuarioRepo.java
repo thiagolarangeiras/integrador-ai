@@ -1,6 +1,5 @@
-package com.satc.integrador.ai.repository;
+package com.satc.integrador.ai.user;
 
-import com.satc.integrador.ai.models.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

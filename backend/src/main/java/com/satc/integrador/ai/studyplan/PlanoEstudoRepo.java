@@ -1,6 +1,5 @@
-package com.satc.integrador.ai.repository;
+package com.satc.integrador.ai.studyplan;
 
-import com.satc.integrador.ai.models.PlanoEstudo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +12,5 @@ public interface PlanoEstudoRepo extends JpaRepository<PlanoEstudo, Integer> {
     PlanoEstudo findByIdUsuarioActive(Integer idUsuario);
 
     @Query(value = "select * from plano_estudo where id = ?1 and id_usuario = ?2 LIMIT 1", nativeQuery = true)
-    PlanoEstudo findByIdFromUser(Integer id, Integer idUsuario);
+    PlanoEstudo findByIdUsuario(Integer id, Integer idUsuario);
 }

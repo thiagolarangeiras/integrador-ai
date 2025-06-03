@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.studyPlan;
+package com.satc.integrador.ai.studyplan;
 
 import com.satc.integrador.ai.enums.TipoExercicios;
 import lombok.AllArgsConstructor;

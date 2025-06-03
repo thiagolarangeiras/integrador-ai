@@ -1,4 +1,4 @@
-package com.satc.integrador.ai.models;
+package com.satc.integrador.ai.exercicios;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,4 +35,16 @@ public class ExercicioGramaticaComplementar {
     private String fraseIncompleta;
     private String opcaoCorreta;
     private List<String> opcaoIncorreta;
+
+    public static ExercicioGramaticaComplementarGetDto mapToDto(ExercicioGramaticaComplementar obj) {
+        return new ExercicioGramaticaComplementarGetDto(
+                obj.getId(),
+                obj.getIdOrdemExercicio(),
+                obj.getIdPlanoEstudo(),
+                obj.getFraseCompleta(),
+                obj.getFraseIncompleta(),
+                obj.getOpcaoCorreta(),
+                obj.getOpcaoIncorreta()
+        );
+    }
 }

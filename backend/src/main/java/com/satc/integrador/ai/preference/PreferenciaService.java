@@ -1,9 +1,7 @@
 package com.satc.integrador.ai.preference;
 
-import com.satc.integrador.ai.models.Preferencia;
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.preference.dto.PreferenciaPostDto;
-import com.satc.integrador.ai.repository.PreferenciaRepo;
 import com.satc.integrador.ai.user.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
