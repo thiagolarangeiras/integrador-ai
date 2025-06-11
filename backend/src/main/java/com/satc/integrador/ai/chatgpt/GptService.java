@@ -1,78 +1,66 @@
 package com.satc.integrador.ai.chatgpt;
 
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.ChatModel;
 import com.openai.models.chat.completions.ChatCompletion;
 import com.openai.models.chat.completions.ChatCompletionCreateParams;
-import com.satc.integrador.ai.enums.TipoExercicios;
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.studyplan.ExerciciosCall;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.openai.client.OpenAIClient;
-import com.openai.client.okhttp.OpenAIOkHttpClient;
-import com.openai.models.ChatModel;
-import com.openai.models.responses.Response;
-import com.openai.models.responses.ResponseCreateParams;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GptService {
-    @Value("${openai.api.key}")
-    private String apikey;
 
-    private String sendInputChat() {
-        OpenAIClient client = OpenAIOkHttpClient.builder()
-                .apiKey("")
-                .build();
-        ResponseCreateParams params = ResponseCreateParams.builder()
-                .input("Say this is a test")
-                .model(ChatModel.GPT_3_5_TURBO)
-                .build();
-        Response response = client.responses().create(params);
-        return response.toString();
-    }
+    private final OpenAIClient client;
 
-    private ChatCompletion sendInputExercicios(String script){
-        OpenAIClient client = OpenAIOkHttpClient.builder()
-                .apiKey(apikey)
+    public GptService(@Value("${openai.api.key}") String apiKey) {
+        this.client = OpenAIOkHttpClient.builder()
+                .apiKey(apiKey)
                 .build();
-        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
-                .addDeveloperMessage("Voce é um auxiliador de plano de estudos e professor de linguagens, que deve gerar respostas json para atividades")
-                .addUserMessage(script)
-                .model(ChatModel.GPT_3_5_TURBO)
-                .build();
-        ChatCompletion chatCompletion = client.chat().completions().create(params);
-        return chatCompletion;
     }
 
     public String gerarExercicios(PreferenciaGetDto preferencia, List<ExerciciosCall> exercicios) {
-        String scriptFinal = String.format(
-                GptDados.cabecario,
-                preferencia.idioma(),
-                preferencia.tipoExercicio(),
-                preferencia.temas(),
-                preferencia.dificuldade(),
-                preferencia.nivel()
-        );
+        String promptFinal = montarPromptCompleto(preferencia, exercicios);
 
-        for(ExerciciosCall exer : exercicios){
-            switch (exer.tipo){
-                case TipoExercicios.GRAMATICA_COMPLEMENTAR:
-                    scriptFinal += String.format(GptDados.gramaticaComplementarContexto, exer.qtExercicio);
-                    scriptFinal += GptDados.gramaticaComplementarJson;
-                break;
-                case TipoExercicios.GRAMATICA_ORDEM:
-                    scriptFinal += String.format(GptDados.gramaticaOrdemContexto, exer.qtExercicio);
-                    scriptFinal += GptDados.gramaticaOrdemJson;
-                break;
-                case TipoExercicios.VOCABULARIO_PARES:
-                    scriptFinal += String.format(GptDados.vocabularioParesContexto, exer.qtExercicio);
-                    scriptFinal += GptDados.vocabularioParesJson;
-                break;
-            }
-        }
-        scriptFinal += "GERAR ELES EM UM UNICO ARRAY";
-        ChatCompletion chat = sendInputExercicios(scriptFinal);
+        String systemMessage = "Voce é um auxiliador de plano de estudos e professor de linguagens, que deve gerar respostas estritamente no formato JSON, seguindo as regras fornecidas.";
+
+        ChatCompletion chat = enviarParaGpt(systemMessage, promptFinal);
+
         return chat.choices().get(0).message().content().get();
+    }
+
+    private String montarPromptCompleto(PreferenciaGetDto preferencia, List<ExerciciosCall> exercicios) {
+        String temasFormatados = String.join(", ", preferencia.temas());
+
+        String descricaoExercicios = exercicios.stream()
+                .map(ex -> String.format("%d exercícios do tipo %s", ex.qtExercicio, ex.tipo))
+                .collect(Collectors.joining(" e "));
+
+        int totalExercicios = exercicios.stream().mapToInt(ex -> ex.qtExercicio).sum();
+
+        String promptBase = GptDados.inputPrincipal
+                .replace("__BLOCO_DE_INSTRUCAO__", GptDados.inputTodosExercicios);
+
+        return promptBase
+                .replace("[NUMERO_DE_EXERCICIOS]", String.valueOf(totalExercicios))
+                .replace("[IDIOMA]", preferencia.idioma())
+                .replace("[TEMA]",
+                        String.format("Foque nos seguintes temas: %s. Gere esta quantidade de exercícios: %s.",
+                                temasFormatados, descricaoExercicios));
+    }
+
+    private ChatCompletion enviarParaGpt(String systemMessage, String userMessage) {
+        ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                .addDeveloperMessage(systemMessage)
+                .addUserMessage(userMessage)
+                .model(ChatModel.GPT_4O_MINI)
+                .build();
+
+        return client.chat().completions().create(params);
     }
 }

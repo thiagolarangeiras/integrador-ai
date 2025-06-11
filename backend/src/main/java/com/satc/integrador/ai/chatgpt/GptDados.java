@@ -1,55 +1,117 @@
 package com.satc.integrador.ai.chatgpt;
 
 public class GptDados {
-    static final String cabecario = "Gerar um plano de estudo com base nesse dados:\n" +
-            "\tidioma = %s;\n" +
-            "\ttipoExercicio = %s;\n" +
-            "\ttemas = %s;\n" +
-            "\tdificuldade que tem = %s;\n" +
-            "\tnivel = %s;\n";
 
-    static final String gramaticaComplementarContexto =
-            "Retornar %d exercios de:\n" +
-                    "Completar uma frase : Gerar uma frase na lingua selecionada e remover uma palavra dela e gerar similares para aquela palavra\n";
+  /**
+   * Base do prompt, comum a todas as requisições.
+   * Contém um placeholder __BLOCO_DE_INSTRUCAO__ que deve ser substituído
+   * por uma das constantes de instrução específicas.
+   */
+  static final String inputPrincipal = """
+      Você é um especialista em criar exercícios de idiomas. Sua única função é gerar uma resposta no formato JSON.
 
-    static final String gramaticaComplementarJson =
-            "exemplo de json de retorno:\n"+
-                    "{\n" +
-                    "    \"tipo\": \"GRAMATICA_COMPLEMENTAR\",\n" +
-                    "    \"dados\": {\n" +
-                    "        \"frase_completa\": \"Social media platforms influence how people communicate.\",\n" +
-                    "        \"frase_incompleta\": \"Social media platforms ... how people communicate.\",\n" +
-                    "        \"opcao_correta\": \"influence\",\n" +
-                    "        \"opcao_incorreta\": [\"create\", \"follow\", \"interrupt\"]\n" +
-                    "    }\n" +
-                    "}\n";
+      # TAREFA
+      Crie [NUMERO_DE_EXERCICIOS] exercícios sobre o tema "[TEMA]" para um estudante de [IDIOMA].
 
-    static final String gramaticaOrdemContexto =
-            "Retornar %d exercios de:\n" +
-                    "Organiazar uma frase: Gerar uma frase na lingua selecionada e separar ela em um array e gerar outro array com as mesmas palavras mas aleatorios\n";
+      # REGRAS GERAIS
+      1. A resposta DEVE ser um único array JSON válido, começando com `[` e terminando com `]`.
+      2. NÃO inclua nenhum texto, markdown, ou explicação fora do JSON. A resposta deve ser apenas o código JSON puro.
+      3. Cada objeto no array deve seguir a estrutura: `{ "tipo": "...", "dados": { ... } }`.
 
-    static final String gramaticaOrdemJson =
-            "exemplo de json de retorno:\n"+
-                    "{\n" +
-                    "    \"tipo\": \"GRAMATICA_ORDEM\",\n" +
-                    "    \"dados\": {\n" +
-                    "        \"frase_completa\": \"Social media platforms influence how people communicate.\",\n" +
-                    "        \"ordem_correta\": [\"Social\", \"media\", \"platforms\", \"influence\", \"how\", \"people\", \"communicate.\"],\n" +
-                    "        \"ordem_aleatoria\": [\"communicate.\", \"media\", \"Social\", \"influence\", \"platforms\", \"how\", \"people\"]\n" +
-                    "    }\n" +
-                    "}\n";
+      __BLOCO_DE_INSTRUCAO__
 
-    static final String vocabularioParesContexto =
-            "Retornar %d exercios de:\n" +
-                    "Vocabulario Pares: Gerar uma lista de palavras na lingua selecionada e uma lista com suas traduções em portugues em outra lista na mesma ordem\n";
+      Agora, gere os exercícios.
+      """;
 
-    static final String vocabularioParesJson =
-            "exemplo de json de retorno:\n"+
-                    "{\n" +
-                    "    \"tipo\": \"VOCABULARIO_PARES\",\n" +
-                    "    \"dados\": {\n" +
-                    "        \"pares_esquerda\": [\"Social\", \"media\", \"platforms\", \"influence\", \"how\", \"people\", \"communicate\"],\n" +
-                    "        \"pares_direita\": [\"Social\", \"midia\", \"plataforma\", \"influencia\", \"como\", \"pessoas\", \"comunicam\"],\n" +
-                    "    }\n" +
-                    "}\n";
+  static final String inputTodosExercicios = """
+      # REGRAS DE ESTRUTURA PARA CADA TIPO DE EXERCÍCIO
+      Sua resposta deve conter uma mistura dos exercícios solicitados, seguindo estritamente as estruturas abaixo para cada "tipo".
+
+      ## Se "tipo" for "GRAMATICA_COMPLEMENTAR":
+      A estrutura de "dados" DEVE ser:
+      {
+        "frase_completa": "A frase original e correta.",
+        "frase_incompleta": "A mesma frase, mas com '___' no lugar da palavra removida.",
+        "opcao_correta": "A palavra que foi removida.",
+        "opcao_incorreta": ["Uma lista de palavras similares, mas incorretas."]
+      }
+
+      ## Se "tipo" for "GRAMATICA_ORDEM":
+      A estrutura de "dados" DEVE ser:
+      {
+        "frase_completa": "A frase original e correta.",
+        "ordem_correta": ["um", "array", "de", "palavras", "na", "ordem", "certa"],
+        "ordem_aleatoria": ["array", "um", "de", "certa", "na", "palavras", "ordem"]
+      }
+
+      ## Se "tipo" for "VOCABULARIO_PARES":
+      A estrutura de "dados" DEVE ser:
+      {
+        "pares_esquerda": ["palavra1", "palavra2", "palavra3"],
+        "pares_direita": ["tradução1", "tradução2", "tradução3"]
+      }
+      """;
+
+  static final String inputGramaticaComplementar = """
+      # INSTRUÇÕES PARA O EXERCÍCIO
+      - O campo "tipo" DEVE ser a string "GRAMATICA_COMPLEMENTAR".
+      - A estrutura do campo "dados" DEVE seguir exatamente este modelo:
+        {
+          "frase_completa": "A frase original e correta.",
+          "frase_incompleta": "A mesma frase, mas com '___' no lugar da palavra removida.",
+          "opcao_correta": "A palavra que foi removida.",
+          "opcao_incorreta": ["Uma lista de palavras similares, mas incorretas."]
+        }
+
+      # EXEMPLO DE UM OBJETO
+      {
+        "tipo": "GRAMATICA_COMPLEMENTAR",
+        "dados": {
+          "frase_completa": "The cat is sleeping on the sofa.",
+          "frase_incompleta": "The cat is ___ on the sofa.",
+          "opcao_correta": "sleeping",
+          "opcao_incorreta": ["sleeps", "slept", "sleep"]
+        }
+      }
+      """;
+
+  static final String inputGramaticaOrdem = """
+      # INSTRUÇÕES PARA O EXERCÍCIO
+      - O campo "tipo" DEVE ser a string "GRAMATICA_ORDEM".
+      - A estrutura do campo "dados" DEVE seguir exatamente este modelo:
+        {
+          "frase_completa": "A frase original e correta.",
+          "ordem_correta": ["um", "array", "de", "palavras", "na", "ordem", "certa"],
+          "ordem_aleatoria": ["array", "um", "de", "certa", "na", "palavras", "ordem"]
+        }
+
+      # EXEMPLO DE UM OBJETO
+      {
+        "tipo": "GRAMATICA_ORDEM",
+        "dados": {
+          "frase_completa": "I need to buy some bread.",
+          "ordem_correta": ["I", "need", "to", "buy", "some", "bread"],
+          "ordem_aleatoria": ["buy", "bread", "I", "some", "to", "need"]
+        }
+      }
+      """;
+
+  static final String inputVocabularioPares = """
+                  # INSTRUÇÕES PARA O EXERCÍCIO
+                  - O campo "tipo" DEVE ser a string "VOCABULARIO_PARES".
+                  - O campo "dados" DEVE seguir exatamente este modelo, onde o array "pares_direita" contém as traduções em português para as palavras do array "pares_esquerda", na mesma ordem.
+                    {
+                      "pares_esquerda": ["palavra1", "palavra2", "palavra3"],
+                      "pares_direita": ["tradução1", "tradução2", "tradução3"]
+                    }
+
+                  # EXEMPLO DE UM OBJETO
+                  {
+                    "tipo": "VOCABULARIO_PARES",
+                    "dados": {
+                      "pares_esquerda": ["Car", "House", "Computer", "Water"],
+                      "pares_direita": ["Carro", "Casa", "Computador", "Água"]
+                    }
+                  }
+      """;
 }
