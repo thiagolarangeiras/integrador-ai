@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.satc.integrador_ai.Screen
+import com.satc.integrador_ai.NavigationTarget
 import com.satc.integrador_ai.deprecated.Plano
 import com.satc.integrador_ai.deprecated.UsuarioPostDto
 import com.satc.integrador_ai.deprecated.createUser
@@ -150,7 +150,7 @@ fun SignUpScreen(
                     fullName,
                     Plano.NORMAL
                 )
-                createUser(user, changeScreen = { navController.navigate(Screen.Language.route) }, preferencesUserViewModel);
+                createUser(user, changeScreen = { navController.navigate(NavigationTarget.Language.route) }, preferencesUserViewModel);
             },
             colors = ButtonDefaults.buttonColors(containerColor = purple),
             shape = RoundedCornerShape(8.dp),

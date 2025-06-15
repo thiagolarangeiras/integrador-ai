@@ -39,32 +39,24 @@ import androidx.compose.ui.unit.sp
 @Preview
 @Composable
 fun MatchPairsExerciseScreenPreview(){
-    MatchPairsExerciseScreen(
-        onNextClick = {},
-        onBackClick = {},
-        onExitClick = {}
-    );
+    MatchPairsExerciseScreen();
 }
 
 @Composable
-fun MatchPairsExerciseScreen(
-    onBackClick: () -> Unit,
-    onExitClick: () -> Unit,
-    onNextClick: () -> Unit
-) {
+fun MatchPairsExerciseScreen() {
     val leftWords = listOf("adeus", "oi", "Brasil", "sim", "chá")
     val rightWords = listOf("Brazil", "tea", "goodbye", "yes", "hi")
 
     Scaffold (
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n4 de 8")
+            AppTopBar(onExitClick = {},onBackClick = {}, title = "Exercício\n4 de 8")
         },
         bottomBar = {
             BottomAppBar (
                 containerColor = Color.White
             ) {
                 Button(
-                    onClick = onNextClick,
+                    onClick = {},
                     colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()

@@ -2,6 +2,7 @@ package com.satc.integrador_ai.di
 
 import com.satc.integrador_ai.data.api.AuthInterceptor
 import com.satc.integrador_ai.data.api.FormPreferenceService
+import com.satc.integrador_ai.data.api.PlanoEstudoService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +41,11 @@ object NetworkModule {
     @Singleton
     fun provideFormPreferenceService(retrofit: Retrofit): FormPreferenceService {
         return retrofit.create(FormPreferenceService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePlanoEstudoService(retrofit: Retrofit): PlanoEstudoService {
+        return retrofit.create(PlanoEstudoService::class.java)
     }
 }

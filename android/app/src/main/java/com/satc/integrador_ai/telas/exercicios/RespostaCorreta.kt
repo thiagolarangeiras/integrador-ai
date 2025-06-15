@@ -21,22 +21,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview(showBackground = true)
 @Composable
 fun RespostaCorretaScreenPreview() {
-    RespostaCorretaScreen()
+//    RespostaCorretaScreen()
 }
 
 @Composable
-fun RespostaCorretaScreen() {
+fun RespostaCorretaScreen(exercicioViewModel: ExercicioViewModel) {
     Scaffold(
         bottomBar = {
             BottomAppBar(
                 containerColor = Color.White
             ) {
                 Button(
-                    onClick = {},
+                    onClick = { exercicioViewModel.onNextScreen() },
                     colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()
@@ -80,7 +81,7 @@ fun RespostaCorretaScreen() {
                         .border(2.dp, Color.Black.copy(alpha = 0.1f), shape = RoundedCornerShape(12.dp))
                         .padding(32.dp)
                 ) {
-                    TextWithHighlightCorrect()
+                    TextWithHighlightCorrect(exercicioViewModel)
                 }
             }
         }
@@ -88,19 +89,19 @@ fun RespostaCorretaScreen() {
 }
 
 @Composable
-fun TextWithHighlightCorrect() {
+fun TextWithHighlightCorrect(exercicioViewModel: ExercicioViewModel) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        val questaoDividia = exercicioViewModel.getQuestaoAtualSplitted()
         Row {
-            Text("He is interested ")
+            Text("${questaoDividia?.get(0).toString()} ")
             Box(
                 modifier = Modifier
                     .background(Color(0xFF2ECC9B), shape = CircleShape)
                     .padding(horizontal = 8.dp, vertical = 2.dp)
             ) {
-                Text("at", color = Color.White)
+                Text(exercicioViewModel.getRespostaCorreta(), color = Color.White)
             }
-            Text(" learning")
+            Text(" ${questaoDividia?.get(1).toString()}")
         }
-        Text("English .")
     }
 }

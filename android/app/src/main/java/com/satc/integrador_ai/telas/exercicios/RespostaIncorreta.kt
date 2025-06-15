@@ -16,23 +16,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 
 @Preview(showBackground = true)
 @Composable
 fun RespostaIncorretaScreenPreview() {
-    RespostaIncorretaScreen(onProximoClick = {})
+//    RespostaIncorretaScreen()
 }
 
 @Composable
-fun RespostaIncorretaScreen(onProximoClick: () -> Unit) {
+fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel) {
     Scaffold(
         bottomBar = {
             BottomAppBar(
                 containerColor = Color.White
             ) {
                 Button(
-                    onClick = {},
+                    onClick = { exercicioViewModel.onNextScreen() },
                     colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()

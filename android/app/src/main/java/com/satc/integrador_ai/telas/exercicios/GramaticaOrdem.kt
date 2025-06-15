@@ -45,32 +45,24 @@ import com.google.accompanist.flowlayout.FlowRow
 @Preview
 @Composable
 fun SentenceOrderingScreenPreview(){
-    SentenceOrderingScreen(
-        onBackClick = {},
-        onExitClick = {},
-        onNextClick = {}
-    );
+    SentenceOrderingScreen();
 }
 
 @Composable
-fun SentenceOrderingScreen(
-    onBackClick: () -> Unit,
-    onExitClick: () -> Unit,
-    onNextClick: () -> Unit
-) {
+fun SentenceOrderingScreen() {
     val allWords = listOf("english", "Is", "interested", "in", "learning", "he")
     var selectedWords by remember { mutableStateOf(listOf<String>()) }
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n6 de 8")
+            AppTopBar(onExitClick = {},onBackClick = {}, title = "Exercício\n6 de 8")
         },
         bottomBar = {
             BottomAppBar(
                 containerColor = Color.White
             ) {
                 Button(
-                    onClick = onNextClick,
+                    onClick = {},
                     colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()

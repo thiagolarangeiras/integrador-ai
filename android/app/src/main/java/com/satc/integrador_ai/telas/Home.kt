@@ -19,21 +19,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.satc.integrador_ai.storage.ExercicioViewModel
+import com.satc.integrador_ai.storage.HomeViewModel
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+//    HomeScreen()
 }
 
 @Composable
 fun HomeScreenPreview(navController: NavHostController) {
-    HomeScreen()
+//    HomeScreen()
 }
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavController, exercicioViewModel: ExercicioViewModel) {
+    homeViewModel.loadPlanoEstudo()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +63,7 @@ fun HomeScreen() {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        EstudoHojeCard()
+        EstudoHojeCard(homeViewModel = homeViewModel, navController = navController, exercicioViewModel = exercicioViewModel)
 
         Spacer(modifier = Modifier.height(20.dp))
         ProgressoCard()
@@ -90,7 +98,18 @@ fun CardSection(title: String, subtitle: String, buttonText: String) {
 }
 
 @Composable
-fun EstudoHojeCard() {
+fun EstudoHojeCard(exercicioViewModel: ExercicioViewModel, homeViewModel: HomeViewModel, navController: NavController) {
+    exercicioViewModel.setExercicios(homeViewModel.getExercicios())
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    // One-time navigation listener
+    LaunchedEffect(Unit) {
+        exercicioViewModel.navigationEvent.collect { state ->
+            navController.navigate(state)
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,7 +139,9 @@ fun EstudoHojeCard() {
 
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /* TODO */ },
+            onClick = {
+                exercicioViewModel.onNextScreen()
+            },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
