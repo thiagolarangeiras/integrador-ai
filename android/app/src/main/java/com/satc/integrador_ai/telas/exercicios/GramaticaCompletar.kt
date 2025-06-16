@@ -43,7 +43,6 @@ fun GrammarExerciseScreenPreview(){
 
 @Composable
 fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
-
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // One-time navigation listener
@@ -53,12 +52,14 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
         }
     }
 
-    var selectedOption by remember { mutableStateOf<String?>(exercicioViewModel.getRespostaFeita()) }
-    val options = exercicioViewModel.getOpcoesGramaticaCompletar()
+    val selectedOption = exercicioViewModel.respostaFeita
+    val options = remember {
+        exercicioViewModel.getOpcoesGramaticaCompletar().shuffled()
+    }
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = {},onBackClick = {}, title = exercicioViewModel.getTitle())
+            AppTopBar(onExitClick = {}, onBackClick = {}, title = exercicioViewModel.getTitle())
         },
         bottomBar = {
             BottomAppBar(
@@ -124,8 +125,8 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
                 options.forEach { option ->
                     SelectableButton(
                         option = option,
-                        selectedOption = selectedOption.toString(),
-                        onClick = { selectedOption = option }
+                        selectedOption = selectedOption,
+                        onClick = { exercicioViewModel.atualizarRespostaFeita(option) }
                     )
                 }
 
@@ -138,7 +139,7 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
 @Composable
 fun SelectableButton(
     option: String,
-    selectedOption: String,
+    selectedOption: String?,
     onClick: () -> Unit
 ) {
     OutlinedButton(

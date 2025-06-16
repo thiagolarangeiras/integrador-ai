@@ -35,21 +35,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview
 @Composable
 fun MatchPairsExerciseScreenPreview(){
-    MatchPairsExerciseScreen();
+//    MatchPairsExerciseScreen();
 }
 
 @Composable
-fun MatchPairsExerciseScreen() {
+fun MatchPairsExerciseScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
     val leftWords = listOf("adeus", "oi", "Brasil", "sim", "chá")
     val rightWords = listOf("Brazil", "tea", "goodbye", "yes", "hi")
 
     Scaffold (
         topBar = {
-            AppTopBar(onExitClick = {},onBackClick = {}, title = "Exercício\n4 de 8")
+            AppTopBar(onExitClick = {}, onBackClick = {}, title = exercicioViewModel.getTitle())
         },
         bottomBar = {
             BottomAppBar (

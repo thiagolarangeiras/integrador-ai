@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.NavController
 import com.satc.integrador_ai.storage.ExercicioViewModel
 
 
@@ -26,7 +29,14 @@ fun RespostaIncorretaScreenPreview() {
 }
 
 @Composable
-fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel) {
+fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(Unit) {
+        exercicioViewModel.navigationEvent.collect { state ->
+            navController.navigate(state)
+        }
+    }
+
     Scaffold(
         bottomBar = {
             BottomAppBar(
@@ -78,7 +88,7 @@ fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel) {
                         .border(2.dp, Color.Black.copy(alpha = 0.1f), shape = RoundedCornerShape(12.dp))
                         .padding(32.dp)
                 ) {
-                    TextWithHighlightIncorrect()
+                    TextWithHighlightIncorrect(exercicioViewModel)
                 }
             }
         }
@@ -86,19 +96,20 @@ fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel) {
 }
 
 @Composable
-fun TextWithHighlightIncorrect() {
+fun TextWithHighlightIncorrect(exercicioViewModel: ExercicioViewModel) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        val questaoDividia = exercicioViewModel.getQuestaoAtualSplitted()
         Row {
-            Text("He is interested ")
+            Text("${questaoDividia?.get(0).toString()} ")
             Box(
                 modifier = Modifier
                     .background(Color(0xFF2ECC9B), shape = CircleShape)
                     .padding(horizontal = 8.dp, vertical = 2.dp)
             ) {
-                Text("at", color = Color.White)
+                Text(exercicioViewModel.getRespostaCorreta(), color = Color.White)
             }
-            Text(" learning")
         }
-        Text("English .")
+        Text(" ${questaoDividia?.get(1).toString()}")
+
     }
 }

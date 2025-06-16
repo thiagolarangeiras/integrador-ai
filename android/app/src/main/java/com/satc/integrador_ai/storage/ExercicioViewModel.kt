@@ -1,6 +1,9 @@
 package com.satc.integrador_ai.storage
 
 import android.app.Application
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.satc.integrador_ai.NavigationTarget
@@ -25,29 +28,31 @@ class ExercicioViewModel @Inject constructor(
     private val _exercicioAtual = MutableStateFlow<TipoExercicio?>(null)
     val exercicioAtual: StateFlow<TipoExercicio?> = _exercicioAtual
 
-    private val _exerciciosRespondidos: MutableStateFlow<List<TipoExercicio>> = MutableStateFlow(emptyList())
-    val exerciciosRespondidos: StateFlow<List<TipoExercicio>> = _exerciciosRespondidos
+    var posicaoExercicioAtual: Int = 1
+        private set
 
     private val _navigationEvent = MutableSharedFlow<String>()
     val navigationEvent = _navigationEvent.asSharedFlow()
 
-    private val _respostaFeita = MutableStateFlow<String?>(null)
-    val respostaFeita: StateFlow<String?> = _respostaFeita
+    var respostaFeita by mutableStateOf<String?>(null)
+        private set
 
     fun onNextScreen() {
-        if (!getRespostaFeita().equals("") && getRespostaFeita() != null) {
+        if (!respostaFeita.equals("") && respostaFeita != null) {
             val exercicioGramaticaCompletar = _exercicioAtual.value as? ExercicioGramaticaCompletarGetDto
-            if (getRespostaFeita().equals(exercicioGramaticaCompletar?.opcaoCorreta)) {
+            if (respostaFeita.equals(exercicioGramaticaCompletar?.opcaoCorreta)) {
                 viewModelScope.launch {
-                    _respostaFeita.value = ""
-                    _navigationEvent.emit(NavigationTarget.RespostaCorretaGramaticaCompletar.route)
+                    respostaFeita = ""
+                    _navigationEvent.emit(NavigationTarget.RespostaCorreta.route)
                 }
             } else {
                 viewModelScope.launch {
-                    _respostaFeita.value = ""
-                    _navigationEvent.emit(NavigationTarget.RespostaIncorretaGramaticaCompletar.route)
+                    respostaFeita = ""
+                    _navigationEvent.emit(NavigationTarget.RespostaIncorreta.route)
                 }
             }
+            incrementaPosicaoExercicioAtual()
+            return
         }
 
         val proximoExercicio: TipoExercicio ?= getProximoExercicio()
@@ -66,43 +71,29 @@ class ExercicioViewModel @Inject constructor(
         }
     }
 
-    fun setRespostaFeita(resposta: String) {
-        _respostaFeita.value = resposta
-    }
-
-    fun getRespostaFeita(): String {
-        return _respostaFeita.value.toString()
-    }
-
     fun setExercicios(exercicios: Exercicios) {
         _exercicios.value = exercicios
     }
 
+    fun atualizarRespostaFeita(resposta: String) {
+        respostaFeita = resposta
+    }
+
     fun getProximoExercicio() : TipoExercicio? {
         val proximoExercicioGramaticaCompletar: TipoExercicio ?= getProximoExercicioGramaticaCompletar()
-
         if (proximoExercicioGramaticaCompletar != null) {
-            _exerciciosRespondidos.value.toMutableList().apply {
-                add(proximoExercicioGramaticaCompletar)
-            }
             _exercicioAtual.value = proximoExercicioGramaticaCompletar
             return proximoExercicioGramaticaCompletar
         }
 
         val proximoExercicioGramaticaOrdem: TipoExercicio ?= getProximoExercicioGramaticaOrdem()
         if (proximoExercicioGramaticaOrdem != null) {
-            _exerciciosRespondidos.value.toMutableList().apply {
-                add(proximoExercicioGramaticaOrdem)
-            }
             _exercicioAtual.value = proximoExercicioGramaticaOrdem
             return proximoExercicioGramaticaOrdem
         }
 
         val proximoExercicioVocabularioPares: TipoExercicio ?= getProximoExercicioVocabularioPares()
         if (proximoExercicioVocabularioPares != null) {
-            _exerciciosRespondidos.value.toMutableList().apply {
-                add(proximoExercicioVocabularioPares)
-            }
             _exercicioAtual.value = proximoExercicioVocabularioPares
             return proximoExercicioGramaticaOrdem
         }
@@ -140,22 +131,18 @@ class ExercicioViewModel @Inject constructor(
     }
 
     fun getTitle(): String {
-        val qtdRespondidosCorrigidos = if (getQtdExerciciosRespondidos() == 0) getQtdExerciciosRespondidos() + 1 else getQtdExerciciosRespondidos()
-        return "Exercício\n${qtdRespondidosCorrigidos} de ${getQtdTotalExercicios()}"
+        return "Exercício\n${posicaoExercicioAtual} de ${getQtdTotalExercicios()}"
+    }
+
+    fun incrementaPosicaoExercicioAtual() {
+        posicaoExercicioAtual += 1
     }
 
     fun getQtdTotalExercicios(): Int {
         val qtdExercicioGramaticaCompletar = _exercicios.value?.exerGramaCompl?.size ?: 0
         val qtdExercicioGramaticaOrdem = _exercicios.value?.exerGramaOrdem?.size ?: 0
         val qtdExercicioVocabularioPares = _exercicios.value?.exerVocPares?.size ?: 0
-        val qtdExercicioRespondidos = _exerciciosRespondidos.value.size
-        val qtdExercicioAtual = 1
-        return qtdExercicioGramaticaCompletar + qtdExercicioGramaticaOrdem + qtdExercicioVocabularioPares + qtdExercicioRespondidos + qtdExercicioAtual
-    }
-
-    fun getQtdExerciciosRespondidos(): Int {
-        val qtdExerciciosRespondidos = _exerciciosRespondidos.value.size
-        return qtdExerciciosRespondidos
+        return qtdExercicioGramaticaCompletar + qtdExercicioGramaticaOrdem + qtdExercicioVocabularioPares + posicaoExercicioAtual
     }
 
     fun getLabelExercicio(): String {
@@ -187,9 +174,10 @@ class ExercicioViewModel @Inject constructor(
 
     fun getOpcoesGramaticaCompletar(): List<String> {
         val exercicioGramaticaCompletar = _exercicioAtual.value as? ExercicioGramaticaCompletarGetDto
-        val todasOpcoes: MutableList<String>? = exercicioGramaticaCompletar?.opcaoIncorreta
-        todasOpcoes?.add(exercicioGramaticaCompletar.opcaoCorreta.toString())
-        return todasOpcoes ?: emptyList()
+        return buildList {
+            exercicioGramaticaCompletar?.opcaoIncorreta?.let { addAll(it) }
+            exercicioGramaticaCompletar?.opcaoCorreta?.let { add(it) }
+        }
     }
 
     fun getRespostaCorreta(): String {
@@ -199,7 +187,7 @@ class ExercicioViewModel @Inject constructor(
 
     fun getQuestaoAtualSplitted(): List<String>? {
         val exercicioGramaticaCompletar = _exercicioAtual.value as? ExercicioGramaticaCompletarGetDto
-        return exercicioGramaticaCompletar?.opcaoCorreta?.split("___")
+        return exercicioGramaticaCompletar?.fraseIncompleta?.split("___")
     }
 
 }

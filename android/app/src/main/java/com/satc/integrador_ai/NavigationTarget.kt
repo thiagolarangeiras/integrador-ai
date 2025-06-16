@@ -14,6 +14,6 @@ sealed class NavigationTarget(val route: String) {
     object ExercicioGramaticaCompletar: NavigationTarget("gramatica_completar")
     object ExercicioGramaticaOrdem: NavigationTarget("gramatica_ordem")
     object ExercicioVocabularioPares: NavigationTarget("vocabulario_pares")
-    object RespostaCorretaGramaticaCompletar: NavigationTarget("resposta_correta_gramatica_completar")
-    object RespostaIncorretaGramaticaCompletar: NavigationTarget("resposta_incerta_gramatica_completar")
+    object RespostaCorreta: NavigationTarget("resposta_correta")
+    object RespostaIncorreta: NavigationTarget("resposta_incorreta")
 }

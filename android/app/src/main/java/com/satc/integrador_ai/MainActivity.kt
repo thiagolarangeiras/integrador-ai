@@ -138,19 +138,19 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
 
         /*-------------------------------- EXERCICIOS ------------------------------------*/
         composable(NavigationTarget.ExercicioGramaticaOrdem.route) {
-            SentenceOrderingScreen()
+            SentenceOrderingScreen(exercicioViewModel = exercicioViewModel, navController = navController)
         }
         composable(NavigationTarget.ExercicioGramaticaCompletar.route) {
             GrammarExerciseScreen(exercicioViewModel = exercicioViewModel, navController = navController)
         }
         composable(NavigationTarget.ExercicioVocabularioPares.route) {
-            MatchPairsExerciseScreen()
+            MatchPairsExerciseScreen(exercicioViewModel = exercicioViewModel, navController = navController)
         }
-        composable(NavigationTarget.RespostaCorretaGramaticaCompletar.route) {
-            RespostaCorretaScreen(exercicioViewModel = exercicioViewModel)
+        composable(NavigationTarget.RespostaCorreta.route) {
+            RespostaCorretaScreen(exercicioViewModel = exercicioViewModel, navController = navController)
         }
-        composable(NavigationTarget.RespostaIncorretaGramaticaCompletar.route) {
-            RespostaIncorretaScreen(exercicioViewModel = exercicioViewModel)
+        composable(NavigationTarget.RespostaIncorreta.route) {
+            RespostaIncorretaScreen(exercicioViewModel = exercicioViewModel, navController = navController)
         }
         /*-------------------------------- EXERCICIOS ------------------------------------*/
     }

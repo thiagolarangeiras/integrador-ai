@@ -40,22 +40,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowRow
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview
 @Composable
 fun SentenceOrderingScreenPreview(){
-    SentenceOrderingScreen();
+//    SentenceOrderingScreen();
 }
 
 @Composable
-fun SentenceOrderingScreen() {
+fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
     val allWords = listOf("english", "Is", "interested", "in", "learning", "he")
     var selectedWords by remember { mutableStateOf(listOf<String>()) }
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = {},onBackClick = {}, title = "Exercício\n6 de 8")
+            AppTopBar(onExitClick = {}, onBackClick = {}, title = exercicioViewModel.getTitle())
         },
         bottomBar = {
             BottomAppBar(
