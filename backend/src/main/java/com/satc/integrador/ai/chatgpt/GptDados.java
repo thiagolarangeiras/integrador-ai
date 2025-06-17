@@ -39,7 +39,7 @@ public class GptDados {
       ## Se "tipo" for "GRAMATICA_ORDEM":
       A estrutura de "dados" DEVE ser:
       {
-        "frase_completa": "A frase original e correta.",
+        "frase_completa": "A tradução correta em português BR.",
         "ordem_correta": ["um", "array", "de", "palavras", "na", "ordem", "certa"],
         "ordem_aleatoria": ["array", "um", "de", "certa", "na", "palavras", "ordem"]
       }

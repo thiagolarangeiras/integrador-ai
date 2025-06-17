@@ -19,10 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,7 +49,7 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
         }
     }
 
-    val selectedOption = exercicioViewModel.respostaFeita
+    val selectedOption = exercicioViewModel.respostaFeitaGramaticaCompletar
     val options = remember {
         exercicioViewModel.getOpcoesGramaticaCompletar().shuffled()
     }
@@ -126,7 +123,7 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
                     SelectableButton(
                         option = option,
                         selectedOption = selectedOption,
-                        onClick = { exercicioViewModel.atualizarRespostaFeita(option) }
+                        onClick = { exercicioViewModel.atualizarRespostaFeitaGramaticaCompletar(option) }
                     )
                 }
 

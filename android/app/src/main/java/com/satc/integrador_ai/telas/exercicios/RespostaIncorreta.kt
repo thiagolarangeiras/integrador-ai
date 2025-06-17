@@ -98,18 +98,8 @@ fun RespostaIncorretaScreen(exercicioViewModel: ExercicioViewModel, navControlle
 @Composable
 fun TextWithHighlightIncorrect(exercicioViewModel: ExercicioViewModel) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        val questaoDividia = exercicioViewModel.getQuestaoAtualSplitted()
         Row {
-            Text("${questaoDividia?.get(0).toString()} ")
-            Box(
-                modifier = Modifier
-                    .background(Color(0xFF2ECC9B), shape = CircleShape)
-                    .padding(horizontal = 8.dp, vertical = 2.dp)
-            ) {
-                Text(exercicioViewModel.getRespostaCorreta(), color = Color.White)
-            }
+            Text(exercicioViewModel.getTextoHighlight())
         }
-        Text(" ${questaoDividia?.get(1).toString()}")
-
     }
 }

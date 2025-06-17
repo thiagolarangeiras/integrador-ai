@@ -28,6 +28,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.NavController
 import com.google.accompanist.flowlayout.FlowRow
 import com.satc.integrador_ai.storage.ExercicioViewModel
@@ -52,8 +54,18 @@ fun SentenceOrderingScreenPreview(){
 
 @Composable
 fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
-    val allWords = listOf("english", "Is", "interested", "in", "learning", "he")
-    var selectedWords by remember { mutableStateOf(listOf<String>()) }
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(Unit) {
+        exercicioViewModel.navigationEvent.collect { state ->
+            navController.navigate(state)
+        }
+    }
+
+    val selectedOptions = exercicioViewModel.respostaFeitaGramaticaOrdem
+    val options = remember {
+        exercicioViewModel.getOpcoesGramaticaOrdem().shuffled()
+    }
 
     Scaffold(
         topBar = {
@@ -64,14 +76,15 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
                 containerColor = Color.White
             ) {
                 Button(
-                    onClick = {},
+                    onClick = { exercicioViewModel.onNextScreen() },
                     colors = ButtonDefaults.buttonColors(Color(0xFF7061FD)),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 48.dp, end = 48.dp, bottom = 24.dp)
                         .height(48.dp)
                         .imePadding(),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
+                    enabled = selectedOptions.isNotEmpty()
                 ) {
                     Text("Avançar", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }
@@ -91,7 +104,7 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
 
                 // Title
                 Text(
-                    text = "Gramática",
+                    text = exercicioViewModel.getLabelExercicio(),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
@@ -100,7 +113,7 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
                 Spacer(modifier = Modifier.height(80.dp))
 
                 Text(
-                    text = "Ele está interessado em aprender inglês?",
+                    text = exercicioViewModel.getQuestaoExercicio(),
                     style = MaterialTheme.typography.titleMedium,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -118,7 +131,7 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
                         .border(1.dp, Color.Black, RoundedCornerShape(8.dp))
                         .padding(8.dp),
                 ) {
-                    Text(text = selectedWords.joinToString(" "), fontWeight = FontWeight.Medium)
+                    Text(text = selectedOptions.joinToString(" "), fontWeight = FontWeight.Medium)
                 }
 
                 Spacer(modifier = Modifier.height(40.dp))
@@ -138,12 +151,12 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
                     crossAxisSpacing = 8.dp,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    allWords.forEach { word ->
-                        val alreadySelected = selectedWords.contains(word)
+                    options.forEach { word ->
+                        val alreadySelected = selectedOptions.contains(word)
                         Button(
                             onClick = {
                                 if (!alreadySelected) {
-                                    selectedWords = selectedWords + word
+                                    exercicioViewModel.addRespostaFeitaGramaticaOrdem(word)
                                 }
                             },
                             enabled = !alreadySelected,

@@ -7,7 +7,7 @@ class ExercicioGramaticaOrdemGetDto (
     val idOrdemExercicio: Int ?= null,
     val idPlanoEstudo: Int ?= null,
     val fraseCompleta: String ?= null,
-    val opcaoCorreta: MutableList<String> ?= null,
+    val ordemCorreta: MutableList<String> ?= null,
     val ordemAleatoria: MutableList<String> ?= null
 ) : TipoExercicio {
     override fun getTipoExercicio(): String {

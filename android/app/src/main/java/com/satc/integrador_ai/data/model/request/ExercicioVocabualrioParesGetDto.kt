@@ -7,7 +7,8 @@ class ExercicioVocabualrioParesGetDto (
     val idOrdemExercicio: Int ?= null,
     val idPlanoEstudo: Int ?= null,
     val paresEsquerda: MutableList<String> ?= null,
-    val paresDireita: MutableList<String> ?= null
+    val paresDireita: MutableList<String> ?= null,
+    var respostaCorreta: HashMap<String, String> ?= null
 ) : TipoExercicio {
     override fun getTipoExercicio(): String {
         return "VocabularioPares"
