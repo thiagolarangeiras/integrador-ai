@@ -37,6 +37,7 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
         this.qtExerciciosDia = qtExerciciosDia;
         this.tiposExerciciosContidos = tiposExerciciosContidos;
         this.data = LocalDate.now();
+        this.ativo = true;
     }
 
     //Mappers

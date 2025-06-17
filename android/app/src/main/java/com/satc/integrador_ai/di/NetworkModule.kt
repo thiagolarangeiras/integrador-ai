@@ -3,6 +3,7 @@ package com.satc.integrador_ai.di
 import com.satc.integrador_ai.data.api.AuthInterceptor
 import com.satc.integrador_ai.data.api.FormPreferenceService
 import com.satc.integrador_ai.data.api.PlanoEstudoService
+import com.satc.integrador_ai.storage.UsuarioService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,5 +48,11 @@ object NetworkModule {
     @Singleton
     fun providePlanoEstudoService(retrofit: Retrofit): PlanoEstudoService {
         return retrofit.create(PlanoEstudoService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUsuarioService(retrofit: Retrofit): UsuarioService {
+        return retrofit.create(UsuarioService::class.java)
     }
 }

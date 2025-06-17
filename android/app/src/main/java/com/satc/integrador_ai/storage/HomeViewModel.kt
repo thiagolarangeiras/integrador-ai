@@ -14,12 +14,15 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     application: Application,
-    private val planoEstudoRepository: PlanoEstudoRepository
+    private val planoEstudoRepository: PlanoEstudoRepository,
+    private val usuarioRepository: UsuarioRepository
 ) : AndroidViewModel(application) {
+
+    private val _usuario = MutableStateFlow(Usuario(null, null, null, null, null))
+    val usuario: StateFlow<Usuario> = _usuario
 
     private val _exercicios = MutableStateFlow(Exercicios(null, null, mutableListOf(), mutableListOf(), mutableListOf()))
     val exercicios: StateFlow<Exercicios> = _exercicios
-
 
     fun getQtExerciciosDia(): Int? {
         return _exercicios.value.qtExerciciosDia
@@ -41,12 +44,29 @@ class HomeViewModel @Inject constructor(
         return _exercicios.value
     }
 
+    fun getUser(): Usuario {
+        return _usuario.value
+    }
+
     fun generateNewPlan() {
         viewModelScope.launch {
             try {
                 planoEstudoRepository.generateNewPlan()
             } catch (e: Exception) {
                 throw RuntimeException(e)
+            }
+        }
+    }
+
+    fun loadUserData() {
+        viewModelScope.launch {
+            try {
+                var usuario: Usuario = usuarioRepository.get()
+                _usuario.value.id = usuario.id
+                _usuario.value.username = usuario.username
+                _usuario.value.nomeCompleto = usuario.nomeCompleto
+            } catch (e: Exception) {
+                //throw RuntimeException(e)
             }
         }
     }
@@ -66,7 +86,7 @@ class HomeViewModel @Inject constructor(
                     loadPlanoEstudo()
                 }
             } catch (e: Exception) {
-                throw RuntimeException(e)
+                //throw RuntimeException(e)
             }
         }
     }

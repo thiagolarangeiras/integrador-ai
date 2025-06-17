@@ -68,6 +68,9 @@ public class PlanoEstudoService {
     public PlanoEstudoGetDto getCurrent() {
         Integer userId = usuarioService.getCurrentUserid();
         PlanoEstudo planoEstudo = repo.findByIdUsuarioActive(userId);
+        if(planoEstudo == null){
+            return generateNewPlan();
+        }
         PlanoEstudoGetDto dto = PlanoEstudo.mapToDto(planoEstudo);
         addExercicios(dto);
         return dto;

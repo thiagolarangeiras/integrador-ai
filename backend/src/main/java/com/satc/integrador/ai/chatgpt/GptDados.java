@@ -40,8 +40,8 @@ public class GptDados {
       A estrutura de "dados" DEVE ser:
       {
         "frase_completa": "A tradução correta em português BR.",
-        "ordem_correta": ["um", "array", "de", "palavras", "na", "ordem", "certa"],
-        "ordem_aleatoria": ["array", "um", "de", "certa", "na", "palavras", "ordem"]
+        "ordem_correta": ["um", "array", "de", "palavras", "na", "ordem", "certa", "na", "lingua", "escolhida"],
+        "ordem_aleatoria": ["array", "na", "um", "de", "certa", "escolhida", "na", "palavras", "ordem", "lingua"]
       }
 
       ## Se "tipo" for "VOCABULARIO_PARES":
