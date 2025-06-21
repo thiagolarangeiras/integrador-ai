@@ -14,6 +14,10 @@ class UserSharedPreferencesHelper @Inject constructor(
         sharedPreferences.edit().putString("jwt_token", jwtToken).apply()
     }
 
+    fun cleanToken() {
+        sharedPreferences.edit().putString("jwt_token", null).apply()
+    }
+
     fun getToken(): String? {
         return sharedPreferences.getString("jwt_token", null)
     }

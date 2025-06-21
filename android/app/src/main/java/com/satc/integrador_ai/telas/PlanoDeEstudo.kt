@@ -3,8 +3,10 @@ package com.satc.integrador_ai.telas
 import  androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.ChatBubble
@@ -14,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -35,33 +38,40 @@ fun PlanoDeEstudoPreview() {
 
 @Composable
 fun PlanoDeEstudoScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(horizontal = 0.dp)
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-        Text(
-            text = "Plano de Estudo",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
+    Scaffold(
+        bottomBar = { BottomNavigationBar(1, navController) },
+        containerColor = Color.White // Fundo da tela
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(40.dp))
 
-        Spacer(modifier = Modifier.height(40.dp))
-        DiasDaSemanaSelecionavel(diaSelecionado = 4)
+            Text(
+                text = "Plano de Estudo",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
 
-        Spacer(modifier = Modifier.height(40.dp))
-        TarefaItem("Prática de Vocabulário", "Estude palavras e frases novas", 0, 10)
-        TarefaItem("Presente Simples", "Revisar Tempos Verbais", 0, 20)
-        TarefaItem("Compreensão Auditiva", "Exercícios de escuta", 0, 15)
-        TarefaItem("Leitura de Textos", "Ler artigos e histórias curtas", 0, 12)
+            Spacer(modifier = Modifier.height(40.dp))
 
-        Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar(1, navController)
+            //DiasDaSemanaSelecionavel(diaSelecionado = 4)
+
+            TarefaItem("Prática de Vocabulário", "Estude palavras e frases novas", 0, 10)
+            TarefaItem("Presente Simples", "Revisar Tempos Verbais", 0, 20)
+            TarefaItem("Compreensão Auditiva", "Exercícios de escuta", 0, 15)
+            TarefaItem("Leitura de Textos", "Ler artigos e histórias curtas", 0, 12)
+
+            Spacer(modifier = Modifier.height(20.dp))
+        }
     }
 }
+
 
 @Composable
 fun DiasDaSemanaSelecionavel(diaSelecionado: Int) {
@@ -146,11 +156,11 @@ fun BottomNavigationBar(index: Int, navController: NavController) {
                     Icon(
                         imageVector = icons[index],
                         contentDescription = item,
-                        modifier = Modifier.size(32.dp).offset(y = (6).dp)
+                        modifier = Modifier.size(32.dp).offset(y = (16).dp)
                     )
                 },
                 label = {
-                    Text(text = item, fontSize = 10.sp, modifier = Modifier.offset(y = (-2).dp))
+                    Text(text = item, fontSize = 10.sp, modifier = Modifier.offset(y = (10).dp))
                 },
                 selected = selectedItem == index,
                 onClick = {

@@ -97,10 +97,23 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
             EstudoHojeCard(homeViewModel = homeViewModel, navController = navController, exercicioViewModel = exercicioViewModel)
 
-            Spacer(modifier = Modifier.height(20.dp))
-            //ProgressoCard()
-
             Spacer(modifier = Modifier.weight(1f))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
+                    .padding(16.dp)
+            ) {
+                Button(
+                    onClick = { navController.navigate(NavigationTarget.PlanoDeEstudo.route) },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Gerar Novos Exercícios", color = Color.White)
+                }
+            }
+            //ProgressoCard()
         }
     }
 }

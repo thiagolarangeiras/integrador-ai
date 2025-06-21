@@ -1,13 +1,18 @@
 package com.satc.integrador_ai.telas
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,8 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.satc.integrador_ai.NavigationTarget
 import com.satc.integrador_ai.R
 import com.satc.integrador_ai.storage.HomeViewModel
+import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 @Preview(showBackground = true)
 @Composable
@@ -34,6 +41,7 @@ fun PerfilScreenPreview() {
 
 @Composable
 fun PerfilScreen(homeViewModel: HomeViewModel = hiltViewModel(),
+                 preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
                  navController: NavController) {
 
     homeViewModel.loadUserData()
@@ -68,6 +76,21 @@ fun PerfilScreen(homeViewModel: HomeViewModel = hiltViewModel(),
             fontWeight = FontWeight.Bold,
             color = Color(0xFF7061FD)
         )
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = { navController.navigate(NavigationTarget.Welcome.route)
+                        preferencesUserViewModel.logOut()
+                      },
+            contentPadding = PaddingValues(horizontal = 4.dp),
+            modifier = Modifier.height(26.dp),
+            shape = RoundedCornerShape(4.dp),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = Color(0xFF7061FD)
+            ),
+            border = BorderStroke(1.dp, Color(0xFF7061FD))
+        ) {
+            Text(text = "Sair")
+        }
 
         Spacer(modifier = Modifier.height(64.dp))
         Text(
@@ -85,6 +108,23 @@ fun PerfilScreen(homeViewModel: HomeViewModel = hiltViewModel(),
         EstatisticaItem(icon = Icons.Default.Star, label = "Total de Pontos", value = "1170")
 
         Spacer(modifier = Modifier.weight(1f))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
+                .padding(16.dp)
+        ) {
+            Button(
+                onClick = { navController.navigate(NavigationTarget.Language.route) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Redefinir Preferências", color = Color.White)
+            }
+        }
+
         BottomNavigationBar(3, navController)
     }
 }

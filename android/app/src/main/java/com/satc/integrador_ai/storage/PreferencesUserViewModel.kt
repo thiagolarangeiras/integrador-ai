@@ -19,4 +19,8 @@ class PreferencesUserViewModel @Inject constructor(
     fun isLoggedIn(): Boolean {
         return userSharedPreferencesHelper.getToken() != null
     }
+
+    fun logOut() {
+        userSharedPreferencesHelper.cleanToken()
+    }
 }
