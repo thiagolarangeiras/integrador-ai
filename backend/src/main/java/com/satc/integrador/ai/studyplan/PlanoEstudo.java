@@ -25,19 +25,29 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
     private Integer idUsuario;
     private Integer idPreferencia; //preferencias que moldaram esse plano
 
+    private String nome;
     private Integer qtExerciciosDia;
     private List<TipoExercicios> tiposExerciciosContidos;
     private LocalDate data;
     private Boolean ativo;
     private Boolean finalizado;
 
-    public PlanoEstudo(Integer idUsuario, Integer idPreferencia, Integer qtExercicios, List<TipoExercicios> tiposExerciciosContidos){
+    public PlanoEstudo(
+            Integer idUsuario,
+            Integer idPreferencia,
+            String nivel,
+            String idioma,
+            Integer qtExercicios,
+            List<TipoExercicios> tiposExerciciosContidos
+    ){
         this.idUsuario = idUsuario;
         this.idPreferencia = idPreferencia;
-        this.qtExerciciosDia = qtExerciciosDia;
+        this.nome = idioma + " " + nivel;
+        this.qtExerciciosDia = qtExercicios;
         this.tiposExerciciosContidos = tiposExerciciosContidos;
         this.data = LocalDate.now();
         this.ativo = true;
+        this.finalizado = false;
     }
 
     //Mappers
@@ -46,8 +56,11 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
         dto.id = obj.getId();
         dto.idUsuario = obj.getIdUsuario();
         dto.idPreferencia = obj.getIdPreferencia();
+        dto.nome = obj.nome;
+        dto.data = obj.data;
         dto.qtExerciciosDia = obj.getQtExerciciosDia();
         dto.tiposExerciciosContidos = obj.getTiposExerciciosContidos();
+
         return dto;
     }
 

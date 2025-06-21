@@ -1,8 +1,12 @@
 package com.satc.integrador_ai.di
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.google.gson.GsonBuilder
 import com.satc.integrador_ai.data.api.AuthInterceptor
 import com.satc.integrador_ai.data.api.FormPreferenceService
 import com.satc.integrador_ai.data.api.PlanoEstudoService
+import com.satc.integrador_ai.data.model.request.LocalDateAdapter
 import com.satc.integrador_ai.storage.UsuarioService
 import dagger.Module
 import dagger.Provides
@@ -11,6 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.LocalDate
 import javax.inject.Singleton
 
 @Module
@@ -28,12 +33,17 @@ object NetworkModule {
             .build()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @Provides
     @Singleton
     fun provideRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
+        val gson = GsonBuilder()
+            .registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+            .create()
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()
     }

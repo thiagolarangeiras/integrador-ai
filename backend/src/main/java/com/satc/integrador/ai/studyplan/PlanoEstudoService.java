@@ -95,7 +95,18 @@ public class PlanoEstudoService {
             }
 
         }
-        PlanoEstudo planoEstudo = new PlanoEstudo(userId, dtoPreferencia.id(), dtoPreferencia.tempoMinutos() / 5, null);
+        PlanoEstudo planoEstudo = new PlanoEstudo(
+                userId,
+                dtoPreferencia.id(),
+                dtoPreferencia.nivel(),
+                dtoPreferencia.idioma(),
+                dtoPreferencia.tempoMinutos() / 5,
+                new ArrayList<TipoExercicios>(){{
+                    add(TipoExercicios.VOCABULARIO_PARES);
+                    add(TipoExercicios.GRAMATICA_ORDEM);
+                    add(TipoExercicios.GRAMATICA_COMPLEMENTAR);
+                }}
+        );
         repo.save(planoEstudo);
         Integer i = 0;
         ObjectMapper mapper = new ObjectMapper();
