@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val _usuario = MutableStateFlow(Usuario(null, null, null, null, null))
     val usuario: StateFlow<Usuario> = _usuario
 
-    private val _exercicios = MutableStateFlow(Exercicios(null, null, mutableListOf(), mutableListOf(), mutableListOf()))
+    private val _exercicios = MutableStateFlow(Exercicios(null, null, null, null, mutableListOf(), mutableListOf(), mutableListOf()))
     val exercicios: StateFlow<Exercicios> = _exercicios
 
     fun getQtExerciciosDia(): Int? {
@@ -73,18 +73,21 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 var planoEstudo: PlanoEstudoResponse =  planoEstudoRepository.getToday()
-                _exercicios.value.id = planoEstudo.id
-                _exercicios.value.qtExerciciosDia = planoEstudo.qtExerciciosDia
-                _exercicios.value.exerVocPares = planoEstudo.exerVocPares!!
-                _exercicios.value.exerGramaCompl = planoEstudo.exerGramaCompl!!
-                _exercicios.value.exerGramaOrdem = planoEstudo.exerGramaOrdem!!
-
+                _exercicios.value = Exercicios(
+                    planoEstudo.id,
+                    planoEstudo.nome,
+                    planoEstudo.data,
+                    planoEstudo.qtExerciciosDia,
+                    planoEstudo.exerGramaCompl!!,
+                    planoEstudo.exerGramaOrdem!!,
+                    planoEstudo.exerVocPares!!,
+                )
                 if (getQtExerciciosGramaCompl() == 0 && getQtExerciciosGramaOrdem() == 0 && getQtExerciciosVocPares() == 0) {
                     generateNewPlan()
                     loadPlanoEstudo()
                 }
             } catch (e: Exception) {
-                //throw RuntimeException(e)
+                throw RuntimeException(e)
             }
         }
     }

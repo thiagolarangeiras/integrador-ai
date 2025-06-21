@@ -95,7 +95,11 @@ fun HomeScreen(
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-            EstudoHojeCard(homeViewModel = homeViewModel, navController = navController, exercicioViewModel = exercicioViewModel)
+            EstudoHojeCard(
+                homeViewModel = homeViewModel,
+                navController = navController,
+                exercicioViewModel = exercicioViewModel
+            )
 
             Spacer(modifier = Modifier.weight(1f))
             Column(
@@ -143,9 +147,13 @@ fun CardSection(title: String, subtitle: String, buttonText: String, navControll
 }
 
 @Composable
-fun EstudoHojeCard(exercicioViewModel: ExercicioViewModel, homeViewModel: HomeViewModel, navController: NavController) {
+fun EstudoHojeCard(
+    exercicioViewModel: ExercicioViewModel,
+    homeViewModel: HomeViewModel,
+    navController: NavController
+) {
     exercicioViewModel.setExercicios(homeViewModel.getExercicios())
-
+    val nomeEstudoHoje by homeViewModel.exercicios.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // One-time navigation listener
@@ -165,7 +173,7 @@ fun EstudoHojeCard(exercicioViewModel: ExercicioViewModel, homeViewModel: HomeVi
         Text(text = "Estudo de Hoje", fontWeight = FontWeight.Bold, fontSize = 18.sp,
             modifier = Modifier
                 .padding(bottom = 4.dp))
-        Text(text = "Simple Present", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
+        Text(text = "Plano de Estudo: ${nomeEstudoHoje.nome}", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(verticalAlignment = Alignment.CenterVertically) {

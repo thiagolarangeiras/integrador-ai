@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -17,6 +18,8 @@ public class PlanoEstudoGetDto {
     public Integer id;
     public Integer idUsuario;
     public Integer idPreferencia;
+    public String nome;
+    public LocalDate data;
     public Integer qtExerciciosDia;
     public List<TipoExercicios> tiposExerciciosContidos;
     public List<ExercicioGramaticaComplementarGetDto> exerGramaCompl;
