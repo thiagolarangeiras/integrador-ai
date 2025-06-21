@@ -37,22 +37,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview
 @Composable
 fun ReadingExerciseScreenPreview(){
-    ReadingExerciseScreen(
-        onBackClick = {},
-        onExitClick = {},
-        onNextClick = {}
-    );
+    //ReadingExerciseScreen(onBackClick = {}, onExitClick = {}, onNextClick = {});
 }
 
 @Composable
 fun ReadingExerciseScreen(
     onBackClick: () -> Unit,
     onExitClick: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    exercicioViewModel: ExercicioViewModel,
+    navController: NavController
 ) {
     val scrollState = rememberScrollState()
     val text = """
@@ -65,7 +65,7 @@ fun ReadingExerciseScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n8 de 8")
+            AppTopBar(onBackClick = {}, title = exercicioViewModel.getTitle(), showBackIcon = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

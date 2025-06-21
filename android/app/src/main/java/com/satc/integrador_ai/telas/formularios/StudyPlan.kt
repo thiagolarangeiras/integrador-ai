@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.navigation.NavController
 import com.satc.integrador_ai.storage.FormularioViewModel
 import com.satc.integrador_ai.telas.exercicios.AppTopBar
 
@@ -60,7 +61,8 @@ fun StudyPlanScreen(
     onBack: () -> Unit,
     onNext: () -> Unit,
     onExit: () -> Unit,
-    formularioViewModel: FormularioViewModel
+    formularioViewModel: FormularioViewModel,
+    navController: NavController
 ) {
     var selectedDays by remember { mutableStateOf(listOf<Int>()) }
     var studyMinutes by remember { mutableStateOf(30) }
@@ -78,12 +80,7 @@ fun StudyPlanScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(
-                onExitClick = onExit,
-                onBackClick = onBack,
-                title = "Comece Seu \n Plano de Estudo",
-                showExitButton = false
-            )
+            AppTopBar(onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

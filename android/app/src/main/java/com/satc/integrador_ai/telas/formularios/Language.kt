@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.R
@@ -39,7 +40,8 @@ fun LanguageSelectionScreen(
     onBack: () -> Unit,
     onNext: () -> Unit,
     onExit: () -> Unit,
-    formularioViewModel: FormularioViewModel
+    formularioViewModel: FormularioViewModel,
+    navController: NavController
 ) {
     val idiomas = listOf(
         Pair("Inglês", R.drawable.flag_usa),
@@ -54,7 +56,7 @@ fun LanguageSelectionScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExit,onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false )
+            AppTopBar(onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showBackIcon = false, showExitButton = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

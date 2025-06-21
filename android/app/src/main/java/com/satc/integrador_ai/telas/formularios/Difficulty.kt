@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.satc.integrador_ai.R
 import com.satc.integrador_ai.storage.FormularioViewModel
 import com.satc.integrador_ai.telas.exercicios.AppTopBar
@@ -36,7 +37,8 @@ fun DifficultyScreen(
     onBack: () -> Unit,
     onNext: () -> Unit,
     onExit: () -> Unit,
-    formularioViewModel: FormularioViewModel
+    formularioViewModel: FormularioViewModel,
+    navController: NavController
 ) {
 
     val dificuldades = listOf(
@@ -50,7 +52,7 @@ fun DifficultyScreen(
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExit,onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false )
+            AppTopBar(onBackClick = onBack, title = "Comece Seu \n Plano de Estudo", showExitButton = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

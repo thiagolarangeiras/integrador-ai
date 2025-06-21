@@ -16,4 +16,7 @@ sealed class NavigationTarget(val route: String) {
     object ExercicioVocabularioPares: NavigationTarget("vocabulario_pares")
     object RespostaCorreta: NavigationTarget("resposta_correta")
     object RespostaIncorreta: NavigationTarget("resposta_incorreta")
+    object PlanoDeEstudo: NavigationTarget("plano_de_estudo")
+    object Perfil: NavigationTarget("perfil")
+    object Chat: NavigationTarget("chat")
 }

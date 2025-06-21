@@ -12,8 +12,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.storage.ExercicioViewModel
 import com.satc.integrador_ai.storage.FormularioViewModel
+import com.satc.integrador_ai.storage.HomeViewModel
 import com.satc.integrador_ai.storage.PreferencesUserViewModel
 import com.satc.integrador_ai.telas.HomeScreen
+import com.satc.integrador_ai.telas.PerfilScreen
+import com.satc.integrador_ai.telas.PlanoDeEstudoScreen
+import com.satc.integrador_ai.telas.exercicios.ChatScreen
 import com.satc.integrador_ai.telas.exercicios.GrammarExerciseScreen
 import com.satc.integrador_ai.telas.exercicios.MatchPairsExerciseScreen
 import com.satc.integrador_ai.telas.exercicios.RespostaCorretaScreen
@@ -53,7 +57,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                   preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
-                  exercicioViewModel: ExercicioViewModel = hiltViewModel()) {
+                  exercicioViewModel: ExercicioViewModel = hiltViewModel(),
+                  homeViewModel: HomeViewModel = hiltViewModel(),) {
     val navController = rememberNavController()
     var startDestination = NavigationTarget.Welcome.route
 
@@ -75,6 +80,14 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
             HomeScreen(navController = navController, exercicioViewModel = exercicioViewModel)
         }
 
+        composable(NavigationTarget.PlanoDeEstudo.route) {
+            PlanoDeEstudoScreen(navController)
+        }
+
+        composable(NavigationTarget.Perfil.route) {
+            PerfilScreen(homeViewModel = homeViewModel, navController = navController)
+        }
+
         /*-------------------------------- FORMULARIOS ------------------------------------*/
         composable(NavigationTarget.Language.route) {
             LanguageSelectionScreen(
@@ -83,7 +96,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel
+                formularioViewModel = formularioViewModel,
+                navController = navController
             )
         }
         composable(NavigationTarget.Exercise.route) {
@@ -93,7 +107,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel)
+                formularioViewModel = formularioViewModel,
+                navController = navController)
         }
         composable(NavigationTarget.Subject.route) {
             SubjectScreen(
@@ -102,7 +117,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel
+                formularioViewModel = formularioViewModel,
+                navController = navController
             )
         }
         composable(NavigationTarget.Difficulty.route) {
@@ -112,7 +128,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel)
+                formularioViewModel = formularioViewModel,
+                navController = navController)
         }
         composable(NavigationTarget.LanguageLevel.route) {
             LanguageLevelScreen(
@@ -121,7 +138,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel
+                formularioViewModel = formularioViewModel,
+                navController = navController
             )
         }
         composable(NavigationTarget.StudyPlan.route) {
@@ -131,7 +149,8 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
                 },
                 onBack = {},
                 onExit = {},
-                formularioViewModel = formularioViewModel
+                formularioViewModel = formularioViewModel,
+                navController = navController
             )
         }
         /*-------------------------------- FORMULARIOS ------------------------------------*/
@@ -151,6 +170,9 @@ fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
         }
         composable(NavigationTarget.RespostaIncorreta.route) {
             RespostaIncorretaScreen(exercicioViewModel = exercicioViewModel, navController = navController)
+        }
+        composable(NavigationTarget.Chat.route) {
+            ChatScreen(navController)
         }
         /*-------------------------------- EXERCICIOS ------------------------------------*/
     }

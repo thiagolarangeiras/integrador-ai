@@ -69,7 +69,7 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = {}, onBackClick = {}, title = exercicioViewModel.getTitle())
+            AppTopBar(onBackClick = {}, title = exercicioViewModel.getTitle(), showBackIcon = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

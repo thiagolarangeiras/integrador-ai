@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.satc.integrador_ai.NavigationTarget
 
 @Preview(showBackground = true)
 @Composable
@@ -58,7 +59,7 @@ fun PlanoDeEstudoScreen(navController: NavController) {
         TarefaItem("Leitura de Textos", "Ler artigos e histórias curtas", 0, 12)
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar(1)
+        BottomNavigationBar(1, navController)
     }
 }
 
@@ -130,7 +131,7 @@ fun TarefaItem(titulo: String, descricao: String, progresso: Int, total: Int) {
 }
 
 @Composable
-fun BottomNavigationBar(index: Int) {
+fun BottomNavigationBar(index: Int, navController: NavController) {
     val items = listOf("Home", "Plano de Estudo", "Chat", "Perfil")
     val icons = listOf(Icons.Default.Home, Icons.Default.CalendarToday, Icons.Default.ChatBubble, Icons.Default.Person)
     var selectedItem by remember { mutableIntStateOf(index) }
@@ -152,7 +153,16 @@ fun BottomNavigationBar(index: Int) {
                     Text(text = item, fontSize = 10.sp, modifier = Modifier.offset(y = (-2).dp))
                 },
                 selected = selectedItem == index,
-                onClick = { selectedItem = index },
+                onClick = {
+                    selectedItem = index
+                    when (index) {
+                        0 -> navController.navigate(NavigationTarget.Home.route)
+                        1 -> navController.navigate(NavigationTarget.PlanoDeEstudo.route)
+                        2 -> navController.navigate(NavigationTarget.Chat.route)
+                        3 -> navController.navigate(NavigationTarget.Perfil.route)
+                        else -> println("Valor desconhecido")
+                    }
+                          },
                 alwaysShowLabel = true,
                 colors = androidx.compose.material3.NavigationBarItemDefaults.colors(
                     selectedIconColor = Color(0xFF7061FD),

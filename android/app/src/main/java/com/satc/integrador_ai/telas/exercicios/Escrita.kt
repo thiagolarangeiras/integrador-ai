@@ -25,26 +25,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview
 @Composable
 fun WritingExerciseScreenPreview(){
-    WritingExerciseScreen(
-        onBackClick = { },
-        onExitClick = { },
-        onNextClick = { },
-    );
+   // WritingExerciseScreen( onBackClick = { }, onExitClick = { }, onNextClick = { });
 }
 
 @Composable
 fun WritingExerciseScreen(
     onBackClick: () -> Unit,
     onNextClick: () -> Unit,
-    onExitClick: () -> Unit
+    onExitClick: () -> Unit,
+    exercicioViewModel: ExercicioViewModel,
+    navController: NavController
 ) {
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n7 de 8")
+            AppTopBar(onBackClick = {}, title = exercicioViewModel.getTitle(), showBackIcon = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(

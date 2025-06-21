@@ -39,28 +39,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
 @Preview
 @Composable
 fun VocabularyExerciseScreenPreview(){
-    VocabularyExerciseScreen(
-        onExitClick = {},
-        onNextClick = {},
-        onBackClick = {}
-    );
+    //VocabularyExerciseScreen(onExitClick = {}, onNextClick = {}, onBackClick = {});
 }
 
 @Composable
 fun VocabularyExerciseScreen(
     onBackClick: () -> Unit,
     onExitClick: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    exercicioViewModel: ExercicioViewModel,
+    navController: NavController
 ) {
     var userTranslation by remember { mutableStateOf("Um café por favor.") }
 
     Scaffold (
         topBar = {
-            AppTopBar(onExitClick = onExitClick,onBackClick = onBackClick, title = "Exercício\n3 de 8")
+            AppTopBar(onBackClick = {}, title = exercicioViewModel.getTitle(), showBackIcon = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar (

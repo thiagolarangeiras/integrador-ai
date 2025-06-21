@@ -33,16 +33,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
-@Preview
 @Composable
-fun ChatScreen() {
+fun ChatScreen(navController: NavController) {
     Column (
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        AppTopBar(onExitClick = { /* handle exit */ },onBackClick = { /* handle back*/ }, "Chat")
+        AppTopBar(onBackClick = {}, title = "Chat", showBackIcon = false, navController = navController )
         ChatHeader()
         Spacer(modifier = Modifier.height(8.dp))
         ChatMessages(modifier = Modifier.weight(1f))

@@ -41,20 +41,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.satc.integrador_ai.NavigationTarget
+import com.satc.integrador_ai.storage.ExercicioViewModel
 
-@Preview(showBackground = true)
+ @Preview(showBackground = true)
 @Composable
 fun AudioExerciseScreenPreview() {
-    AudioExerciseScreen()
+    //AudioExerciseScreen()
 }
 
 @Composable
-fun AudioExerciseScreen() {
+fun AudioExerciseScreen(exercicioViewModel: ExercicioViewModel, navController: NavController) {
     var answer by remember { mutableStateOf("Where are you from ?") }
 
     Scaffold(
         topBar = {
-            AppTopBar(onExitClick = { /* handle exit */ },onBackClick = { /* handle back*/ }, "Exercício\n1 de 8")
+            AppTopBar(onBackClick = {}, title = exercicioViewModel.getTitle(), showBackIcon = false, navController = navController )
         },
         bottomBar = {
             BottomAppBar(
@@ -156,67 +159,67 @@ fun AudioExerciseScreen() {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AppTopBar(
-    onExitClick: () -> Unit,
-    onBackClick: () -> Unit,
-    title: String,
-    showBackIcon: Boolean = true,
-    showExitButton: Boolean = true
-) {
-    CenterAlignedTopAppBar(
-        title = {
-                Box(
-                modifier = Modifier.fillMaxHeight(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = title,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 20.sp
-                )
-            }
-        },
-        navigationIcon = if (showBackIcon) {
-            {
-                IconButton(
-                    onClick = onBackClick,
+ @OptIn(ExperimentalMaterial3Api::class)
+ @Composable
+ fun AppTopBar(
+     onBackClick: () -> Unit,
+     title: String,
+     showBackIcon: Boolean = true,
+     showExitButton: Boolean = true,
+     navController: NavController
+ ) {
+     CenterAlignedTopAppBar(
+         title = {
+             Box(
+                 modifier = Modifier.fillMaxHeight(),
+                 contentAlignment = Alignment.Center
+             ) {
+                 Text(
+                     text = title,
+                     fontWeight = FontWeight.Bold,
+                     fontSize = 18.sp,
+                     textAlign = TextAlign.Center,
+                     lineHeight = 20.sp
+                 )
+             }
+         },
+         navigationIcon = if (showBackIcon) {
+             {
+                 IconButton(
+                     onClick = onBackClick,
 
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Voltar",
-                        tint = Color.Black,
-                        modifier = Modifier.size(28.dp)
-                    )
-                }
-            }
-        } else {
-            {}
-        },
-        actions = {
-            if (showExitButton) {
-                Box(
-                    modifier = Modifier.fillMaxHeight(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    TextButton(onClick = onExitClick) {
-                        Text(
-                            text = "Sair",
-                            color = Color(0xFF7061FD),
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
-            }
-        },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color(0xFFF4F3F3)
-        ),
-        modifier = Modifier.fillMaxWidth()
-    )
-}
+                     ) {
+                     Icon(
+                         imageVector = Icons.Default.ArrowBack,
+                         contentDescription = "Voltar",
+                         tint = Color.Black,
+                         modifier = Modifier.size(28.dp)
+                     )
+                 }
+             }
+         } else {
+             {}
+         },
+         actions = {
+             if (showExitButton) {
+                 Box(
+                     modifier = Modifier.fillMaxHeight(),
+                     contentAlignment = Alignment.Center
+                 ) {
+                     TextButton(onClick = { navController.navigate(NavigationTarget.Home.route) }) {
+                         Text(
+                             text = "Sair",
+                             color = Color(0xFF7061FD),
+                             fontSize = 18.sp,
+                             fontWeight = FontWeight.Bold
+                         )
+                     }
+                 }
+             }
+         },
+         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+             containerColor = Color(0xFFF4F3F3)
+         ),
+         modifier = Modifier.fillMaxWidth()
+     )
+ }

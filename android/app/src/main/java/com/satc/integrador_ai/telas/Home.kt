@@ -67,7 +67,7 @@ fun HomeScreen(
     val usuario by homeViewModel.usuario.collectAsState()
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(0)
+            BottomNavigationBar(0, navController)
         },
         containerColor = Color.White
     ) { innerPadding ->
@@ -89,7 +89,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(40.dp))
             CardSection(
                 title = "Inglês Intermediário",
-                subtitle = "42% concluído",
+                subtitle = "0% concluído",
                 buttonText = "Ir para Plano de Estudo",
                 navController = navController
             )
@@ -98,7 +98,7 @@ fun HomeScreen(
             EstudoHojeCard(homeViewModel = homeViewModel, navController = navController, exercicioViewModel = exercicioViewModel)
 
             Spacer(modifier = Modifier.height(20.dp))
-            ProgressoCard()
+            //ProgressoCard()
 
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -119,7 +119,7 @@ fun CardSection(title: String, subtitle: String, buttonText: String, navControll
         Text(text = subtitle, fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { },
+            onClick = { navController.navigate(NavigationTarget.PlanoDeEstudo.route) },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
@@ -183,75 +183,75 @@ fun EstudoHojeCard(exercicioViewModel: ExercicioViewModel, homeViewModel: HomeVi
     }
 }
 
-@Composable
-fun ProgressoCard() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
-            .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
-            .padding(16.dp)
-    ) {
-        Text(text = "Seu Progresso", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ProgressoItem(icon = Icons.Default.Translate, label = "Vocabulário", progresso = 0)
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ProgressoItem(icon = Icons.Default.Headphones, label = "Audição", progresso = 0)
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ProgressoItem(icon = Icons.Default.List, label = "Gramática", progresso = 0)
-        }
-        Spacer(modifier = Modifier.height(12.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            ProgressoItem(icon = Icons.Default.Mic, label = "Fala", progresso = 100)
-        }
-    }
-}
-
-@Composable
-fun ProgressoItem(icon: ImageVector, label: String, progresso: Int) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            modifier = Modifier.size(36.dp)
-        )
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            Text(text = label, fontSize = 14.sp)
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                LinearProgressIndicator(
-                    progress = { progresso / 100f },
-                    modifier = Modifier
-                        .width(230.dp)
-                        .height(10.dp)
-                        .clip(RoundedCornerShape(4.dp)),
-                    color = if (progresso == 100) Color(0xFF7061FD) else Color(0xFFF4F3F3),
-                    trackColor = Color(0xFFF4F3F3),
-                )
-                Text(text = "$progresso%", fontSize = 14.sp)
-            }
-        }
-    }
-}
+//@Composable
+//fun ProgressoCard() {
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(start = 16.dp, end = 16.dp)
+//            .border(1.dp, Color.Black, shape = RoundedCornerShape(12.dp))
+//            .padding(16.dp)
+//    ) {
+//        Text(text = "Seu Progresso", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+//        Spacer(modifier = Modifier.height(12.dp))
+//        Row(
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            ProgressoItem(icon = Icons.Default.Translate, label = "Vocabulário", progresso = 0)
+//        }
+//        Spacer(modifier = Modifier.height(12.dp))
+//        Row(
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            ProgressoItem(icon = Icons.Default.Headphones, label = "Audição", progresso = 0)
+//        }
+//        Spacer(modifier = Modifier.height(12.dp))
+//        Row(
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            ProgressoItem(icon = Icons.Default.List, label = "Gramática", progresso = 0)
+//        }
+//        Spacer(modifier = Modifier.height(12.dp))
+//        Row(
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            ProgressoItem(icon = Icons.Default.Mic, label = "Fala", progresso = 0)
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ProgressoItem(icon: ImageVector, label: String, progresso: Int) {
+//    Row(
+//        verticalAlignment = Alignment.CenterVertically,
+//        horizontalArrangement = Arrangement.spacedBy(8.dp),
+//        modifier = Modifier.padding(8.dp)
+//    ) {
+//        Icon(
+//            imageVector = icon,
+//            contentDescription = label,
+//            modifier = Modifier.size(36.dp)
+//        )
+//
+//        Column(
+//            verticalArrangement = Arrangement.spacedBy(2.dp)
+//        ) {
+//            Text(text = label, fontSize = 14.sp)
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.spacedBy(4.dp)
+//            ) {
+//                LinearProgressIndicator(
+//                    progress = { progresso / 100f },
+//                    modifier = Modifier
+//                        .width(230.dp)
+//                        .height(10.dp)
+//                        .clip(RoundedCornerShape(4.dp)),
+//                    color = if (progresso == 100) Color(0xFF7061FD) else Color(0xFFF4F3F3),
+//                    trackColor = Color(0xFFF4F3F3),
+//                )
+//                Text(text = "$progresso%", fontSize = 14.sp)
+//            }
+//        }
+//    }
+//}

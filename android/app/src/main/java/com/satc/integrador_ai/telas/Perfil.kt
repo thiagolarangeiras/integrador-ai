@@ -9,6 +9,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,16 +21,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.satc.integrador_ai.R
+import com.satc.integrador_ai.storage.HomeViewModel
 
 @Preview(showBackground = true)
 @Composable
 fun PerfilScreenPreview() {
-    PerfilScreen()
+    //PerfilScreen()
 }
 
 @Composable
-fun PerfilScreen() {
+fun PerfilScreen(homeViewModel: HomeViewModel = hiltViewModel(),
+                 navController: NavController) {
+
+    homeViewModel.loadUserData()
+    val usuario by homeViewModel.usuario.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +55,7 @@ fun PerfilScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Image(
-            painter = painterResource(id = R.drawable.foto_perfil1),
+            painter = painterResource(id = R.drawable.profile_user),
             contentDescription = "Foto de perfil",
             modifier = Modifier
                 .size(100.dp)
@@ -53,16 +63,10 @@ fun PerfilScreen() {
 
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = "Ana Souza",
+            text = "${usuario.nomeCompleto}",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF7061FD)
-        )
-        Text(
-            text = "Criciúma",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.Black
         )
 
         Spacer(modifier = Modifier.height(64.dp))
@@ -81,7 +85,7 @@ fun PerfilScreen() {
         EstatisticaItem(icon = Icons.Default.Star, label = "Total de Pontos", value = "1170")
 
         Spacer(modifier = Modifier.weight(1f))
-        BottomNavigationBar(3)
+        BottomNavigationBar(3, navController)
     }
 }
 
