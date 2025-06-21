@@ -24,15 +24,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Preview(showBackground = true)
 @Composable
 fun PlanoDeEstudoPreview() {
-    PlanoDeEstudoScreen()
+    //PlanoDeEstudoScreen()
 }
 
 @Composable
-fun PlanoDeEstudoScreen() {
+fun PlanoDeEstudoScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()

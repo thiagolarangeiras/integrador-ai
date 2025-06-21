@@ -61,12 +61,10 @@ class HomeViewModel @Inject constructor(
     fun loadUserData() {
         viewModelScope.launch {
             try {
-                var usuario: Usuario = usuarioRepository.get()
-                _usuario.value.id = usuario.id
-                _usuario.value.username = usuario.username
-                _usuario.value.nomeCompleto = usuario.nomeCompleto
+                val usuario = usuarioRepository.get()
+                _usuario.value = usuario
             } catch (e: Exception) {
-                //throw RuntimeException(e)
+                e.printStackTrace()
             }
         }
     }

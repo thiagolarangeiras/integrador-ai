@@ -162,7 +162,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedButton(
-            onClick = {  },
+            onClick = { navController.popBackStack() },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = Color.White,
                 contentColor = Color.Black

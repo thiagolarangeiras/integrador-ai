@@ -48,6 +48,7 @@ import com.satc.integrador_ai.storage.ExercicioViewModel
 import com.satc.integrador_ai.storage.HomeViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.satc.integrador_ai.NavigationTarget
 
 @Preview(showBackground = true)
 @Composable
@@ -89,7 +90,8 @@ fun HomeScreen(
             CardSection(
                 title = "Inglês Intermediário",
                 subtitle = "42% concluído",
-                buttonText = "Ir para Plano de Estudo"
+                buttonText = "Ir para Plano de Estudo",
+                navController = navController
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -104,7 +106,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun CardSection(title: String, subtitle: String, buttonText: String) {
+fun CardSection(title: String, subtitle: String, buttonText: String, navController: NavController ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -117,7 +119,7 @@ fun CardSection(title: String, subtitle: String, buttonText: String) {
         Text(text = subtitle, fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { /* TODO */ },
+            onClick = { },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
