@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -27,9 +28,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.satc.integrador_ai.R
 
 // TELA DE APRESENTAÇÃO
 
@@ -52,20 +55,12 @@ fun TalkAiWelcomeScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Ícone circular com ícone de chat
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .background(purple, shape = CircleShape),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.Chat,
-                contentDescription = "Ícone",
-                tint = Color.White,
-                modifier = Modifier.size(48.dp)
-            )
-        }
+
+        Image(
+            painter = painterResource(id = R.drawable.talkai),
+            contentDescription = "TalkAI",
+            modifier = Modifier.size(100.dp)
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
