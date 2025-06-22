@@ -3,11 +3,16 @@ package com.satc.integrador_ai.di
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
+import com.satc.integrador_ai.data.FormPreferenceService
+import com.satc.integrador_ai.data.PlanoEstudoService
+import com.satc.integrador_ai.data.UsuarioService
 import com.satc.integrador_ai.data.api.AuthInterceptor
-import com.satc.integrador_ai.data.api.FormPreferenceService
-import com.satc.integrador_ai.data.api.PlanoEstudoService
-import com.satc.integrador_ai.data.model.request.LocalDateAdapter
-import com.satc.integrador_ai.storage.UsuarioService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +20,28 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import java.time.LocalDate
 import javax.inject.Singleton
+
+class LocalDateAdapter : JsonDeserializer<LocalDate>, JsonSerializer<LocalDate> {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): LocalDate {
+        return LocalDate.parse(json.asString)
+    }
+
+    override fun serialize(
+        src: LocalDate,
+        typeOfSrc: Type,
+        context: JsonSerializationContext
+    ): JsonElement {
+        return JsonPrimitive(src.toString()) // ISO-8601: yyyy-MM-dd
+    }
+}
 
 @Module
 @InstallIn(SingletonComponent::class)

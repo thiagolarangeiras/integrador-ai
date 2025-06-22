@@ -1,5 +1,6 @@
 package com.satc.integrador.ai.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.satc.integrador.ai.user.dto.UsuarioGetDto;
 import com.satc.integrador.ai.user.dto.UsuarioPostDto;
 import com.satc.integrador.ai.enums.Plano;

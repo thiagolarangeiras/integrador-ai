@@ -20,7 +20,10 @@ public class PlanoEstudoGetDto {
     public Integer idPreferencia;
     public String nome;
     public LocalDate data;
-    public Integer qtExerciciosDia;
+    public Boolean ativo;
+    public Boolean finalizado;
+    public Integer qtExercicios;
+    public Integer qtExerciciosFinalizados;
     public List<TipoExercicios> tiposExerciciosContidos;
     public List<ExercicioGramaticaComplementarGetDto> exerGramaCompl;
     public List<ExercicioGramaticaOrdemGetDto> exerGramaOrdem;

@@ -29,9 +29,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.NavigationTarget
-import com.satc.integrador_ai.deprecated.Plano
-import com.satc.integrador_ai.deprecated.UsuarioPostDto
-import com.satc.integrador_ai.deprecated.createUser
+import com.satc.integrador_ai.data.Plano
+import com.satc.integrador_ai.data.UsuarioPostDto
+import com.satc.integrador_ai.data.createUser
 import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE CADASTRO

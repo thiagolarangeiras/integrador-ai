@@ -71,7 +71,7 @@ fun GrammarExerciseScreen(exercicioViewModel: ExercicioViewModel, navController:
                         .height(48.dp)
                         .imePadding(),
                     shape = RoundedCornerShape(12.dp),
-                    enabled = selectedOption != null
+                    enabled = selectedOption != null && selectedOption != ""
                 ) {
                     Text("Avançar", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                 }

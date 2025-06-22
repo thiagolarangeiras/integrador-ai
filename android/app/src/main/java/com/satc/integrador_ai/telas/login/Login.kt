@@ -23,8 +23,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.satc.integrador_ai.deprecated.LoginDto
-import com.satc.integrador_ai.deprecated.login
+import com.satc.integrador_ai.data.LoginDto
+import com.satc.integrador_ai.data.login
 import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 // TELA DE LOGIN

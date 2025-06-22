@@ -4,13 +4,15 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.satc.integrador_ai.data.model.request.PreferenceRequest
-import com.satc.integrador_ai.data.repository.PreferenceRepository
+import com.satc.integrador_ai.data.Formulario
+import com.satc.integrador_ai.data.PreferenceRepository
+import com.satc.integrador_ai.data.PreferenceRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class FormularioViewModel @Inject constructor(
@@ -78,6 +80,8 @@ class FormularioViewModel @Inject constructor(
             }
         }
     }
+
+
 
 
 

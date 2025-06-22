@@ -34,6 +34,13 @@ import com.satc.integrador_ai.telas.login.SignUpScreen
 import com.satc.integrador_ai.telas.login.TalkAiWelcomeScreen
 import dagger.hilt.android.AndroidEntryPoint
 
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class MyApp: Application() {
+}
+
 @Preview(showBackground = true)
 @Composable
 fun AppPreview() {
@@ -55,10 +62,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavigation(formularioViewModel: FormularioViewModel = hiltViewModel(),
-                  preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
-                  exercicioViewModel: ExercicioViewModel = hiltViewModel(),
-                  homeViewModel: HomeViewModel = hiltViewModel(),) {
+fun AppNavigation(
+    formularioViewModel: FormularioViewModel = hiltViewModel(),
+    preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
+    exercicioViewModel: ExercicioViewModel = hiltViewModel(),
+    homeViewModel: HomeViewModel = hiltViewModel(),
+) {
     val navController = rememberNavController()
     var startDestination = NavigationTarget.Welcome.route
 

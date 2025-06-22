@@ -13,6 +13,7 @@ import com.satc.integrador.ai.exercicios.*;
 import com.satc.integrador.ai.preference.PreferenciaService;
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.studyplan.dto.PlanoEstudoGetDto;
+import com.satc.integrador.ai.studyplan.dto.PlanoEstudoListaGetDto;
 import com.satc.integrador.ai.user.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -49,12 +50,21 @@ public class PlanoEstudoService {
                 .toList();;
     }
 
-    public List<PlanoEstudoGetDto> getAll(Integer page, Integer count){
+    public PlanoEstudoListaGetDto getAll(Integer page, Integer count){
         Pageable pageable = PageRequest.of(page, count);
-        return repo.findByIdUsuario(usuarioService.getCurrentUserid(), pageable)
+        var planos = new PlanoEstudoListaGetDto();
+        planos.planos = repo.findByIdUsuario(usuarioService.getCurrentUserid(), pageable)
                 .stream()
                 .map(PlanoEstudo::mapToDto)
                 .toList();
+        Integer completos = 0;
+        for(var plano : planos.planos){
+            if(plano.finalizado){
+                completos++;
+            }
+        }
+        planos.porcentagemCompleta = (completos * 100) / planos.planos.size();
+        return planos;
     }
 
     public PlanoEstudoGetDto getId(Integer id){
@@ -107,6 +117,9 @@ public class PlanoEstudoService {
                     add(TipoExercicios.GRAMATICA_COMPLEMENTAR);
                 }}
         );
+        var planoAntigo = repo.findByIdUsuarioActive(userId);
+        planoAntigo.setAtivo(false);
+        repo.save(planoAntigo);
         repo.save(planoEstudo);
         Integer i = 0;
         ObjectMapper mapper = new ObjectMapper();
@@ -177,6 +190,8 @@ public class PlanoEstudoService {
             vocPares.setFinalizado(true);
             exerVocParesRepo.save(vocPares);
         }
+        planoEstudo.setQtExerciciosFinalizados(planoEstudo.getQtExerciciosFinalizados() + 1);
+        repo.save(planoEstudo);
         PlanoEstudoGetDto dto = PlanoEstudo.mapToDto(planoEstudo);
         addExercicios(dto);
         return true;

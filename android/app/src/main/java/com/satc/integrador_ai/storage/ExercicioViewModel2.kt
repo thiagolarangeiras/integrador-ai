@@ -19,9 +19,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.first
+import kotlin.collections.iterator
+import kotlin.text.equals
+import kotlin.text.isNotEmpty
+import kotlin.text.isNullOrEmpty
 
 @HiltViewModel
-class ExercicioViewModel @Inject constructor(
+class ExercicioViewModel2 @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -141,10 +148,6 @@ class ExercicioViewModel @Inject constructor(
 
     fun addRespostaFeitaGramaticaOrdem(resposta: String) {
         respostaFeitaGramaticaOrdem = respostaFeitaGramaticaOrdem + resposta
-    }
-
-    fun removeRespostaFeitaGramaticaOrdem() {
-        respostaFeitaGramaticaOrdem = respostaFeitaGramaticaOrdem.dropLast(1)
     }
 
     fun addKeyRespostaFeitaVocabularioPares(resposta: String) {

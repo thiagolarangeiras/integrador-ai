@@ -1,4 +1,4 @@
-package com.satc.integrador_ai.deprecated
+package com.satc.integrador_ai.data
 
 import android.util.Log
 import com.satc.integrador_ai.storage.PreferencesUserViewModel
@@ -8,7 +8,32 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import javax.inject.Inject
+import javax.inject.Singleton
+
+class Usuario (
+    var id: Int? = null,
+    var username: String? = null,
+    var email: String? = null,
+    var nomeCompleto: String? = null,
+    val plano: Plano? = null,
+)
+
+interface UsuarioService {
+    @GET("usuario")
+    suspend fun get(): Usuario;
+}
+
+@Singleton
+class UsuarioRepository @Inject constructor(
+    private val usuarioService: UsuarioService
+){
+    suspend fun get(): Usuario {
+        return usuarioService.get()
+    }
+}
 
 data class LoginDto(
     val username: String,

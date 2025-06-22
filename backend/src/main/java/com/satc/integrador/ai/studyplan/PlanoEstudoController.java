@@ -1,6 +1,7 @@
 package com.satc.integrador.ai.studyplan;
 
 import com.satc.integrador.ai.studyplan.dto.PlanoEstudoGetDto;
+import com.satc.integrador.ai.studyplan.dto.PlanoEstudoListaGetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class PlanoEstudoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<PlanoEstudoGetDto>> getAll(
+    public ResponseEntity<PlanoEstudoListaGetDto> getAll(
             @RequestParam Integer page,
             @RequestParam Integer count
     ) {
@@ -44,7 +45,8 @@ public class PlanoEstudoController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Boolean> finalizarExercicio(
             @PathVariable Integer id,
-            @PathVariable("id-exercicio") Integer idExercicio) {
+            @PathVariable("id-exercicio") Integer idExercicio
+    ) {
         return ResponseEntity.ok(service.finalizarExercicio(id, idExercicio));
     }
 

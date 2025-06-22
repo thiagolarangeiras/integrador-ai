@@ -129,7 +129,10 @@ fun SentenceOrderingScreen(exercicioViewModel: ExercicioViewModel, navController
                         .height(80.dp)
                         .background(Color(0xFFF4F3F3))
                         .border(1.dp, Color.Black, RoundedCornerShape(8.dp))
-                        .padding(8.dp),
+                        .padding(8.dp)
+                        .clickable {
+                            exercicioViewModel.removeRespostaFeitaGramaticaOrdem()
+                        },
                 ) {
                     Text(text = selectedOptions.joinToString(" "), fontWeight = FontWeight.Medium)
                 }

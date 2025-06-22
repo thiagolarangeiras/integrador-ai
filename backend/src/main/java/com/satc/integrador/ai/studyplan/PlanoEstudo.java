@@ -26,7 +26,8 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
     private Integer idPreferencia; //preferencias que moldaram esse plano
 
     private String nome;
-    private Integer qtExerciciosDia;
+    private Integer qtExercicios;
+    private Integer qtExerciciosFinalizados;
     private List<TipoExercicios> tiposExerciciosContidos;
     private LocalDate data;
     private Boolean ativo;
@@ -43,7 +44,8 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
         this.idUsuario = idUsuario;
         this.idPreferencia = idPreferencia;
         this.nome = idioma + " " + nivel;
-        this.qtExerciciosDia = qtExercicios;
+        this.qtExercicios = qtExercicios;
+        this.qtExerciciosFinalizados = 0;
         this.tiposExerciciosContidos = tiposExerciciosContidos;
         this.data = LocalDate.now();
         this.ativo = true;
@@ -58,9 +60,11 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
         dto.idPreferencia = obj.getIdPreferencia();
         dto.nome = obj.nome;
         dto.data = obj.data;
-        dto.qtExerciciosDia = obj.getQtExerciciosDia();
+        dto.qtExercicios = obj.getQtExercicios();
+        dto.qtExerciciosFinalizados = obj.getQtExerciciosFinalizados();
         dto.tiposExerciciosContidos = obj.getTiposExerciciosContidos();
-
+        dto.ativo = obj.ativo;
+        dto.finalizado = obj.finalizado;
         return dto;
     }
 
@@ -68,7 +72,7 @@ public class PlanoEstudo { // Alterar o nome para plano_diario
         PlanoEstudo obj = new PlanoEstudo();
         obj.setIdUsuario(dto.idUsuario);
         obj.setIdPreferencia(dto.idPreferencia);
-        obj.setQtExerciciosDia(dto.qtExerciciosDia);
+        obj.setQtExercicios(dto.qtExerciciosDia);
         obj.setTiposExerciciosContidos(dto.tiposExerciciosContidos);
         return obj;
     }

@@ -3,16 +3,27 @@ package com.satc.integrador_ai.telas
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.NavigationTarget
 import com.satc.integrador_ai.R
 import com.satc.integrador_ai.storage.HomeViewModel
@@ -35,14 +47,20 @@ import com.satc.integrador_ai.storage.PreferencesUserViewModel
 
 @Preview(showBackground = true)
 @Composable
-fun PerfilScreenPreview() {
-    //PerfilScreen()
+fun PerfilScreenPreview(
+    mainViewModel: HomeViewModel = hiltViewModel(),
+    preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
+) {
+    val navController = rememberNavController()
+    PerfilScreen(mainViewModel, preferencesUserViewModel, navController)
 }
 
 @Composable
-fun PerfilScreen(homeViewModel: HomeViewModel = hiltViewModel(),
-                 preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
-                 navController: NavController) {
+fun PerfilScreen(
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    preferencesUserViewModel: PreferencesUserViewModel = hiltViewModel(),
+    navController: NavController
+) {
 
     homeViewModel.loadUserData()
     val usuario by homeViewModel.usuario.collectAsState()
