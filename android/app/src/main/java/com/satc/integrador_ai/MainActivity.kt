@@ -90,7 +90,7 @@ fun AppNavigation(
         }
 
         composable(NavigationTarget.PlanoDeEstudo.route) {
-            PlanoDeEstudoScreen(navController)
+            PlanoDeEstudoScreen(navController = navController, exercicioViewModel = exercicioViewModel)
         }
 
         composable(NavigationTarget.Perfil.route) {

@@ -10,6 +10,7 @@ import com.satc.integrador.ai.chatgpt.dto.ExercicioDtoVocPares;
 import com.satc.integrador.ai.chatgpt.dto.ExerciciosGpt;
 import com.satc.integrador.ai.enums.TipoExercicios;
 import com.satc.integrador.ai.exercicios.*;
+import com.satc.integrador.ai.exercicios.dto.ExercicioGramaticaComplementarGetDto;
 import com.satc.integrador.ai.preference.PreferenciaService;
 import com.satc.integrador.ai.preference.dto.PreferenciaGetDto;
 import com.satc.integrador.ai.studyplan.dto.PlanoEstudoGetDto;
@@ -59,6 +60,18 @@ public class PlanoEstudoService {
                 .toList();
         Integer completos = 0;
         for(var plano : planos.planos){
+            plano.exerGramaCompl = exerGramaComplRepo.findByPlanoEstudo(plano.id)
+                    .stream()
+                    .map(ExercicioGramaticaComplementar::mapToDto)
+                    .toList();
+            plano.exerGramaOrdem = exerGramaOrdemRepo.findByPlanoEstudo(plano.id)
+                    .stream()
+                    .map(ExercicioGramaticaOrdem::mapToDto)
+                    .toList();
+            plano.exerVocPares = exerVocParesRepo.findByPlanoEstudo(plano.id)
+                    .stream()
+                    .map(ExercicioVocabualrioPares::mapToDto)
+                    .toList();
             if(plano.finalizado){
                 completos++;
             }

@@ -40,7 +40,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.satc.integrador_ai.data.Exercicios
 import com.satc.integrador_ai.storage.ExercicioViewModel
-import com.satc.integrador_ai.storage.ExercicioViewModel2
 import com.satc.integrador_ai.storage.ListaExerciciosViewModel
 
 @Preview(showBackground = true)
@@ -59,7 +58,7 @@ fun PlanoDeEstudoScreenPreview(
 fun PlanoDeEstudoScreen(
     navController: NavController,
     listaExerciciosViewModel: ListaExerciciosViewModel = hiltViewModel(),
-    exercicioViewModel: ExercicioViewModel2 = hiltViewModel(),
+    exercicioViewModel: ExercicioViewModel = hiltViewModel(),
 ) {
     listaExerciciosViewModel.loadExercicios()
     val exercicios by listaExerciciosViewModel.exercicios.collectAsState(initial = emptyList())
@@ -113,12 +112,13 @@ fun PlanoDeEstudoScreen(
 fun TarefaItem(
     navController: NavController,
     exercicios: Exercicios,
-    exercicioViewModel: ExercicioViewModel2,
+    exercicioViewModel: ExercicioViewModel,
     titulo: String,
     descricao: String,
     progresso: Int,
     total: Int
 ) {
+    val exer = exercicios;
     val lifecycleOwner = LocalLifecycleOwner.current
 
     // One-time navigation listener
@@ -159,7 +159,7 @@ fun TarefaItem(
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                exercicioViewModel.setExercicios(exercicios)
+                exercicioViewModel.setExercicios(exer)
                 exercicioViewModel.onNextScreen()
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7061FD)),
