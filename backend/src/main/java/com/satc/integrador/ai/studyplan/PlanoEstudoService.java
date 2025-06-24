@@ -131,8 +131,10 @@ public class PlanoEstudoService {
                 }}
         );
         var planoAntigo = repo.findByIdUsuarioActive(userId);
-        planoAntigo.setAtivo(false);
-        repo.save(planoAntigo);
+        if(planoAntigo != null){
+            planoAntigo.setAtivo(false);
+            repo.save(planoAntigo);
+        }
         repo.save(planoEstudo);
         Integer i = 0;
         ObjectMapper mapper = new ObjectMapper();
